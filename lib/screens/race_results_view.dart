@@ -23,6 +23,11 @@ class _RaceResultsViewState extends State<RaceResultsView> {
     raceResults = ApiService().fetchRaceResults(seasonYear: widget.seasonYear, round: widget.raceRound);
   }
 
+  void _getResultsData() {
+    raceResults = ApiService().fetchRaceResults(seasonYear: widget.seasonYear, round: widget.raceRound);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,35 +69,41 @@ class _RaceResultsViewState extends State<RaceResultsView> {
 
           final raceResults = snapshot.data!.raceTable.races[0].results;
 
-          return ListView.builder(
-              itemCount: raceResults.length,
-              itemBuilder: (context, index) {
-                final String driverPosition = raceResults[index].position;
-                final String driverName = raceResults[index].driver.givenName;
-                final String driverSurname = raceResults[index].driver.familyName;
-                final String driverNumber = raceResults[index].driver.permanentNumber;
-                final String driverTeam = raceResults[index].constructor.name;
-                final String status = raceResults[index].status;
-                final String grid = raceResults[index].grid;
-                final String laps = raceResults[index].laps;
-                final String points = raceResults[index].points;
-                final String fastestLap = raceResults[index].fastestLap?.time.time ?? "No Time Set";
-                final String raceTotalTime = raceResults[index].time?.time ?? "No Race Time";
+          return RefreshIndicator.adaptive(
+            onRefresh: () async {
+              _getResultsData();
+              return;
+            },
+            child: ListView.builder(
+                itemCount: raceResults.length,
+                itemBuilder: (context, index) {
+                  final String driverPosition = raceResults[index].position;
+                  final String driverName = raceResults[index].driver.givenName;
+                  final String driverSurname = raceResults[index].driver.familyName;
+                  final String driverNumber = raceResults[index].driver.permanentNumber;
+                  final String driverTeam = raceResults[index].constructor.name;
+                  final String status = raceResults[index].status;
+                  final String grid = raceResults[index].grid;
+                  final String laps = raceResults[index].laps;
+                  final String points = raceResults[index].points;
+                  final String fastestLap = raceResults[index].fastestLap?.time.time ?? "No Time Set";
+                  final String raceTotalTime = raceResults[index].time?.time ?? "No Race Time";
 
-                return BuildDriverListTile(
-                  driverPosition: driverPosition,
-                  driverName: driverName,
-                  driverSurname: driverSurname,
-                  driverNumber: driverNumber,
-                  driverTeam: driverTeam,
-                  status: status,
-                  grid: grid,
-                  laps: laps,
-                  points: points,
-                  fastestLap: fastestLap,
-                  raceTotalTime: raceTotalTime,
-                );
-              });
+                  return BuildDriverListTile(
+                    driverPosition: driverPosition,
+                    driverName: driverName,
+                    driverSurname: driverSurname,
+                    driverNumber: driverNumber,
+                    driverTeam: driverTeam,
+                    status: status,
+                    grid: grid,
+                    laps: laps,
+                    points: points,
+                    fastestLap: fastestLap,
+                    raceTotalTime: raceTotalTime,
+                  );
+                }),
+          );
         },
       ),
     );
@@ -154,10 +165,7 @@ class BuildDriverListTile extends StatelessWidget {
           const SizedBox(width: 6),
           Text(
             driverNumber,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: getTeamColor(driverTeam)
-            ),
+            style: TextStyle(fontWeight: FontWeight.bold, color: getTeamColor(driverTeam)),
           )
         ],
       ),
@@ -171,7 +179,7 @@ class BuildDriverListTile extends StatelessWidget {
             style: listTileStyleSubtitle.copyWith(
               fontWeight: FontWeight.bold,
               color: getTeamColor(driverTeam),
-              ),
+            ),
           ),
           Row(
             children: [
