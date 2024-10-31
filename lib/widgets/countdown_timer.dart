@@ -47,7 +47,6 @@ class _CountdownTimerState extends State<CountdownTimer> {
     final hours = _remainingTime.inHours.remainder(24);
     final minutes = _remainingTime.inMinutes.remainder(60);
 
-    // Controlla se la gara è già conclusa
     if (_remainingTime.isNegative) {
       return Text(
         "Race Ended",
