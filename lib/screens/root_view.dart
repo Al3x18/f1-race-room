@@ -119,9 +119,9 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
                 children: [
                   Text(
                     seasonYear,
-                    style: TextStyle(color: Colors.grey.shade600, fontSize: 14, fontWeight: FontWeight.w500),
+                    style: TextStyle(color: Colors.grey.shade600, fontSize: 14.2, fontWeight: FontWeight.w500),
                   ),
-                  Icon(Icons.keyboard_arrow_down, color: Colors.grey.shade600, size: 18.2)
+                  Icon(Icons.keyboard_arrow_down, color: Colors.grey.shade600)
                 ],
               ),
             ),
