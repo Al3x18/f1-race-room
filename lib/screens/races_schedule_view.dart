@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:race_room/Utils/convert_race_time.dart';
+import 'package:get/route_manager.dart';
+import 'package:race_room/utils/convert_race_time.dart';
 import 'package:race_room/model/race_schedule_model.dart';
 import 'package:race_room/widgets/countdown_timer.dart';
 import 'package:race_room/widgets/race_details.dart';
@@ -112,7 +113,7 @@ class _RacesScheduleViewState extends State<RacesScheduleView> {
                 },
                 child: Card(
                   elevation: 4.5,
-                  color: Colors.white,
+                  //color: Colors.white,
                   child: ListTile(
                     title: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -202,7 +203,7 @@ void _showModalBottomSheet(
 }) {
   showModalBottomSheet(
     context: context,
-    backgroundColor: Colors.red,
+    backgroundColor: Get.isDarkMode ? const Color.fromARGB(255, 201, 45, 34) : Colors.red,
     isScrollControlled: true,
     showDragHandle: false,
     builder: (BuildContext context) {

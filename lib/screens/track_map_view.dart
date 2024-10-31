@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:race_room/Utils/get_track_image.dart';
+import 'package:race_room/utils/get_track_image.dart';
 
 class TrackMapView extends StatefulWidget {
   const TrackMapView({super.key, required this.trackName});

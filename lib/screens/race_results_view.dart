@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:race_room/Api/api_service.dart';
-import 'package:race_room/Utils/f1_teams_color.dart';
+import 'package:race_room/api/api_service.dart';
+import 'package:race_room/utils/f1_teams_color.dart';
 import 'package:race_room/model/race_results_model.dart';
 
 class RaceResultsView extends StatefulWidget {

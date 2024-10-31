@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:race_room/Utils/f1_teams_color.dart';
+import 'package:race_room/utils/f1_teams_color.dart';
 import 'package:race_room/model/constructor_standings_model.dart';
 
 class ConstructorStandingsView extends StatefulWidget {

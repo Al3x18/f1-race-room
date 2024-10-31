@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:race_room/utils/settings_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SettingsView extends StatefulWidget {
@@ -18,50 +18,35 @@ class _SettingsViewState extends State<SettingsView> {
     color: Colors.grey.shade400,
   );
 
-  String? selectedTheme = "Wait...";
   String version = "Unknown";
   String buildNumber = "Unknown";
 
   String devMail = "smith@example.com";
   String initialSubject = "Report dated: ${DateTime.now().toString()}";
 
+  final SettingsController settingsController = Get.find<SettingsController>();
+
   @override
   void initState() {
     super.initState();
     _getAppInfo();
-    _getThemePrefs();
   }
 
   void _getAppInfo() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
-    version = packageInfo.version;
-    buildNumber = packageInfo.buildNumber;
-
-    setState(() {});
-  }
-
-  void _getThemePrefs() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      selectedTheme = prefs.getString('theme') ?? 'light';
-    });
-  }
-
-  void _setThemePrefs(String theme) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('theme', theme);
-  }
-
-  void _selectTheme(String theme) {
-    setState(() {
-      selectedTheme = theme;
+      version = packageInfo.version;
+      buildNumber = packageInfo.buildNumber;
     });
   }
 
   void _sendEmail() async {
     String? encodeQueryParameters(Map<String, String> params) {
-      return params.entries.map((MapEntry<String, String> e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}').join('&');
+      return params.entries
+          .map((MapEntry<String, String> e) =>
+              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+          .join('&');
     }
 
     final Uri emailLaunchUri = Uri(
@@ -115,7 +100,16 @@ class _SettingsViewState extends State<SettingsView> {
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(selectedTheme!, style: const TextStyle(fontWeight: FontWeight.w500, color: Colors.grey)),
+              Obx(() {
+                return Text(
+                  settingsController.currentTheme.value == ThemeMode.light
+                      ? "Light"
+                      : settingsController.currentTheme.value == ThemeMode.dark
+                          ? "Dark"
+                          : "System",
+                  style: const TextStyle(fontWeight: FontWeight.w500, color: Colors.grey),
+                );
+              }),
               const SizedBox(width: 10),
               const Icon(Icons.keyboard_arrow_down),
             ],
@@ -124,31 +118,22 @@ class _SettingsViewState extends State<SettingsView> {
             ListTile(
               leading: const Icon(Icons.light_mode_outlined),
               title: const Text("Light"),
-              trailing: selectedTheme == "Light" ? const Icon(Icons.check, color: Colors.red) : null,
               onTap: () {
-                _selectTheme("Light");
-                _setThemePrefs("Light");
-                Get.changeThemeMode(ThemeMode.light);
+                settingsController.setTheme("Light");
               },
             ),
             ListTile(
               leading: const Icon(Icons.sync),
               title: const Text("System"),
-              trailing: selectedTheme == "System" ? const Icon(Icons.check, color: Colors.red) : null,
               onTap: () {
-                _selectTheme("System");
-                _setThemePrefs("System");
-                Get.changeThemeMode(ThemeMode.system);
+                settingsController.setTheme("System");
               },
             ),
             ListTile(
               leading: const Icon(Icons.dark_mode_outlined),
               title: const Text("Dark"),
-              trailing: selectedTheme == "Dark" ? const Icon(Icons.check, color: Colors.red) : null,
               onTap: () {
-                _selectTheme("Dark");
-                _setThemePrefs("Dark");
-                Get.changeThemeMode(ThemeMode.dark);
+                settingsController.setTheme("Dark");
               },
             ),
           ],

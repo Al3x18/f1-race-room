@@ -48,19 +48,25 @@ class _SelectYearViewState extends State<SelectYearView> {
                 selectedYear = year;
               });
             },
-            child: Container(
-              color: selectedYear == year ? Colors.red : Colors.transparent,
-              child: ListTile(
-                title: Text(
-                  year.toString(),
-                  style: TextStyle(
-                    fontFamily: "Formula1",
-                    fontSize: 17,
-                    fontWeight: FontWeight.w600,
-                    color: selectedYear == year ? Colors.white : Colors.black,
-                  ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: selectedYear == year ? Colors.red : Colors.transparent,
                 ),
-                trailing: selectedYear == year ? const Icon(Icons.check, color: Colors.white, size: 26) : null,
+                child: ListTile(
+                  title: Text(
+                    year.toString(),
+                    style: TextStyle(
+                      fontFamily: "Formula1",
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600,
+                      color: selectedYear == year ? Colors.white : Get.isDarkMode ? Colors.white : Colors.black,
+                    ),
+                  ),
+                  trailing: selectedYear == year ? const Icon(Icons.check, color: Colors.white, size: 26) : null,
+                ),
               ),
             ),
           );

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:race_room/Utils/check_date.dart';
-import 'package:race_room/Utils/convert_race_time.dart';
-import 'package:race_room/Utils/get_track_image.dart';
+import 'package:race_room/utils/check_date.dart';
+import 'package:race_room/utils/convert_race_time.dart';
+import 'package:race_room/utils/get_track_image.dart';
 import 'package:race_room/screens/race_results_view.dart';
 import 'package:race_room/screens/track_map_view.dart';
 
@@ -138,7 +138,7 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Colors.white,
+        color: Get.isDarkMode ? Colors.black : Colors.white,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

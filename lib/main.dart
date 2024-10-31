@@ -1,52 +1,71 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/route_manager.dart';
-import 'package:race_room/screens/root_view.dart';
+import 'package:get/get.dart';
+import 'package:race_room/utils/settings_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:race_room/screens/root_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Get.put(SettingsController());
 
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-  final String themePrefs = await getThemePrefs();
-  
-  runApp(
-    GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: _buildLightTheme(),
-      darkTheme: _buildDarkTheme(),
-      themeMode: getThemeMode(themePrefs),
-      home: const RootView(),
-    ),
-  );
+  final SettingsController settingsController = Get.put(SettingsController());
+  final String themePref = await getThemePrefs();
+
+  final ThemeMode themeMode = getThemeMode(themePref);
+
+  settingsController.setTheme(themePref);
+
+  runApp(MyApp(themeMode: themeMode));
 }
 
-  Future<String> getThemePrefs() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('theme') ?? 'light';
-  }
+class MyApp extends StatelessWidget {
+  const MyApp({super.key, required this.themeMode});
 
-  ThemeMode getThemeMode(String themePref) {
-    switch (themePref) {
-      case 'Light':
-        return ThemeMode.light;
-      case 'Dark':
-        return ThemeMode.dark;
-      case 'System':
-        return ThemeMode.system;
-      default:
-        return ThemeMode.system;
-    }
+  final ThemeMode themeMode;
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(
+      () {
+        final themeMode = Get.find<SettingsController>().currentTheme.value;
+
+        return GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: _buildLightTheme(),
+          darkTheme: _buildDarkTheme(),
+          themeMode: themeMode,
+          home: const RootView(),
+        );
+      },
+    );
   }
+}
+
+Future<String> getThemePrefs() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getString('theme') ?? 'Light';
+}
+
+ThemeMode getThemeMode(String theme) {
+  if (theme == 'Light') {
+    return ThemeMode.light;
+  } else if (theme == 'Dark') {
+    return ThemeMode.dark;
+  } else {
+    return ThemeMode.system;
+  }
+}
 
 ThemeData _buildLightTheme() {
   return ThemeData(
     brightness: Brightness.light,
     primaryColor: Colors.white,
     fontFamily: "Formula1",
+    scaffoldBackgroundColor: Colors.white,
+    cardColor: Colors.white,
   );
 }
 
@@ -55,5 +74,7 @@ ThemeData _buildDarkTheme() {
     brightness: Brightness.dark,
     primaryColor: Colors.black,
     fontFamily: "Formula1",
+    scaffoldBackgroundColor: Colors.black,
+    cardColor: Colors.black,
   );
 }
