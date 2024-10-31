@@ -115,27 +115,42 @@ class _SettingsViewState extends State<SettingsView> {
             ],
           ),
           children: [
-            ListTile(
-              leading: const Icon(Icons.light_mode_outlined),
-              title: const Text("Light"),
-              onTap: () {
-                settingsController.setTheme("Light");
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.sync),
-              title: const Text("System"),
-              onTap: () {
-                settingsController.setTheme("System");
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.dark_mode_outlined),
-              title: const Text("Dark"),
-              onTap: () {
-                settingsController.setTheme("Dark");
-              },
-            ),
+            Obx(() {
+              return ListTile(
+                leading: const Icon(Icons.light_mode_outlined),
+                title: const Text("Light"),
+                onTap: () {
+                  settingsController.setTheme("Light");
+                },
+                trailing: settingsController.currentTheme.value == ThemeMode.light
+                    ? const Icon(Icons.check)
+                    : null,
+              );
+            }),
+            Obx(() {
+              return ListTile(
+                leading: const Icon(Icons.sync),
+                title: const Text("System"),
+                onTap: () {
+                  settingsController.setTheme("System");
+                },
+                trailing: settingsController.currentTheme.value == ThemeMode.system
+                    ? const Icon(Icons.check)
+                    : null,
+              );
+            }),
+            Obx(() {
+              return ListTile(
+                leading: const Icon(Icons.dark_mode_outlined),
+                title: const Text("Dark"),
+                onTap: () {
+                  settingsController.setTheme("Dark");
+                },
+                trailing: settingsController.currentTheme.value == ThemeMode.dark
+                    ? const Icon(Icons.check)
+                    : null,
+              );
+            }),
           ],
         ),
       ],
