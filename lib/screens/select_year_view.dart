@@ -12,6 +12,7 @@ class SelectYearView extends StatefulWidget {
 
 class _SelectYearViewState extends State<SelectYearView> {
   final List<int> years = List.generate(DateTime.now().year - 2007, (index) => DateTime.now().year - index);
+  final ScrollController _scrollController = ScrollController();
 
   int? selectedYear;
 
@@ -19,6 +20,11 @@ class _SelectYearViewState extends State<SelectYearView> {
   void initState() {
     super.initState();
     selectedYear = int.parse(widget.currentYearSelected);
+
+    final selectedIndex = years.indexOf(selectedYear!);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollController.jumpTo(selectedIndex * 26);
+    });
   }
 
   @override
@@ -32,6 +38,7 @@ class _SelectYearViewState extends State<SelectYearView> {
         title: const Text("Select Year", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19.5)),
       ),
       body: ListView.builder(
+        controller: _scrollController,
         itemCount: years.length,
         itemBuilder: (context, index) {
           final year = years[index];
