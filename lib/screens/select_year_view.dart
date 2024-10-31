@@ -32,7 +32,7 @@ class _SelectYearViewState extends State<SelectYearView> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.keyboard_arrow_down, size: 32),
+          icon: const Icon(Icons.check, size: 25),
           onPressed: () => Get.back(result: selectedYear.toString()),
         ),
         title: const Text("Select Year", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19.5)),
