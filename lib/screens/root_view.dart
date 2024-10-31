@@ -15,10 +15,10 @@ class RootView extends StatefulWidget {
   const RootView({super.key});
 
   @override
-  State<RootView> createState() => _InitAppState();
+  State<RootView> createState() => _RootViewState();
 }
 
-class _InitAppState extends State<RootView> with SingleTickerProviderStateMixin {
+class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   late Future<MRDataDriverStandings?> futureDriverStandingsData;
   late Future<MRDataConstructorStandings?> futureConstructorStandingsData;
