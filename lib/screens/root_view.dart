@@ -38,10 +38,10 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
       });
     });
 
-    _getData();
+    _getAllData();
   }
 
-  void _getData() {
+  void _getAllData() {
     // Get Driver Standings
     futureDriverStandingsData = ApiService().fetchDriverStandings(seasonYear: seasonYear);
 
@@ -51,6 +51,21 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
     // Get Race Schedule
     futureRaceScheduleData = ApiService().fetchRaceSchedule(seasonYear: seasonYear);
 
+    setState(() {});
+  }
+
+  void _getDriverStandingsData() {
+    futureDriverStandingsData = ApiService().fetchDriverStandings(seasonYear: seasonYear);
+    setState(() {});
+  }
+
+  void _getConstructorStandingsData() {
+    futureConstructorStandingsData = ApiService().fetchConstructorStandings(seasonYear: seasonYear);
+    setState(() {});
+  }
+
+  void _getRaceScheduleData() {
+    futureRaceScheduleData = ApiService().fetchRaceSchedule(seasonYear: seasonYear);
     setState(() {});
   }
 
@@ -78,10 +93,40 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
           ),
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh_outlined, size: 28, color: Colors.black),
-            onPressed: () => _getData(),
-          )
+          SizedBox(
+            width: 76,
+            height: 34,
+            child: InkWell(
+              borderRadius: BorderRadius.circular(10),
+              onTap: () async {
+                String selectedYear = await Get.to(
+                  transition: Transition.downToUp,
+                  popGesture: false,
+                  () => SelectYearView(currentYearSelected: seasonYear),
+                );
+                if (selectedYear.isNotEmpty && selectedYear != seasonYear && selectedYear != "null") {
+                  setState(() {
+                    seasonYear = selectedYear;
+                  });
+                  _getAllData();
+                }
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    seasonYear,
+                    style: TextStyle(color: Colors.grey.shade600, fontSize: 14, fontWeight: FontWeight.w500),
+                  ),
+                  Icon(Icons.keyboard_arrow_down, color: Colors.grey.shade600, size: 18.2)
+                ],
+              ),
+            ),
+          ),
+          // IconButton(
+          //   icon: const Icon(Icons.refresh_outlined, size: 25, color: Colors.black),
+          //   onPressed: () => _getAllData(),
+          // ),
         ],
         title: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -100,35 +145,6 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
                           ? "Teams Standings"
                           : "Settings",
               style: TextStyle(color: Colors.grey.shade500, fontSize: 13, fontWeight: FontWeight.w600),
-            ),
-            SizedBox(
-              width: 70,
-              child: InkWell(
-                borderRadius: BorderRadius.circular(10),
-                onTap: () async {
-                  String selectedYear = await Get.to(
-                    transition: Transition.downToUp,
-                    popGesture: false,
-                    () => SelectYearView(currentYearSelected: seasonYear),
-                  );
-                  if (selectedYear.isNotEmpty && selectedYear != seasonYear && selectedYear != "null") {
-                    setState(() {
-                      seasonYear = selectedYear;
-                    });
-                    _getData();
-                  }
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      seasonYear,
-                      style: TextStyle(color: Colors.grey.shade500, fontSize: 12, fontWeight: FontWeight.w500),
-                    ),
-                    Icon(Icons.keyboard_arrow_down, color: Colors.grey.shade500, size: 18.2)
-                  ],
-                ),
-              ),
             ),
           ],
         ),
@@ -163,14 +179,17 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
           children: [
             RacesScheduleView(
               controller: controller,
+              onRefresh: _getRaceScheduleData,
               futureRaceScheduleData: futureRaceScheduleData,
               seasonYear: seasonYear,
             ),
             DriversStandingsView(
               controller: controller,
+              onRefresh: _getDriverStandingsData,
               futureDriverStandingsData: futureDriverStandingsData,
             ),
             ConstructorStandingsView(
+              onRefresh: _getConstructorStandingsData,
               futureConstructorStandingsData: futureConstructorStandingsData,
               controller: controller,
             ),
