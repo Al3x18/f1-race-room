@@ -10,6 +10,7 @@ import 'package:race_room/screens/constructor_standings_view.dart';
 import 'package:race_room/screens/drivers_standings_view.dart';
 import 'package:race_room/screens/races_schedule_view.dart';
 import 'package:race_room/screens/select_year_view.dart';
+import 'package:race_room/screens/settings_view.dart';
 
 class RootView extends StatefulWidget {
   const RootView({super.key});
@@ -193,7 +194,7 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
               futureConstructorStandingsData: futureConstructorStandingsData,
               controller: controller,
             ),
-            const Center(child: Text("Settings", style: TextStyle(fontSize: 24))),
+            const SettingsView(),
           ],
         ),
         // ClipRRect and Material are used to make the TabBar ripple effect rounded on external borders
