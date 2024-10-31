@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 Image getTrackImage(String circuitName) {
+  //Track Name Should be without Accents and Special Characters
   final Map<String, String> circuitImages = {
     'Bahrain International Circuit': 'assets/f1Tracks/Bahrain_Circuit.png',
     'Jeddah Corniche Circuit': 'assets/f1Tracks/Saudi_Arabia_Circuit.png',
@@ -26,6 +27,17 @@ Image getTrackImage(String circuitName) {
     'Las Vegas Strip Street Circuit': 'assets/f1Tracks/Las_Vegas_Circuit.png',
     'Losail International Circuit': 'assets/f1Tracks/Qatar_Circuit.png',
     'Yas Marina Circuit': 'assets/f1Tracks/Abu_Dhabi_Circuit.png',
+    'Sochi Autodrom': 'assets/f1Tracks/Russia_Circuit.png',
+    'Sepang International Circuit': 'assets/f1Tracks/Sepang_Circuit.png',
+    'Autodromo Internazionale del Mugello': 'assets/f1Tracks/Tuscany_Circuit.png',
+    'Autodromo Internacional do Algarve': 'assets/f1Tracks/Portugal_Circuit.png',
+    'Nurburgring': 'assets/f1Tracks/Nurburgring_Circuit.png',
+    'Istanbul Park': 'assets/f1Tracks/Turkey_Circuit.png',
+    'Hockenheimring': 'assets/f1Tracks/Germany_Circuit_Hockenheim.png',
+    'Fuji Speedway': 'assets/f1Tracks/Fuji_Circuit.png',
+    'Valencia Street Circuit': 'assets/f1Tracks/Valencia_Circuit.png',
+    'Korean International Circuit': 'assets/f1Tracks/Korea_Circuit.png',
+    'Buddh International Circuit': 'assets/f1Tracks/India_Circuit.png',
   };
 
   String? imagePath = circuitImages[_removeAccentsAndSpecialCharacters(circuitName)];
