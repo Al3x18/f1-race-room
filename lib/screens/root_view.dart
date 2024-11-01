@@ -88,20 +88,15 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
 
     return Scaffold(
       appBar: AppBar(
-        flexibleSpace: Obx(() {
-          return Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors:
-                    isDarkMode
-                    ? [Colors.black, Colors.black] 
-                    : [Colors.red, Colors.white],
-              ),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: isDarkMode ? [Colors.black, Colors.black] : [Colors.red, Colors.white],
             ),
-          );
-        }),
+          ),
+        ),
         actions: [
           SizedBox(
             width: 76,
@@ -137,7 +132,11 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
         title: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           // kIsWeb ? is used to build code for web because Platform is not supported for web
-          crossAxisAlignment: !kIsWeb ? Platform.isAndroid ? CrossAxisAlignment.start : CrossAxisAlignment.center : CrossAxisAlignment.center,
+          crossAxisAlignment: !kIsWeb
+              ? Platform.isAndroid
+                  ? CrossAxisAlignment.start
+                  : CrossAxisAlignment.center
+              : CrossAxisAlignment.center,
           children: [
             const Text(
               "Race Room",
@@ -206,56 +205,42 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
         // ClipRRect and Material are used to make the TabBar ripple effect rounded on external borders
         child: ClipRRect(
           borderRadius: BorderRadius.circular(26),
-          child: Obx(() {
-            return Material(
-              borderRadius: BorderRadius.circular(26),
-              color: isDarkMode 
-              ? const Color.fromARGB(255, 241, 240, 240) 
-              : Colors.black,
-              child: TabBar(
-                controller: _tabController,
-                indicatorColor: isDarkMode 
-                ? Colors.black 
-                : Colors.white,
-                tabs: [
-                  Tab(
-                    icon: Icon(
-                      Icons.view_agenda_outlined,
-                      color: isDarkMode 
-                      ? Colors.black 
-                      : Colors.white,
-                      size: 25,
-                    ),
+          child: Material(
+            borderRadius: BorderRadius.circular(26),
+            color: isDarkMode ? const Color.fromARGB(255, 241, 240, 240) : Colors.black,
+            child: TabBar(
+              controller: _tabController,
+              indicatorColor: isDarkMode ? Colors.black : Colors.white,
+              tabs: [
+                Tab(
+                  icon: Icon(
+                    Icons.view_agenda_outlined,
+                    color: isDarkMode ? Colors.black : Colors.white,
+                    size: 25,
                   ),
-                  Tab(
-                    icon: Image.asset(
-                      isDarkMode 
-                      ? "assets/images/rhb.png" 
-                      : "assets/images/rhw.png",
-                      width: 31,
-                    ),
+                ),
+                Tab(
+                  icon: Image.asset(
+                    isDarkMode ? "assets/images/rhb.png" : "assets/images/rhw.png",
+                    width: 31,
                   ),
-                  Tab(
-                    icon: Image.asset(
-                      isDarkMode
-                          ? "assets/images/f1car.png"
-                          : "assets/images/f1car-white.png",
-                      width: 38,
-                    ),
+                ),
+                Tab(
+                  icon: Image.asset(
+                    isDarkMode ? "assets/images/f1car.png" : "assets/images/f1car-white.png",
+                    width: 38,
                   ),
-                  Tab(
-                    icon: Icon(
-                      Icons.settings_outlined,
-                      color: isDarkMode 
-                      ? Colors.black 
-                      : Colors.white,
-                      size: 25,
-                    ),
+                ),
+                Tab(
+                  icon: Icon(
+                    Icons.settings_outlined,
+                    color: isDarkMode ? Colors.black : Colors.white,
+                    size: 25,
                   ),
-                ],
-              ),
-            );
-          }),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
