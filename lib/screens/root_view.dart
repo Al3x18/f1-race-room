@@ -128,10 +128,6 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
               ),
             ),
           ),
-          // IconButton(
-          //   icon: const Icon(Icons.refresh_outlined, size: 25, color: Colors.black),
-          //   onPressed: () => _getAllData(),
-          // ),
         ],
         title: Column(
           mainAxisAlignment: MainAxisAlignment.center,
