@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:race_room/utils/check_date.dart';
 import 'package:race_room/utils/convert_race_time.dart';
 import 'package:race_room/utils/get_track_image.dart';
-import 'package:race_room/screens/race_results_view.dart';
 import 'package:race_room/screens/track_map_view.dart';
 
-class RaceDetailsView extends StatefulWidget {
+class RaceDetailsView extends StatelessWidget {
   final ScrollController scrollController;
 
   const RaceDetailsView({
@@ -52,13 +50,6 @@ class RaceDetailsView extends StatefulWidget {
   final String raceName;
 
   @override
-  State<RaceDetailsView> createState() => _RaceDetailsViewState();
-}
-
-class _RaceDetailsViewState extends State<RaceDetailsView> {
-  double _buttonOpacity = 1.0;
-
-  @override
   Widget build(BuildContext context) {
     const TextStyle listTileStyle = TextStyle(
       fontFamily: "Formula1",
@@ -66,7 +57,7 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
     );
 
     return SingleChildScrollView(
-      controller: widget.scrollController,
+      controller: scrollController,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
         child: Column(
@@ -85,7 +76,7 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
             ),
             Center(
               child: Text(
-                widget.fp2Date.isEmpty ? "Sprint Weekend" : "Standard Race Weekend",
+                fp2Date.isEmpty ? "Sprint Weekend" : "Standard Race Weekend",
                 style: listTileStyle.copyWith(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -94,19 +85,19 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
               ),
             ),
             const SizedBox(height: 6),
-            _buildRaceDetailSection("Race Schedule", widget.raceDate, widget.raceTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
+            _buildRaceDetailSection("Race Schedule", raceDate, raceTime, listTileStyle, seasonYear, raceRound, raceName),
             const SizedBox(height: 12),
-            _buildRaceDetailSection("Qualifying Session", widget.qualifyingDate, widget.qualifyingTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
+            _buildRaceDetailSection("Qualifying Session", qualifyingDate, qualifyingTime, listTileStyle, seasonYear, raceRound, raceName),
             const SizedBox(height: 12),
-            _buildRaceDetailSection("FP1", widget.fp1Date, widget.fp1Time, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
+            _buildRaceDetailSection("FP1", fp1Date, fp1Time, listTileStyle, seasonYear, raceRound, raceName),
             const SizedBox(height: 12),
-            if (widget.fp2Date.isNotEmpty) _buildRaceDetailSection("FP2", widget.fp2Date, widget.fp2Time, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
-            if (widget.sprintQualifyingDate.isNotEmpty)
-              _buildRaceDetailSection("Sprint Race", widget.sprintDate, widget.sprintTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
+            if (fp2Date.isNotEmpty) _buildRaceDetailSection("FP2", fp2Date, fp2Time, listTileStyle, seasonYear, raceRound, raceName),
+            if (sprintQualifyingDate.isNotEmpty)
+              _buildRaceDetailSection("Sprint Race", sprintDate, sprintTime, listTileStyle, seasonYear, raceRound, raceName),
             const SizedBox(height: 12),
-            if (widget.fp3Date.isNotEmpty) _buildRaceDetailSection("FP3", widget.fp3Date, widget.fp3Time, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
-            if (widget.sprintQualifyingDate.isNotEmpty)
-              _buildRaceDetailSection("Sprint Qualifying", widget.sprintQualifyingDate, widget.sprintQualifyingTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
+            if (fp3Date.isNotEmpty) _buildRaceDetailSection("FP3", fp3Date, fp3Time, listTileStyle, seasonYear, raceRound, raceName),
+            if (sprintQualifyingDate.isNotEmpty)
+              _buildRaceDetailSection("Sprint Qualifying", sprintQualifyingDate, sprintQualifyingTime, listTileStyle, seasonYear, raceRound, raceName),
             const SizedBox(height: 24),
             Center(
               child: Text(
@@ -122,8 +113,8 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
             ),
             const SizedBox(height: 16),
             GestureDetector(
-              onTap: () => Get.to(() => TrackMapView(trackName: widget.trackName)),
-              child: Center(child: getTrackImage(widget.trackName)),
+              onTap: () => Get.to(() => TrackMapView(trackName: trackName)),
+              child: Center(child: getTrackImage(trackName)),
             ),
             const SizedBox(height: 45),
           ],
@@ -172,47 +163,26 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
               ),
             ],
           ),
-          if (title == "Race Schedule") const SizedBox(height: 6),
+          if (title == "Race Schedule") const SizedBox(height: 8),
           Visibility(
             visible: title == "Race Schedule",
-            child: InkWell(
-              onTapDown: (_) {
-                setState(() {
-                  _buttonOpacity = 0.4;
-                });
-              },
-              onTapUp: (_) {
-                setState(() {
-                  _buttonOpacity = 1.0;
-                });
-              },
-              onTap: () {
-                if (isDatePast(date)) {
-                  Get.to(
-                    () => RaceResultsView(
-                      seasonYear: seasonYear,
-                      raceRound: raceRound,
-                      raceName: raceName,
-                    ),
-                  );
-                } else {
-                  Get.closeAllSnackbars();
-                  Get.snackbar(
-                    "Results not available",
-                    "Race not finished yet",
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-                    duration: const Duration(seconds: 2),
-                    snackPosition: SnackPosition.TOP,
-                    backgroundColor: Colors.white,
-                    borderRadius: 6,
-                  );
-                }
-              },
-              child: Opacity(
-                opacity: _buttonOpacity,
-                child: Text(
-                  "View Results",
-                  style: style.copyWith(fontWeight: FontWeight.w500, fontSize: 12, color: Colors.blue),
+            child: SizedBox(
+              width: double.infinity,
+              height: 36,
+              child: OutlinedButton(
+                onPressed: () {},
+                style: OutlinedButton.styleFrom(
+                  side: BorderSide(
+                    color: Get.isDarkMode ? Colors.white : Colors.red,
+                    width: 1.15,
+                  ),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.5)),
+                ),
+                child: Text("View Results", style: style.copyWith(
+                  fontWeight: FontWeight.w500, 
+                  fontSize: 12.2, 
+                    color: Get.isDarkMode ? Colors.white : Colors.red,
+                  ),
                 ),
               ),
             ),
