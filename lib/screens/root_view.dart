@@ -84,6 +84,8 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Obx(() {
@@ -93,7 +95,7 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors:
-                    settingsController.currentTheme.value == ThemeMode.dark || settingsController.currentTheme.value == ThemeMode.system 
+                    isDarkMode
                     ? [Colors.black, Colors.black] 
                     : [Colors.red, Colors.white],
               ),
@@ -207,19 +209,19 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
           child: Obx(() {
             return Material(
               borderRadius: BorderRadius.circular(26),
-              color: settingsController.currentTheme.value == ThemeMode.dark || settingsController.currentTheme.value == ThemeMode.system 
+              color: isDarkMode 
               ? const Color.fromARGB(255, 241, 240, 240) 
               : Colors.black,
               child: TabBar(
                 controller: _tabController,
-                indicatorColor: settingsController.currentTheme.value == ThemeMode.dark || settingsController.currentTheme.value == ThemeMode.system 
+                indicatorColor: isDarkMode 
                 ? Colors.black 
                 : Colors.white,
                 tabs: [
                   Tab(
                     icon: Icon(
                       Icons.view_agenda_outlined,
-                      color: settingsController.currentTheme.value == ThemeMode.dark || settingsController.currentTheme.value == ThemeMode.system 
+                      color: isDarkMode 
                       ? Colors.black 
                       : Colors.white,
                       size: 25,
@@ -227,7 +229,7 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
                   ),
                   Tab(
                     icon: Image.asset(
-                      settingsController.currentTheme.value == ThemeMode.dark || settingsController.currentTheme.value == ThemeMode.system 
+                      isDarkMode 
                       ? "assets/images/rhb.png" 
                       : "assets/images/rhw.png",
                       width: 31,
@@ -235,7 +237,7 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
                   ),
                   Tab(
                     icon: Image.asset(
-                      settingsController.currentTheme.value == ThemeMode.dark || settingsController.currentTheme.value == ThemeMode.system
+                      isDarkMode
                           ? "assets/images/f1car.png"
                           : "assets/images/f1car-white.png",
                       width: 38,
@@ -244,7 +246,7 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
                   Tab(
                     icon: Icon(
                       Icons.settings_outlined,
-                      color: settingsController.currentTheme.value == ThemeMode.dark || settingsController.currentTheme.value == ThemeMode.system 
+                      color: isDarkMode 
                       ? Colors.black 
                       : Colors.white,
                       size: 25,
