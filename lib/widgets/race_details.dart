@@ -61,21 +61,23 @@ class RaceDetailsView extends StatelessWidget {
     return SingleChildScrollView(
       controller: scrollController,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
+        padding: const EdgeInsets.symmetric(horizontal: 10.5, vertical: 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: 2),
             Center(
               child: Container(
                 margin: const EdgeInsets.only(top: 10, bottom: 8),
-                width: 110,
-                height: 5,
+                width: 85,
+                height: 4,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(60),
                   color: Colors.white,
                 ),
               ),
             ),
+            const SizedBox(height: 2),
             Center(
               child: Text(
                 fp2Date.isEmpty ? "Sprint Weekend" : "Standard Race Weekend",
@@ -86,7 +88,7 @@ class RaceDetailsView extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 6),
+            const SizedBox(height: 12),
             _buildRaceDetailSection("Race Schedule", raceDate, raceTime, listTileStyle, seasonYear, raceRound, raceName),
             const SizedBox(height: 12),
             _buildRaceDetailSection("Qualifying Session", qualifyingDate, qualifyingTime, listTileStyle, seasonYear, raceRound, raceName),
@@ -98,7 +100,7 @@ class RaceDetailsView extends StatelessWidget {
             const SizedBox(height: 12),
             if (fp3Date.isNotEmpty) _buildRaceDetailSection("FP3", fp3Date, fp3Time, listTileStyle, seasonYear, raceRound, raceName),
             if (sprintQualifyingDate.isNotEmpty) _buildRaceDetailSection("Sprint Qualifying", sprintQualifyingDate, sprintQualifyingTime, listTileStyle, seasonYear, raceRound, raceName),
-            const SizedBox(height: 24),
+            const SizedBox(height: 26),
             Center(
               child: Text(
                 "Track Map",
@@ -111,7 +113,7 @@ class RaceDetailsView extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 22),
             GestureDetector(
               onTap: () => Get.to(() => TrackMapView(trackName: trackName)),
               child: Center(child: getTrackImage(trackName)),
