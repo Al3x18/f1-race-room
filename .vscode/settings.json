@@ -1,6 +1,7 @@
 {
     "cSpell.words": [
         "Algarve",
+        "apk",
         "appbar",
         "ARGB",
         "Autodrom",
@@ -36,5 +37,7 @@
         "vsync",
         "wireframe",
         "Zandvoort"
-    ]
+    ],
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
