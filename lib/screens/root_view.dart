@@ -84,7 +84,6 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Colors.white,
       appBar: AppBar(
         flexibleSpace: Obx(() {
           return Container(
@@ -92,7 +91,10 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: settingsController.currentTheme.value == ThemeMode.dark ? [Colors.black, Colors.black] : [Colors.red, Colors.white],
+                colors:
+                    settingsController.currentTheme.value == ThemeMode.dark || settingsController.currentTheme.value == ThemeMode.system 
+                    ? [Colors.black, Colors.black] 
+                    : [Colors.red, Colors.white],
               ),
             ),
           );
@@ -203,28 +205,46 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
           child: Obx(() {
             return Material(
               borderRadius: BorderRadius.circular(26),
-              color: settingsController.currentTheme.value == ThemeMode.dark ? const Color.fromARGB(255, 241, 240, 240) : Colors.black,
+              color: settingsController.currentTheme.value == ThemeMode.dark || settingsController.currentTheme.value == ThemeMode.system 
+              ? const Color.fromARGB(255, 241, 240, 240) 
+              : Colors.black,
               child: TabBar(
                 controller: _tabController,
-                indicatorColor: settingsController.currentTheme.value == ThemeMode.dark ? Colors.black : Colors.white,
+                indicatorColor: settingsController.currentTheme.value == ThemeMode.dark || settingsController.currentTheme.value == ThemeMode.system 
+                ? Colors.black 
+                : Colors.white,
                 tabs: [
                   Tab(
                     icon: Icon(
                       Icons.view_agenda_outlined,
-                      color: settingsController.currentTheme.value == ThemeMode.dark ? Colors.black : Colors.white,
+                      color: settingsController.currentTheme.value == ThemeMode.dark || settingsController.currentTheme.value == ThemeMode.system 
+                      ? Colors.black 
+                      : Colors.white,
                       size: 25,
                     ),
                   ),
                   Tab(
-                    icon: Image.asset(settingsController.currentTheme.value == ThemeMode.dark ? "assets/images/rhb.png" : "assets/images/rhw.png", width: 31),
+                    icon: Image.asset(
+                      settingsController.currentTheme.value == ThemeMode.dark || settingsController.currentTheme.value == ThemeMode.system 
+                      ? "assets/images/rhb.png" 
+                      : "assets/images/rhw.png",
+                      width: 31,
+                    ),
                   ),
                   Tab(
-                    icon: Image.asset(settingsController.currentTheme.value == ThemeMode.dark ? "assets/images/f1car.png" : "assets/images/f1car-white.png", width: 38),
+                    icon: Image.asset(
+                      settingsController.currentTheme.value == ThemeMode.dark || settingsController.currentTheme.value == ThemeMode.system
+                          ? "assets/images/f1car.png"
+                          : "assets/images/f1car-white.png",
+                      width: 38,
+                    ),
                   ),
                   Tab(
                     icon: Icon(
                       Icons.settings_outlined,
-                      color: settingsController.currentTheme.value == ThemeMode.dark ? Colors.black : Colors.white,
+                      color: settingsController.currentTheme.value == ThemeMode.dark || settingsController.currentTheme.value == ThemeMode.system 
+                      ? Colors.black 
+                      : Colors.white,
                       size: 25,
                     ),
                   ),
