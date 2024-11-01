@@ -79,10 +79,10 @@ class _ConstructorStandingsViewState extends State<ConstructorStandingsView> {
                     ),
                   ListTile(
                     leading: SizedBox(
-                      width: 42,
+                      width: 46,
                       child: Text(
                         "#$constructorPosition",
-                        style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 17),
+                        style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 16.5),
                       ),
                     ),
                     title: Text(

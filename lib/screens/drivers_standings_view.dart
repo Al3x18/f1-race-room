@@ -81,12 +81,12 @@ class _DriversStandingsState extends State<DriversStandingsView> {
                     ),
                   ListTile(
                     leading: SizedBox(
-                      width: 42,
+                      width: 46,
                       child: Text(
                         driverPosition == "ND" ? "ND" : "#$driverPosition",
                         style: listTileStyle.copyWith(
                           fontWeight: FontWeight.bold,
-                          fontSize: 17,
+                          fontSize: 16.5,
                         ),
                       ),
                     ),

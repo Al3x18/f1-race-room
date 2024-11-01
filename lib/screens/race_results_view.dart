@@ -148,10 +148,10 @@ class BuildDriverListTile extends StatelessWidget {
 
     return ListTile(
       leading: SizedBox(
-        width: 36.15,
+        width: 38.5,
         child: Text(
           "P$driverPosition",
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14.5),
         ),
       ),
       title: Row(

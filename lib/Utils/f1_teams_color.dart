@@ -14,5 +14,5 @@ Map<String, Color> f1TeamColors = {
 };
 
 Color getTeamColor(String teamName) {
-  return f1TeamColors[teamName] ?? Colors.black;
+  return f1TeamColors[teamName] ?? Colors.grey;
 }
