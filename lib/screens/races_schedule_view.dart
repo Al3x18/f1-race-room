@@ -209,7 +209,7 @@ void _showModalBottomSheet(
     builder: (BuildContext context) {
       return DraggableScrollableSheet(
         initialChildSize: 0.8,
-        minChildSize: 0.75,
+        minChildSize: 0.65,
         maxChildSize: 1,
         expand: false,
         builder: (context, scrollController) {
