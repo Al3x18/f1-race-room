@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:race_room/screens/race_results_view.dart';
+import 'package:race_room/utils/check_date.dart';
 import 'package:race_room/utils/convert_race_time.dart';
 import 'package:race_room/utils/get_track_image.dart';
 import 'package:race_room/screens/track_map_view.dart';
@@ -92,12 +94,10 @@ class RaceDetailsView extends StatelessWidget {
             _buildRaceDetailSection("FP1", fp1Date, fp1Time, listTileStyle, seasonYear, raceRound, raceName),
             const SizedBox(height: 12),
             if (fp2Date.isNotEmpty) _buildRaceDetailSection("FP2", fp2Date, fp2Time, listTileStyle, seasonYear, raceRound, raceName),
-            if (sprintQualifyingDate.isNotEmpty)
-              _buildRaceDetailSection("Sprint Race", sprintDate, sprintTime, listTileStyle, seasonYear, raceRound, raceName),
+            if (sprintQualifyingDate.isNotEmpty) _buildRaceDetailSection("Sprint Race", sprintDate, sprintTime, listTileStyle, seasonYear, raceRound, raceName),
             const SizedBox(height: 12),
             if (fp3Date.isNotEmpty) _buildRaceDetailSection("FP3", fp3Date, fp3Time, listTileStyle, seasonYear, raceRound, raceName),
-            if (sprintQualifyingDate.isNotEmpty)
-              _buildRaceDetailSection("Sprint Qualifying", sprintQualifyingDate, sprintQualifyingTime, listTileStyle, seasonYear, raceRound, raceName),
+            if (sprintQualifyingDate.isNotEmpty) _buildRaceDetailSection("Sprint Qualifying", sprintQualifyingDate, sprintQualifyingTime, listTileStyle, seasonYear, raceRound, raceName),
             const SizedBox(height: 24),
             Center(
               child: Text(
@@ -170,7 +170,28 @@ class RaceDetailsView extends StatelessWidget {
               width: double.infinity,
               height: 36,
               child: OutlinedButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (isDatePast(date)) {
+                    Get.to(
+                      () => RaceResultsView(
+                        seasonYear: seasonYear,
+                        raceRound: raceRound,
+                        raceName: raceName,
+                      ),
+                    );
+                  } else {
+                    Get.closeAllSnackbars();
+                    Get.snackbar(
+                      "Results not available",
+                      "Race not finished yet",
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                      duration: const Duration(seconds: 2),
+                      snackPosition: SnackPosition.TOP,
+                      backgroundColor: Get.isDarkMode ? const Color.fromARGB(255, 30, 30, 30) : Colors.white,
+                      borderRadius: 6,
+                    );
+                  }
+                },
                 style: OutlinedButton.styleFrom(
                   side: BorderSide(
                     color: Get.isDarkMode ? Colors.white : Colors.red,
@@ -178,9 +199,11 @@ class RaceDetailsView extends StatelessWidget {
                   ),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.5)),
                 ),
-                child: Text("View Results", style: style.copyWith(
-                  fontWeight: FontWeight.w500, 
-                  fontSize: 12.2, 
+                child: Text(
+                  "View Results",
+                  style: style.copyWith(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 12.2,
                     color: Get.isDarkMode ? Colors.white : Colors.red,
                   ),
                 ),
