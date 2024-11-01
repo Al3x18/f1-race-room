@@ -4,14 +4,14 @@ A Flutter project to have information on the F1 calendar, driver and team rankin
 
 ## About the App
 
-<strong>The application has four main screens.</strong>
+**The application has four main screens.**
 
 - Season Calendar
 - Driver Standings
 - Team Standings
 - Settings
 
-<strong>In each section at the top right you can open a screen to select the season (from 2008 to the current season).</strong>
+**In each section at the top right you can open a screen to select the season (from 2008 to the current season).**
 
 <div style="display: flex; justify-content: space-between; align-items: center;">
     <img src="./assets/mockupsImages/1YS-portrait.png" alt="screenshot" width="20%">
