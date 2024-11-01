@@ -102,7 +102,7 @@ class _DriversStandingsState extends State<DriversStandingsView> {
                         ),
                         SizedBox(width: MediaQuery.of(context).size.width * 0.025),
                         Text(
-                          driverNumber,
+                          driverNumber == "No Data" ? "" : driverNumber,
                           style: listTileStyle.copyWith(fontSize: 12.5, fontWeight: FontWeight.bold, color: getTeamColor(driverTeam)),
                         ),
                       ],
