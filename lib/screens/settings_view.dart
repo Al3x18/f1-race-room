@@ -24,7 +24,7 @@ class _SettingsViewState extends State<SettingsView> {
 
   final String devMail = REPORT_BUG_EMAIL;
   final String devName = DEV_NAME;
-  final String initialSubject = "Report dated: ${DateTime.now().toString()}";
+  final String initialSubject = "Race Room, report dated: ${DateTime.now().toString()}";
 
   final SettingsController settingsController = Get.find<SettingsController>();
 
@@ -86,7 +86,7 @@ class _SettingsViewState extends State<SettingsView> {
               version,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
             ),
-            subtitle: Text("Build: $buildNumber", style: const TextStyle(color: Colors.grey, fontSize: 11)),
+            subtitle: Text("Build number: $buildNumber", style: const TextStyle(color: Colors.grey, fontSize: 11)),
           ),
           ListTile(
             leading: const Icon(Icons.mail_outline),
