@@ -28,5 +28,24 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+
+	<key>NSAppTransportSecurity</key>
+	<dict>
+    	<key>NSExceptionDomains</key>
+    	<dict>
+        	<key>api.jolpi.ca</key>
+        	<dict>
+            	<key>NSIncludesSubdomains</key>
+            	<true/>
+            	<key>NSExceptionRequiresForwardSecrecy</key>
+            	<false/>
+            	<key>NSExceptionAllowsInsecureHTTPLoads</key>
+            	<false/>
+            	<key>NSAllowsArbitraryLoads</key>
+            	<true/>
+        	</dict>
+    	</dict>
+	</dict>
+	
 </dict>
 </plist>
