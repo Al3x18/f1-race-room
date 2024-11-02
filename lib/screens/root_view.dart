@@ -84,6 +84,7 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
+    const double bottomBarBorderRadius = 20;
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
@@ -167,7 +168,7 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
             ),
           ),
         ),
-        borderRadius: BorderRadius.circular(26),
+        borderRadius: BorderRadius.circular(bottomBarBorderRadius),
         duration: const Duration(milliseconds: 500),
         curve: Curves.decelerate,
         showIcon: false,
@@ -204,9 +205,9 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
         ),
         // ClipRRect and Material are used to make the TabBar ripple effect rounded on external borders
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(26),
+          borderRadius: BorderRadius.circular(bottomBarBorderRadius),
           child: Material(
-            borderRadius: BorderRadius.circular(26),
+            borderRadius: BorderRadius.circular(bottomBarBorderRadius),
             color: isDarkMode ? const Color.fromARGB(255, 241, 240, 240) : Colors.black,
             child: TabBar(
               controller: _tabController,
