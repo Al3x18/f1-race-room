@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:logger/web.dart';
 import 'package:race_room/model/constructor_standings_model.dart';
+import 'package:race_room/model/driver_laps_model.dart';
 import 'package:race_room/model/driver_standings_model.dart';
 import 'package:race_room/model/race_results_model.dart';
 import 'package:race_room/model/race_schedule_model.dart';
@@ -92,7 +93,7 @@ class ApiService {
     }
   }
 
-    Future<MRDataDriverStandings?> fetchDriverStandingsToRound({required String seasonYear, required round}) async {
+  Future<MRDataDriverStandings?> fetchDriverStandingsToRound({required String seasonYear, required round}) async {
     String apiUrl = 'https://api.jolpi.ca/ergast/f1/$seasonYear/$round/driverstandings/?format=json';
 
     try {
@@ -133,6 +134,25 @@ class ApiService {
       return null;
     }
   }
+
+  Future<MRDataDriverLaps?> fetchDriverLaps({required String seasonYear, required String round, required String driverId}) async {
+    String apiUrl = 'https://api.jolpi.ca/ergast/f1/$seasonYear/$round/drivers/$driverId/laps/?format=json';
+
+    try {
+      final response = await http.get(Uri.parse(apiUrl));
+
+      if (response.statusCode == 200) {
+        // UTF-8 decoding is required for special characters like accents (ex. Pérez)
+        final Map<String, dynamic> jsonResponse = jsonDecode(utf8.decode(response.bodyBytes));
+
+        return MRDataDriverLaps.fromJson(jsonResponse['MRData']);
+      } else {
+        _logger.w('API Call error: ${response.statusCode}');
+        return null;
+      }
+    } catch (e) {
+      _logger.e('API Call error: $e');
+      return null;
+    }
+  }
 }
-
-
