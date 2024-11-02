@@ -8,10 +8,14 @@ class BuildPositionContainer extends StatelessWidget {
     super.key,
     required this.type,
     required this.position,
+    this.fontSizeDriverAndConstructor = 18.5,
+    this.fontSizeDriversAfterRace = 14.5,
   });
 
   final PositionContainerType type;
   final String position;
+  final double fontSizeDriverAndConstructor;
+  final double fontSizeDriversAfterRace;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +40,7 @@ class BuildPositionContainer extends StatelessWidget {
               position == "ND" ? "ND" : "#$position",
               style: listTileStyle.copyWith(
                 fontWeight: FontWeight.bold,
-                fontSize: 18.5,
+                fontSize: fontSizeDriverAndConstructor,
                 color: position == "1" ? Colors.white : const Color.fromARGB(255, 106, 106, 106),
               ),
             ),
@@ -60,7 +64,7 @@ class BuildPositionContainer extends StatelessWidget {
             "P$position",
             style: TextStyle(
               fontWeight: FontWeight.bold, 
-              fontSize: 14.5, 
+              fontSize: fontSizeDriversAfterRace, 
               color: isDark 
               ? position == "1" 
               || position == "2"
