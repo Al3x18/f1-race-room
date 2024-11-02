@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:race_room/api/api_service.dart';
+import 'package:race_room/screens/round_driver_s_view.dart';
+import 'package:race_room/screens/round_teams_s_view.dart';
 import 'package:race_room/utils/f1_teams_color.dart';
 import 'package:race_room/model/race_results_model.dart';
 
@@ -30,6 +33,8 @@ class _RaceResultsViewState extends State<RaceResultsView> {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
         title: Column(
@@ -69,42 +74,104 @@ class _RaceResultsViewState extends State<RaceResultsView> {
 
           final raceResults = snapshot.data!.raceTable.races[0].results;
 
-          return RefreshIndicator.adaptive(
-            onRefresh: () async {
-              _getResultsData();
-              return;
-            },
-            child: ListView.builder(
-                itemCount: raceResults.length,
-                itemBuilder: (context, index) {
-                  final String driverPosition = raceResults[index].position;
-                  final String driverName = raceResults[index].driver.givenName;
-                  final String driverSurname = raceResults[index].driver.familyName;
-                  final String driverNumber = raceResults[index].driver.permanentNumber;
-                  final String driverTeam = raceResults[index].constructor.name;
-                  final String status = raceResults[index].status;
-                  final String grid = raceResults[index].grid;
-                  final String laps = raceResults[index].laps;
-                  final String points = raceResults[index].points;
-                  final String fastestLap = raceResults[index].fastestLap?.time.time ?? "No Time Set";
-                  final String raceTotalTime = raceResults[index].time?.time ?? "No Race Time";
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 6, left: 6, bottom: 4),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: BuildStandingsButton(
+                        widget: widget,
+                        isDark: isDark,
+                        onPressed: () => Get.to(() => DriverSToRound(seasonYear: widget.seasonYear, round: widget.raceRound)),
+                        buttonText: "Driver Standings",
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    Expanded(
+                      child: BuildStandingsButton(
+                        widget: widget,
+                        isDark: isDark,
+                        onPressed: () => Get.to(() => TeamsSToRound(seasonYear: widget.seasonYear, round: widget.raceRound)),
+                        buttonText: "Teams Standings",
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: RefreshIndicator.adaptive(
+                  onRefresh: () async {
+                    _getResultsData();
+                    return;
+                  },
+                  child: ListView.builder(
+                      itemCount: raceResults.length,
+                      itemBuilder: (context, index) {
+                        final String driverPosition = raceResults[index].position;
+                        final String driverName = raceResults[index].driver.givenName;
+                        final String driverSurname = raceResults[index].driver.familyName;
+                        final String driverNumber = raceResults[index].driver.permanentNumber;
+                        final String driverTeam = raceResults[index].constructor.name;
+                        final String status = raceResults[index].status;
+                        final String grid = raceResults[index].grid;
+                        final String laps = raceResults[index].laps;
+                        final String points = raceResults[index].points;
+                        final String fastestLap = raceResults[index].fastestLap?.time.time ?? "No Time Set";
+                        final String raceTotalTime = raceResults[index].time?.time ?? "No Race Time";
 
-                  return BuildDriverListTile(
-                    driverPosition: driverPosition,
-                    driverName: driverName,
-                    driverSurname: driverSurname,
-                    driverNumber: driverNumber,
-                    driverTeam: driverTeam,
-                    status: status,
-                    grid: grid,
-                    laps: laps,
-                    points: points,
-                    fastestLap: fastestLap,
-                    raceTotalTime: raceTotalTime,
-                  );
-                }),
+                        return BuildDriverListTile(
+                          driverPosition: driverPosition,
+                          driverName: driverName,
+                          driverSurname: driverSurname,
+                          driverNumber: driverNumber,
+                          driverTeam: driverTeam,
+                          status: status,
+                          grid: grid,
+                          laps: laps,
+                          points: points,
+                          fastestLap: fastestLap,
+                          raceTotalTime: raceTotalTime,
+                        );
+                      }),
+                ),
+              ),
+            ],
           );
         },
+      ),
+    );
+  }
+}
+
+class BuildStandingsButton extends StatelessWidget {
+  const BuildStandingsButton({
+    super.key,
+    required this.widget,
+    required this.isDark,
+    required this.buttonText,
+    required this.onPressed,
+  });
+
+  final RaceResultsView widget;
+  final bool isDark;
+  final String buttonText;
+  final void Function() onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 35,
+      child: OutlinedButton(
+        onPressed: onPressed,
+        style: OutlinedButton.styleFrom(
+          side: BorderSide(width: 1, color: isDark ? Colors.white : Colors.black),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+        child: Text(buttonText, style: TextStyle(color: isDark ? Colors.white : Colors.black, fontWeight: FontWeight.w400, fontSize: 12)),
       ),
     );
   }
