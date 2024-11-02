@@ -76,82 +76,90 @@ class _RaceResultsViewState extends State<RaceResultsView> {
 
           final raceResults = snapshot.data!.raceTable.races[0].results;
 
-          return Column(
-            children: [
-              ExpansionTile(
-                title: Center(
-                  child: Text("View standings after Round ${widget.raceRound}", style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 13)),
+          return SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Flexible(
+                  child: ExpansionTile(
+                    title: Center(
+                      child: Text("View standings after Round ${widget.raceRound}", style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 13)),
+                    ),
+                    collapsedIconColor: Colors.grey,
+                    iconColor: isDark ? Colors.white : Colors.black,
+                    collapsedTextColor: Colors.grey,
+                    textColor: isDark ? Colors.white : Colors.black,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 11, left: 11, bottom: 11),
+                        child: Column(
+                          children: [
+                            BuildStandingsButton(
+                              widget: widget,
+                              isDark: isDark,
+                              onPressed: () => Get.to(() => DriverSToRound(seasonYear: widget.seasonYear, round: widget.raceRound)),
+                              buttonText: "Driver Standings",
+                            ),
+                            const SizedBox(height: 10),
+                            BuildStandingsButton(
+                              widget: widget,
+                              isDark: isDark,
+                              onPressed: () => Get.to(() => TeamsSToRound(seasonYear: widget.seasonYear, round: widget.raceRound)),
+                              buttonText: "Teams Standings",
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                collapsedIconColor: Colors.grey,
-                iconColor: isDark ? Colors.white : Colors.black,
-                collapsedTextColor: Colors.grey,
-                textColor: isDark ? Colors.white : Colors.black,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 11, left: 11, bottom: 11),
-                    child: Column(
-                      children: [
-                        BuildStandingsButton(
-                          widget: widget,
-                          isDark: isDark,
-                          onPressed: () => Get.to(() => DriverSToRound(seasonYear: widget.seasonYear, round: widget.raceRound)),
-                          buttonText: "Driver Standings",
-                        ),
-                        const SizedBox(height: 10),
-                        BuildStandingsButton(
-                          widget: widget,
-                          isDark: isDark,
-                          onPressed: () => Get.to(() => TeamsSToRound(seasonYear: widget.seasonYear, round: widget.raceRound)),
-                          buttonText: "Teams Standings",
-                        ),
-                      ],
+                Flexible(
+                  child: RefreshIndicator.adaptive(
+                    onRefresh: () async {
+                      _getResultsData();
+                      return;
+                    },
+                    child: ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                        itemCount: raceResults.length,
+                        itemBuilder: (context, index) {
+                          final String driverPosition = raceResults[index].position;
+                          final String driverName = raceResults[index].driver.givenName;
+                          final String driverSurname = raceResults[index].driver.familyName;
+                          final String driverNumber = raceResults[index].driver.permanentNumber;
+                          final String driverTeam = raceResults[index].constructor.name;
+                          final String status = raceResults[index].status;
+                          final String grid = raceResults[index].grid;
+                          final String laps = raceResults[index].laps;
+                          final String points = raceResults[index].points;
+                          final String fastestLap = raceResults[index].fastestLap?.time.time ?? "No Time Set";
+                          final String raceTotalTime = raceResults[index].time?.time ?? "No Race Time";
+            
+                          final String driverId = raceResults[index].driver.driverId;
+            
+                          return BuildDriverListTile(
+                            driverPosition: driverPosition,
+                            driverName: driverName,
+                            driverSurname: driverSurname,
+                            driverNumber: driverNumber,
+                            driverTeam: driverTeam,
+                            status: status,
+                            grid: grid,
+                            laps: laps,
+                            points: points,
+                            fastestLap: fastestLap,
+                            raceTotalTime: raceTotalTime,
+                            driverId: driverId,
+                            seasonYear: widget.seasonYear,
+                            round: widget.raceRound,
+                          );
+                      },
                     ),
                   ),
-                ],
-              ),
-              Expanded(
-                child: RefreshIndicator.adaptive(
-                  onRefresh: () async {
-                    _getResultsData();
-                    return;
-                  },
-                  child: ListView.builder(
-                      itemCount: raceResults.length,
-                      itemBuilder: (context, index) {
-                        final String driverPosition = raceResults[index].position;
-                        final String driverName = raceResults[index].driver.givenName;
-                        final String driverSurname = raceResults[index].driver.familyName;
-                        final String driverNumber = raceResults[index].driver.permanentNumber;
-                        final String driverTeam = raceResults[index].constructor.name;
-                        final String status = raceResults[index].status;
-                        final String grid = raceResults[index].grid;
-                        final String laps = raceResults[index].laps;
-                        final String points = raceResults[index].points;
-                        final String fastestLap = raceResults[index].fastestLap?.time.time ?? "No Time Set";
-                        final String raceTotalTime = raceResults[index].time?.time ?? "No Race Time";
-
-                        final String driverId = raceResults[index].driver.driverId;
-
-                        return BuildDriverListTile(
-                          driverPosition: driverPosition,
-                          driverName: driverName,
-                          driverSurname: driverSurname,
-                          driverNumber: driverNumber,
-                          driverTeam: driverTeam,
-                          status: status,
-                          grid: grid,
-                          laps: laps,
-                          points: points,
-                          fastestLap: fastestLap,
-                          raceTotalTime: raceTotalTime,
-                          driverId: driverId,
-                          seasonYear: widget.seasonYear,
-                          round: widget.raceRound,
-                        );
-                      }),
                 ),
-              ),
-            ],
+              ],
+            ),
           );
         },
       ),
