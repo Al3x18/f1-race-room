@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:race_room/api/api_service.dart';
+import 'package:race_room/screens/driver_laps_view.dart';
 import 'package:race_room/screens/round_driver_s_view.dart';
 import 'package:race_room/screens/round_teams_s_view.dart';
 import 'package:race_room/utils/f1_teams_color.dart';
@@ -79,10 +80,7 @@ class _RaceResultsViewState extends State<RaceResultsView> {
             children: [
               ExpansionTile(
                 title: Center(
-                  child: Text(
-                    "View standings after Round ${widget.raceRound}",
-                    style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 14.5)
-                  ),
+                  child: Text("View standings after Round ${widget.raceRound}", style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 13)),
                 ),
                 collapsedIconColor: Colors.grey,
                 iconColor: isDark ? Colors.white : Colors.black,
@@ -90,24 +88,22 @@ class _RaceResultsViewState extends State<RaceResultsView> {
                 textColor: isDark ? Colors.white : Colors.black,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(right: 10, left: 10, bottom: 10),
+                    padding: const EdgeInsets.only(right: 11, left: 11, bottom: 11),
                     child: Column(
                       children: [
                         BuildStandingsButton(
-                            widget: widget,
-                            isDark: isDark,
-                            onPressed: () => Get.to(() => DriverSToRound(seasonYear: widget.seasonYear, round: widget.raceRound)),
-                            buttonText: "Driver Standings",
-                          ),
-                        
-                      const SizedBox(height: 8),
-                         BuildStandingsButton(
-                            widget: widget,
-                            isDark: isDark,
-                            onPressed: () => Get.to(() => TeamsSToRound(seasonYear: widget.seasonYear, round: widget.raceRound)),
-                            buttonText: "Teams Standings",
-                          ),
-                      
+                          widget: widget,
+                          isDark: isDark,
+                          onPressed: () => Get.to(() => DriverSToRound(seasonYear: widget.seasonYear, round: widget.raceRound)),
+                          buttonText: "Driver Standings",
+                        ),
+                        const SizedBox(height: 10),
+                        BuildStandingsButton(
+                          widget: widget,
+                          isDark: isDark,
+                          onPressed: () => Get.to(() => TeamsSToRound(seasonYear: widget.seasonYear, round: widget.raceRound)),
+                          buttonText: "Teams Standings",
+                        ),
                       ],
                     ),
                   ),
@@ -134,6 +130,8 @@ class _RaceResultsViewState extends State<RaceResultsView> {
                         final String fastestLap = raceResults[index].fastestLap?.time.time ?? "No Time Set";
                         final String raceTotalTime = raceResults[index].time?.time ?? "No Race Time";
 
+                        final String driverId = raceResults[index].driver.driverId;
+
                         return BuildDriverListTile(
                           driverPosition: driverPosition,
                           driverName: driverName,
@@ -146,6 +144,9 @@ class _RaceResultsViewState extends State<RaceResultsView> {
                           points: points,
                           fastestLap: fastestLap,
                           raceTotalTime: raceTotalTime,
+                          driverId: driverId,
+                          seasonYear: widget.seasonYear,
+                          round: widget.raceRound,
                         );
                       }),
                 ),
@@ -175,7 +176,7 @@ class BuildStandingsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 36,
+      height: 34,
       width: double.infinity,
       child: OutlinedButton(
         onPressed: onPressed,
@@ -185,7 +186,7 @@ class BuildStandingsButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-        child: Text(buttonText, style: TextStyle(color: isDark ? Colors.white : Colors.black, fontWeight: FontWeight.w400, fontSize: 14)),
+        child: Text(buttonText, style: TextStyle(color: isDark ? Colors.white : Colors.black, fontWeight: FontWeight.w400, fontSize: 13)),
       ),
     );
   }
@@ -205,6 +206,9 @@ class BuildDriverListTile extends StatelessWidget {
     required this.points,
     required this.fastestLap,
     required this.raceTotalTime,
+    required this.driverId,
+    required this.seasonYear,
+    required this.round,
   });
 
   final String driverPosition;
@@ -218,9 +222,14 @@ class BuildDriverListTile extends StatelessWidget {
   final String points;
   final String fastestLap;
   final String raceTotalTime;
+  final String driverId;
+  final String seasonYear;
+  final String round;
 
   @override
   Widget build(BuildContext context) {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     const TextStyle listTileStyleSubtitle = TextStyle(
       fontFamily: "Formula1",
       fontSize: 12,
@@ -228,6 +237,35 @@ class BuildDriverListTile extends StatelessWidget {
     );
 
     return ListTile(
+      onTap: () {
+        Get.closeAllSnackbars();
+        Get.snackbar(
+          "Driver Laps.\nThis feature is in beta",
+          "The results might be incomplete or inaccurate.",
+          colorText: isDark ? Colors.black : Colors.white,
+          backgroundColor: isDark ? Colors.white : Colors.black,
+          snackPosition: SnackPosition.BOTTOM,
+          duration: const Duration(milliseconds: 1750),
+          mainButton: TextButton(
+            onPressed: () {
+              Get.to(
+                () => DriverLapsView(
+                  driverName: driverName,
+                  driverSurname: driverSurname,
+                  driverId: driverId,
+                  seasonYear: seasonYear,
+                  round: round,
+                ),
+              );
+            },
+            child: const Text(
+              "View\nAnyway",
+              style: TextStyle(color: Colors.red),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      },
       leading: SizedBox(
         width: 38.5,
         height: 38.5,
