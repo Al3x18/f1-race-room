@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:race_room/utils/f1_teams_color.dart';
 import 'package:race_room/model/constructor_standings_model.dart';
+import 'package:race_room/utils/safe_parse_points.dart';
 import 'package:race_room/widgets/position_container.dart';
 
 class ConstructorStandingsView extends StatefulWidget {
@@ -62,14 +63,6 @@ class _ConstructorStandingsViewState extends State<ConstructorStandingsView> {
 
               final String firstConstructorPoints = constructorStandings[0].points.toString();
 
-              int safeParsePoints(String points) {
-                try {
-                  return int.parse(points);
-                } catch (e) {
-                  return 0;
-                }
-              }
-
               return Column(
                 children: [
                   if (index == 0) const SizedBox(height: 5),
@@ -94,7 +87,9 @@ class _ConstructorStandingsViewState extends State<ConstructorStandingsView> {
                         Visibility(
                           visible: safeParsePoints(firstConstructorPoints) - safeParsePoints(constructorPoints) > 0,
                           child: Text(
-                            "(-${safeParsePoints(firstConstructorPoints) - safeParsePoints(constructorPoints)})",
+                              "(-${(safeParsePoints(firstConstructorPoints) - safeParsePoints(constructorPoints)) % 1 == 0 
+                              ? (safeParsePoints(firstConstructorPoints) - safeParsePoints(constructorPoints)).toInt() 
+                              : (safeParsePoints(firstConstructorPoints) - safeParsePoints(constructorPoints)).toStringAsFixed(1)})",
                           ),
                         ),
                       ],

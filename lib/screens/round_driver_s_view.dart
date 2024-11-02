@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:race_room/api/api_service.dart';
 import 'package:race_room/utils/f1_teams_color.dart';
 import 'package:race_room/model/driver_standings_model.dart';
+import 'package:race_room/utils/safe_parse_points.dart';
 import 'package:race_room/widgets/position_container.dart';
 
 class DriverSToRound extends StatefulWidget {
@@ -84,14 +85,6 @@ class _DriverSToRoundState extends State<DriverSToRound> {
 
                 final String firstPilotPoints = driverStandings[0].points.toString();
 
-                int safeParsePoints(String points) {
-                  try {
-                    return int.parse(points);
-                  } catch (e) {
-                    return 0;
-                  }
-                }
-
                 return ListTile(
                   leading: BuildPositionContainer(type: PositionContainerType.driverAndConstructorView, position: driverPosition),
                   title: Row(
@@ -120,7 +113,10 @@ class _DriverSToRoundState extends State<DriverSToRound> {
                       ),
                       Visibility(
                         visible: safeParsePoints(firstPilotPoints) - safeParsePoints(driverPoints) > 0,
-                        child: Text("(-${safeParsePoints(firstPilotPoints) - safeParsePoints(driverPoints)})"),
+                        child: Text(
+                            "(-${(safeParsePoints(firstPilotPoints) - safeParsePoints(driverPoints)) % 1 == 0 
+                            ? (safeParsePoints(firstPilotPoints) - safeParsePoints(driverPoints)).toInt() 
+                            : (safeParsePoints(firstPilotPoints) - safeParsePoints(driverPoints)).toStringAsFixed(1)})"),
                       ),
                     ],
                   ),

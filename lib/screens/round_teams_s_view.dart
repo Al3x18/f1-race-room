@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:race_room/api/api_service.dart';
 import 'package:race_room/utils/f1_teams_color.dart';
 import 'package:race_room/model/constructor_standings_model.dart';
+import 'package:race_room/utils/safe_parse_points.dart';
 import 'package:race_room/widgets/position_container.dart';
 
 class TeamsSToRound extends StatefulWidget {
@@ -82,14 +83,6 @@ class _TeamsSToRoundState extends State<TeamsSToRound> {
 
                 final String firstConstructorPoints = constructorStandings[0].points.toString();
 
-                int safeParsePoints(String points) {
-                  try {
-                    return int.parse(points);
-                  } catch (e) {
-                    return 0;
-                  }
-                }
-
                 return ListTile(
                   leading: BuildPositionContainer(type: PositionContainerType.driverAndConstructorView, position: constructorPosition),
                   title: Text(
@@ -104,11 +97,13 @@ class _TeamsSToRoundState extends State<TeamsSToRound> {
                         style: listTileStyle.copyWith(fontWeight: FontWeight.bold),
                       ),
                       Visibility(
-                        visible: safeParsePoints(firstConstructorPoints) - safeParsePoints(constructorPoints) > 0,
-                        child: Text(
-                          "(-${safeParsePoints(firstConstructorPoints) - safeParsePoints(constructorPoints)})",
+                          visible: safeParsePoints(firstConstructorPoints) - safeParsePoints(constructorPoints) > 0,
+                          child: Text(
+                              "(-${(safeParsePoints(firstConstructorPoints) - safeParsePoints(constructorPoints)) % 1 == 0 
+                              ? (safeParsePoints(firstConstructorPoints) - safeParsePoints(constructorPoints)).toInt() 
+                              : (safeParsePoints(firstConstructorPoints) - safeParsePoints(constructorPoints)).toStringAsFixed(1)})",
+                          ),
                         ),
-                      ),
                     ],
                   ),
                   subtitle: Row(
