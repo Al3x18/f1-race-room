@@ -15,6 +15,8 @@ class BuildPositionContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     const TextStyle listTileStyle = TextStyle(
       fontFamily: "Formula1",
       fontSize: 15,
@@ -35,7 +37,7 @@ class BuildPositionContainer extends StatelessWidget {
               style: listTileStyle.copyWith(
                 fontWeight: FontWeight.bold,
                 fontSize: 18.5,
-                color: position == "1" ? Colors.white : const Color.fromARGB(255, 87, 87, 87),
+                color: position == "1" ? Colors.white : const Color.fromARGB(255, 106, 106, 106),
               ),
             ),
           ),
@@ -56,7 +58,17 @@ class BuildPositionContainer extends StatelessWidget {
         child: Center(
           child: Text(
             "P$position",
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14.5),
+            style: TextStyle(
+              fontWeight: FontWeight.bold, 
+              fontSize: 14.5, 
+              color: isDark 
+              ? position == "1" 
+              || position == "2"
+              || position == "3"
+              ? Colors.black 
+              : Colors.white
+              : const Color.fromARGB(255, 74, 74, 74),
+            ),
           ),
         ),
       );
