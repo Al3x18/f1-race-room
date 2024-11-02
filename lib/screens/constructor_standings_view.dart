@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:race_room/utils/f1_teams_color.dart';
 import 'package:race_room/model/constructor_standings_model.dart';
+import 'package:race_room/widgets/position_container.dart';
 
 class ConstructorStandingsView extends StatefulWidget {
   const ConstructorStandingsView({
@@ -78,13 +79,7 @@ class _ConstructorStandingsViewState extends State<ConstructorStandingsView> {
                       style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.grey),
                     ),
                   ListTile(
-                    leading: SizedBox(
-                      width: 46,
-                      child: Text(
-                        "#$constructorPosition",
-                        style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 16.5),
-                      ),
-                    ),
+                    leading: BuildPositionContainer(type: PositionContainerType.driverAndConstructorView, position: constructorPosition),
                     title: Text(
                       constructorName,
                       style: listTileStyle.copyWith(fontWeight: FontWeight.bold, color: getTeamColor(constructorName)),

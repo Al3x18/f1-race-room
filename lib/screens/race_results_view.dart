@@ -5,6 +5,7 @@ import 'package:race_room/screens/round_driver_s_view.dart';
 import 'package:race_room/screens/round_teams_s_view.dart';
 import 'package:race_room/utils/f1_teams_color.dart';
 import 'package:race_room/model/race_results_model.dart';
+import 'package:race_room/widgets/position_container.dart';
 
 class RaceResultsView extends StatefulWidget {
   const RaceResultsView({super.key, required this.seasonYear, required this.raceRound, required this.raceName});
@@ -229,10 +230,8 @@ class BuildDriverListTile extends StatelessWidget {
     return ListTile(
       leading: SizedBox(
         width: 38.5,
-        child: Text(
-          "P$driverPosition",
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14.5),
-        ),
+        height: 38.5,
+        child: BuildPositionContainer(type: PositionContainerType.driversAfterRace, position: driverPosition),
       ),
       title: Row(
         children: [
