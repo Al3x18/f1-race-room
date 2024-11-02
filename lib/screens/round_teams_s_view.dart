@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:race_room/api/api_service.dart';
 import 'package:race_room/utils/f1_teams_color.dart';
 import 'package:race_room/model/constructor_standings_model.dart';
+import 'package:race_room/widgets/position_container.dart';
 
 class TeamsSToRound extends StatefulWidget {
   const TeamsSToRound({
@@ -90,13 +91,7 @@ class _TeamsSToRoundState extends State<TeamsSToRound> {
                 }
 
                 return ListTile(
-                  leading: SizedBox(
-                    width: 46,
-                    child: Text(
-                      "#$constructorPosition",
-                      style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 16.5),
-                    ),
-                  ),
+                  leading: BuildPositionContainer(type: PositionContainerType.driverAndConstructorView, position: constructorPosition),
                   title: Text(
                     constructorName,
                     style: listTileStyle.copyWith(fontWeight: FontWeight.bold, color: getTeamColor(constructorName)),

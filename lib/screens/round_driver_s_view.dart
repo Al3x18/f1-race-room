@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:race_room/api/api_service.dart';
 import 'package:race_room/utils/f1_teams_color.dart';
 import 'package:race_room/model/driver_standings_model.dart';
+import 'package:race_room/widgets/position_container.dart';
 
 class DriverSToRound extends StatefulWidget {
   const DriverSToRound({
@@ -92,16 +93,7 @@ class _DriverSToRoundState extends State<DriverSToRound> {
                 }
 
                 return ListTile(
-                  leading: SizedBox(
-                    width: 46,
-                    child: Text(
-                      driverPosition == "ND" ? "ND" : "#$driverPosition",
-                      style: listTileStyle.copyWith(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16.5,
-                      ),
-                    ),
-                  ),
+                  leading: BuildPositionContainer(type: PositionContainerType.driverAndConstructorView, position: driverPosition),
                   title: Row(
                     children: [
                       Text(driverName, style: listTileStyle),
