@@ -76,29 +76,41 @@ class _RaceResultsViewState extends State<RaceResultsView> {
 
           return Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 6, left: 6, bottom: 4),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: BuildStandingsButton(
-                        widget: widget,
-                        isDark: isDark,
-                        onPressed: () => Get.to(() => DriverSToRound(seasonYear: widget.seasonYear, round: widget.raceRound)),
-                        buttonText: "Driver Standings",
-                      ),
-                    ),
-                    const SizedBox(width: 6),
-                    Expanded(
-                      child: BuildStandingsButton(
-                        widget: widget,
-                        isDark: isDark,
-                        onPressed: () => Get.to(() => TeamsSToRound(seasonYear: widget.seasonYear, round: widget.raceRound)),
-                        buttonText: "Teams Standings",
-                      ),
-                    ),
-                  ],
+              ExpansionTile(
+                title: Center(
+                  child: Text(
+                    "View standings after Round ${widget.raceRound}",
+                    style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 14.5)
+                  ),
                 ),
+                collapsedIconColor: Colors.grey,
+                iconColor: isDark ? Colors.white : Colors.black,
+                collapsedTextColor: Colors.grey,
+                textColor: isDark ? Colors.white : Colors.black,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10, left: 10, bottom: 10),
+                    child: Column(
+                      children: [
+                        BuildStandingsButton(
+                            widget: widget,
+                            isDark: isDark,
+                            onPressed: () => Get.to(() => DriverSToRound(seasonYear: widget.seasonYear, round: widget.raceRound)),
+                            buttonText: "Driver Standings",
+                          ),
+                        
+                      const SizedBox(height: 8),
+                         BuildStandingsButton(
+                            widget: widget,
+                            isDark: isDark,
+                            onPressed: () => Get.to(() => TeamsSToRound(seasonYear: widget.seasonYear, round: widget.raceRound)),
+                            buttonText: "Teams Standings",
+                          ),
+                      
+                      ],
+                    ),
+                  ),
+                ],
               ),
               Expanded(
                 child: RefreshIndicator.adaptive(
@@ -162,7 +174,8 @@ class BuildStandingsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 35,
+      height: 36,
+      width: double.infinity,
       child: OutlinedButton(
         onPressed: onPressed,
         style: OutlinedButton.styleFrom(
@@ -171,7 +184,7 @@ class BuildStandingsButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-        child: Text(buttonText, style: TextStyle(color: isDark ? Colors.white : Colors.black, fontWeight: FontWeight.w400, fontSize: 12)),
+        child: Text(buttonText, style: TextStyle(color: isDark ? Colors.white : Colors.black, fontWeight: FontWeight.w400, fontSize: 14)),
       ),
     );
   }
