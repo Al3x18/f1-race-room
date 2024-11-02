@@ -100,24 +100,22 @@ class _SettingsViewState extends State<SettingsView> {
           ),
           ExpansionTile(
             title: const Text("Theme Mode"),
-            leading: const Icon(Icons.display_settings_outlined),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Obx(() {
-                  return Text(
-                    settingsController.currentTheme.value == ThemeMode.light
-                        ? "Light"
-                        : settingsController.currentTheme.value == ThemeMode.dark
-                            ? "Dark"
-                            : "System",
-                    style: const TextStyle(fontWeight: FontWeight.w500, color: Colors.grey),
+            subtitle: Obx(() {
+                  return Row(
+                    children: [
+                      const Text("Current mode: ", style: TextStyle(color: Colors.grey, fontSize: 11)),
+                      Text(
+                        settingsController.currentTheme.value == ThemeMode.light
+                            ? "Light"
+                            : settingsController.currentTheme.value == ThemeMode.dark
+                                ? "Dark"
+                                : "System",
+                        style: const TextStyle(color: Colors.grey, fontSize: 11),
+                      ),
+                    ],
                   );
                 }),
-                const SizedBox(width: 10),
-                const Icon(Icons.keyboard_arrow_down),
-              ],
-            ),
+            leading: const Icon(Icons.display_settings_outlined),
             children: [
               Obx(() {
                 return ListTile(
