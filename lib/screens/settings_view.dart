@@ -19,6 +19,10 @@ class _SettingsViewState extends State<SettingsView> {
     color: Colors.grey.shade400,
   );
 
+  final TextStyle titleTextStyle = const TextStyle(
+    fontSize: 14.4,
+  );
+
   String version = "Unknown";
   String buildNumber = "Unknown";
 
@@ -45,10 +49,7 @@ class _SettingsViewState extends State<SettingsView> {
 
   void _sendEmail() async {
     String? encodeQueryParameters(Map<String, String> params) {
-      return params.entries
-          .map((MapEntry<String, String> e) =>
-              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
-          .join('&');
+      return params.entries.map((MapEntry<String, String> e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}').join('&');
     }
 
     final Uri emailLaunchUri = Uri(
@@ -81,7 +82,7 @@ class _SettingsViewState extends State<SettingsView> {
           ),
           ListTile(
             leading: const Icon(Icons.info_outline),
-            title: const Text("App Version"),
+            title: Text("App Version", style: titleTextStyle),
             trailing: Text(
               version,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
@@ -90,7 +91,7 @@ class _SettingsViewState extends State<SettingsView> {
           ),
           ListTile(
             leading: const Icon(Icons.mail_outline),
-            title: const Text("Report an Issue"),
+            title: Text("Report an Issue", style: titleTextStyle),
             subtitle: const Text(
               "or request new feature",
               style: TextStyle(color: Colors.grey, fontSize: 11),
@@ -99,58 +100,52 @@ class _SettingsViewState extends State<SettingsView> {
             onTap: () => _sendEmail(),
           ),
           ExpansionTile(
-            title: const Text("Theme Mode"),
+            title: Text("Theme Mode", style: titleTextStyle),
             subtitle: Obx(() {
-                  return Row(
-                    children: [
-                      const Text("Current mode: ", style: TextStyle(color: Colors.grey, fontSize: 11)),
-                      Text(
-                        settingsController.currentTheme.value == ThemeMode.light
-                            ? "Light"
-                            : settingsController.currentTheme.value == ThemeMode.dark
-                                ? "Dark"
-                                : "System",
-                        style: const TextStyle(color: Colors.grey, fontSize: 11),
-                      ),
-                    ],
-                  );
-                }),
+              return Row(
+                children: [
+                  const Text("Current mode: ", style: TextStyle(color: Colors.grey, fontSize: 11)),
+                  Text(
+                    settingsController.currentTheme.value == ThemeMode.light
+                        ? "Light"
+                        : settingsController.currentTheme.value == ThemeMode.dark
+                            ? "Dark"
+                            : "System",
+                    style: const TextStyle(color: Colors.grey, fontSize: 11),
+                  ),
+                ],
+              );
+            }),
             leading: const Icon(Icons.display_settings_outlined),
             children: [
               Obx(() {
                 return ListTile(
                   leading: const Icon(Icons.light_mode_outlined),
-                  title: const Text("Light"),
+                  title: Text("Light", style: titleTextStyle),
                   onTap: () {
                     settingsController.setTheme("Light");
                   },
-                  trailing: settingsController.currentTheme.value == ThemeMode.light
-                      ? const Icon(Icons.check)
-                      : null,
+                  trailing: settingsController.currentTheme.value == ThemeMode.light ? const Icon(Icons.check) : null,
                 );
               }),
               Obx(() {
                 return ListTile(
                   leading: const Icon(Icons.sync),
-                  title: const Text("System"),
+                  title: Text("System", style: titleTextStyle),
                   onTap: () {
                     settingsController.setTheme("System");
                   },
-                  trailing: settingsController.currentTheme.value == ThemeMode.system
-                      ? const Icon(Icons.check)
-                      : null,
+                  trailing: settingsController.currentTheme.value == ThemeMode.system ? const Icon(Icons.check) : null,
                 );
               }),
               Obx(() {
                 return ListTile(
                   leading: const Icon(Icons.dark_mode_outlined),
-                  title: const Text("Dark"),
+                  title: Text("Dark", style: titleTextStyle),
                   onTap: () {
                     settingsController.setTheme("Dark");
                   },
-                  trailing: settingsController.currentTheme.value == ThemeMode.dark
-                      ? const Icon(Icons.check)
-                      : null,
+                  trailing: settingsController.currentTheme.value == ThemeMode.dark ? const Icon(Icons.check) : null,
                 );
               }),
             ],

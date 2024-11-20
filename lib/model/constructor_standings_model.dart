@@ -19,12 +19,12 @@ class MRDataConstructorStandings {
 
   factory MRDataConstructorStandings.fromJson(Map<String, dynamic> json) {
     return MRDataConstructorStandings(
-      xmlns: json['xmlns'] ?? '',
-      series: json['series'],
-      url: json['url'],
-      limit: json['limit'],
-      offset: json['offset'],
-      total: json['total'],
+      xmlns: json['xmlns'] ?? 'No Data',
+      series: json['series'] ?? 'No Data',
+      url: json['url'] ?? 'No Data',
+      limit: json['limit'] ?? 'No Data',
+      offset: json['offset'] ?? 'No Data',
+      total: json['total'] ?? 'No Data',
       standingsTable: StandingsTable.fromJson(json['StandingsTable']),
     );
   }
@@ -43,9 +43,9 @@ class StandingsTable {
 
   factory StandingsTable.fromJson(Map<String, dynamic> json) {
     return StandingsTable(
-      season: json['season'],
-      round: json['round'],
-      standingsLists: (json['StandingsLists'] as List)
+      season: json['season'] ?? 'No Data',
+      round: json['round'] ?? 'No Data',
+      standingsLists: (json['StandingsLists'] as List? ?? [])
           .map((item) => StandingsList.fromJson(item))
           .toList(),
     );
@@ -65,9 +65,9 @@ class StandingsList {
 
   factory StandingsList.fromJson(Map<String, dynamic> json) {
     return StandingsList(
-      season: json['season'],
-      round: json['round'],
-      constructorStandings: (json['ConstructorStandings'] as List)
+      season: json['season'] ?? 'No Data',
+      round: json['round'] ?? 'No Data',
+      constructorStandings: (json['ConstructorStandings'] as List? ?? [])
           .map((item) => ConstructorStandings.fromJson(item))
           .toList(),
     );
@@ -91,10 +91,10 @@ class ConstructorStandings {
 
   factory ConstructorStandings.fromJson(Map<String, dynamic> json) {
     return ConstructorStandings(
-      position: json['position'],
-      positionText: json['positionText'],
-      points: json['points'],
-      wins: json['wins'],
+      position: json['position'] ?? 'No Data',
+      positionText: json['positionText'] ?? 'No Data',
+      points: json['points'] ?? 'No Data',
+      wins: json['wins'] ?? 'No Data',
       constructor: Constructor.fromJson(json['Constructor']),
     );
   }
@@ -115,10 +115,10 @@ class Constructor {
 
   factory Constructor.fromJson(Map<String, dynamic> json) {
     return Constructor(
-      constructorId: json['constructorId'],
-      url: json['url'],
-      name: json['name'],
-      nationality: json['nationality'],
+      constructorId: json['constructorId'] ?? 'No Data',
+      url: json['url'] ?? 'No Data',
+      name: json['name'] ?? 'No Data',
+      nationality: json['nationality'] ?? 'No Data',
     );
   }
 }

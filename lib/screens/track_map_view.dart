@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:race_room/utils/get_track_image.dart';
+import 'package:widget_zoom/widget_zoom.dart';
 
 class TrackMapView extends StatefulWidget {
   const TrackMapView({super.key, required this.trackName});
@@ -33,10 +35,23 @@ class _TrackMapViewState extends State<TrackMapView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(5.0),
-        child: Center(child: getTrackImage(widget.trackName)),
+      body: Stack(
+        children: [
+          Positioned(
+            top: 42,
+            right: 4,
+            child: IconButton(
+              onPressed: () => Get.back(),
+              icon: const Icon(Icons.close, size: 30),
+            ),
+          ),
+          Center(
+            child: WidgetZoom(
+              heroAnimationTag: "circuit",
+              zoomWidget: getTrackImage(widget.trackName),
+            ),
+          ),
+        ],
       ),
     );
   }

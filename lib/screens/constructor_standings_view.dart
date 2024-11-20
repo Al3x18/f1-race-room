@@ -25,7 +25,7 @@ class _ConstructorStandingsViewState extends State<ConstructorStandingsView> {
   Widget build(BuildContext context) {
     const TextStyle listTileStyle = TextStyle(
       fontFamily: "Formula1",
-      fontSize: 15,
+      fontSize: 14.5,
     );
 
     return FutureBuilder(
@@ -98,14 +98,14 @@ class _ConstructorStandingsViewState extends State<ConstructorStandingsView> {
                       children: [
                         Text(
                           constructorNationality,
-                          style: listTileStyle.copyWith(color: Colors.grey, fontSize: 12.5, fontWeight: FontWeight.bold),
+                          style: listTileStyle.copyWith(color: Colors.grey, fontSize: 12, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(width: MediaQuery.of(context).size.width * 0.028),
+                        SizedBox(width: MediaQuery.of(context).size.width * 0.022),
                         Visibility(
                           visible: constructorWins != "0",
                           child: Text(
                             "Wins: $constructorWins",
-                            style: listTileStyle.copyWith(fontSize: 12.5, color: const Color.fromARGB(255, 222, 179, 5), fontWeight: FontWeight.bold),
+                            style: listTileStyle.copyWith(fontSize: 12, color: const Color.fromARGB(255, 222, 179, 5), fontWeight: FontWeight.bold),
                           ),
                         ),
                       ],

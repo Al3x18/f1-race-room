@@ -25,7 +25,7 @@ class _DriversStandingsState extends State<DriversStandingsView> {
   Widget build(BuildContext context) {
     const TextStyle listTileStyle = TextStyle(
       fontFamily: "Formula1",
-      fontSize: 15,
+      fontSize: 14.4,
     );
 
     return FutureBuilder(
@@ -85,7 +85,7 @@ class _DriversStandingsState extends State<DriversStandingsView> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(width: MediaQuery.of(context).size.width * 0.025),
+                        SizedBox(width: MediaQuery.of(context).size.width * 0.017),
                         Text(
                           driverNumber == "No Data" ? "" : driverNumber,
                           style: listTileStyle.copyWith(fontSize: 12.5, fontWeight: FontWeight.bold, color: getTeamColor(driverTeam)),
@@ -110,14 +110,14 @@ class _DriversStandingsState extends State<DriversStandingsView> {
                       children: [
                         Text(
                           driverTeam,
-                          style: listTileStyle.copyWith(fontSize: 12.5, color: Colors.grey, fontWeight: FontWeight.bold),
+                          style: listTileStyle.copyWith(fontSize: 12, color: Colors.grey, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(width: MediaQuery.of(context).size.width * 0.022),
+                        SizedBox(width: MediaQuery.of(context).size.width * 0.020),
                         Visibility(
                           visible: driverWins != "0",
                           child: Text(
                             "Wins: $driverWins",
-                            style: listTileStyle.copyWith(fontSize: 12.5, color: const Color.fromARGB(255, 222, 179, 5), fontWeight: FontWeight.bold),
+                            style: listTileStyle.copyWith(fontSize: 12, color: const Color.fromARGB(255, 222, 179, 5), fontWeight: FontWeight.bold),
                           ),
                         ),
                       ],

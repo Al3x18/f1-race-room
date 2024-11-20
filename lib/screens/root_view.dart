@@ -34,6 +34,7 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
   String seasonYear = DateTime.now().year.toString();
 
   int currentPage = 0;
+  bool isYearMenuOpen = false;
 
   @override
   void initState() {
@@ -84,7 +85,7 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
-    const double bottomBarBorderRadius = 20;
+    const double bottomBarBorderRadius = 18;
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
@@ -99,33 +100,46 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
           ),
         ),
         actions: [
-          SizedBox(
-            width: 76,
-            height: 34,
-            child: InkWell(
-              borderRadius: BorderRadius.circular(10),
-              onTap: () async {
-                String selectedYear = await Get.to(
-                  transition: Transition.downToUp,
-                  popGesture: false,
-                  () => SelectYearView(currentYearSelected: seasonYear),
-                );
-                if (selectedYear.isNotEmpty && selectedYear != seasonYear && selectedYear != "null") {
+          Padding(
+            padding: const EdgeInsets.only(right: 6),
+            child: SizedBox(
+              width: 86,
+              height: 34,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(10),
+                onTap: () async {
                   setState(() {
-                    seasonYear = selectedYear;
+                    isYearMenuOpen = true;
                   });
-                  _getAllData();
-                }
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    seasonYear,
-                    style: TextStyle(color: Colors.grey.shade600, fontSize: 14.2, fontWeight: FontWeight.w500),
-                  ),
-                  Icon(Icons.keyboard_arrow_down, color: Colors.grey.shade600)
-                ],
+
+                  String selectedYear = await Get.to(
+                    transition: Transition.downToUp,
+                    duration: const Duration(milliseconds: 360),
+                    popGesture: false,
+                    () => SelectYearView(currentYearSelected: seasonYear),
+                  );
+
+                  if (selectedYear.isNotEmpty && selectedYear != seasonYear && selectedYear != "null") {
+                    setState(() {
+                      seasonYear = selectedYear;
+                    });
+                    _getAllData();
+                  }
+
+                  setState(() {
+                    isYearMenuOpen = false;
+                  });
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      seasonYear,
+                      style: TextStyle(color: Colors.grey.shade600, fontSize: 15, fontWeight: FontWeight.w500),
+                    ),
+                    Icon(isYearMenuOpen ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down, color: Colors.grey.shade600, size: 30),
+                  ],
+                ),
               ),
             ),
           ),
@@ -141,7 +155,7 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
           children: [
             const Text(
               "Race Room",
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.6),
             ),
             Text(
               currentPage == 0
@@ -151,7 +165,7 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
                       : currentPage == 2
                           ? "Teams Standings"
                           : "Settings",
-              style: TextStyle(color: Colors.grey.shade500, fontSize: 13, fontWeight: FontWeight.w600),
+              style: TextStyle(color: Colors.grey.shade500, fontSize: 12.5, fontWeight: FontWeight.w600),
             ),
           ],
         ),
@@ -217,26 +231,26 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
                   icon: Icon(
                     Icons.view_agenda_outlined,
                     color: isDarkMode ? Colors.black : Colors.white,
-                    size: 25,
+                    size: 26.5,
                   ),
                 ),
                 Tab(
                   icon: Image.asset(
-                    isDarkMode ? "assets/images/rhb.png" : "assets/images/rhw.png",
-                    width: 31,
+                    isDarkMode ? "assets/images/ds-dark.png" : "assets/images/ds-light.png",
+                    width: 31.5,
                   ),
                 ),
                 Tab(
                   icon: Image.asset(
-                    isDarkMode ? "assets/images/f1car.png" : "assets/images/f1car-white.png",
-                    width: 38,
+                    isDarkMode ? "assets/images/ts-dark.png" : "assets/images/ts-light.png",
+                    width: 31.5,
                   ),
                 ),
                 Tab(
                   icon: Icon(
                     Icons.settings_outlined,
                     color: isDarkMode ? Colors.black : Colors.white,
-                    size: 25,
+                    size: 26.5,
                   ),
                 ),
               ],

@@ -8,8 +8,8 @@ class BuildPositionContainer extends StatelessWidget {
     super.key,
     required this.type,
     required this.position,
-    this.fontSizeDriverAndConstructor = 16.3,
-    this.fontSizeDriversAfterRace = 14.5,
+    this.fontSizeDriverAndConstructor = 15.2,
+    this.fontSizeDriversAfterRace = 14.2,
   });
 
   final PositionContainerType type;
@@ -33,11 +33,13 @@ class BuildPositionContainer extends StatelessWidget {
           borderRadius: BorderRadius.circular(100),
         ),
         child: SizedBox(
-          width: 41,
-          height: 41,
+          width: 40,
+          height: 40,
           child: Center(
             child: Text(
-              position == "ND" ? "ND" : "#$position",
+              position == "ND" ? "ND" 
+              : position == "No Data" ? "ND"
+              : "#$position",
               style: listTileStyle.copyWith(
                 fontWeight: FontWeight.bold,
                 fontSize: fontSizeDriverAndConstructor,

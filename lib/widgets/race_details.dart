@@ -4,7 +4,7 @@ import 'package:race_room/screens/race_results_view.dart';
 import 'package:race_room/utils/check_date.dart';
 import 'package:race_room/utils/convert_race_time.dart';
 import 'package:race_room/utils/get_track_image.dart';
-import 'package:race_room/screens/track_map_view.dart';
+import 'package:widget_zoom/widget_zoom.dart';
 
 class RaceDetailsView extends StatelessWidget {
   final ScrollController scrollController;
@@ -90,20 +90,23 @@ class RaceDetailsView extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             _buildRaceDetailSection("Race Schedule", raceDate, raceTime, listTileStyle, seasonYear, raceRound, raceName),
-            const SizedBox(height: 12),
-            _buildRaceDetailSection("Qualifying Session", qualifyingDate, qualifyingTime, listTileStyle, seasonYear, raceRound, raceName),
+            if (fp2Date.isEmpty) const SizedBox(height: 12),
+            if (sprintQualifyingDate.isNotEmpty) _buildRaceDetailSection("Sprint Race", sprintDate, sprintTime, listTileStyle, seasonYear, raceRound, raceName),
             const SizedBox(height: 12),
             _buildRaceDetailSection("FP1", fp1Date, fp1Time, listTileStyle, seasonYear, raceRound, raceName),
             const SizedBox(height: 12),
             if (fp2Date.isNotEmpty) _buildRaceDetailSection("FP2", fp2Date, fp2Time, listTileStyle, seasonYear, raceRound, raceName),
-            if (sprintQualifyingDate.isNotEmpty) _buildRaceDetailSection("Sprint Race", sprintDate, sprintTime, listTileStyle, seasonYear, raceRound, raceName),
-            const SizedBox(height: 12),
+            if (fp2Date.isNotEmpty) const SizedBox(height: 12),
             if (fp3Date.isNotEmpty) _buildRaceDetailSection("FP3", fp3Date, fp3Time, listTileStyle, seasonYear, raceRound, raceName),
             if (sprintQualifyingDate.isNotEmpty) _buildRaceDetailSection("Sprint Qualifying", sprintQualifyingDate, sprintQualifyingTime, listTileStyle, seasonYear, raceRound, raceName),
-            const SizedBox(height: 26),
+            const SizedBox(height: 12),
+            _buildRaceDetailSection("Qualifying Session", qualifyingDate, qualifyingTime, listTileStyle, seasonYear, raceRound, raceName),
+            const SizedBox(height: 12),
+            const Divider(thickness: 1, indent: 14, endIndent: 14, color: Colors.white),
+            const SizedBox(height: 12),
             Center(
               child: Text(
-                "Track Map",
+                "TRACK MAP",
                 style: listTileStyle.copyWith(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -113,10 +116,12 @@ class RaceDetailsView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 22),
-            GestureDetector(
-              onTap: () => Get.to(() => TrackMapView(trackName: trackName)),
-              child: Center(child: getTrackImage(trackName)),
-            ),
+            Center(
+              child: WidgetZoom(
+                heroAnimationTag: "circuit",
+                zoomWidget: getTrackImage(trackName),
+                ),
+              ),
             const SizedBox(height: 45),
           ],
         ),
@@ -143,10 +148,10 @@ class RaceDetailsView extends StatelessWidget {
             children: [
               Text(
                 "DATE",
-                style: style.copyWith(fontSize: 12.5),
+                style: style.copyWith(fontSize: 12.5, fontWeight: FontWeight.w600),
               ),
               Text(
-                "${getDayName(date)}, ${convertDateToLocal(date)}",
+                "${getDayName(date).toUpperCase()}, ${convertDateToLocal(date)}",
                 style: style.copyWith(fontSize: 12.5),
               ),
             ],
@@ -156,11 +161,11 @@ class RaceDetailsView extends StatelessWidget {
             children: [
               Text(
                 "START",
-                style: style.copyWith(fontSize: 13),
+                style: style.copyWith(fontSize: 13, fontWeight: FontWeight.w600),
               ),
               Text(
                 convertTimeToLocal(date, time),
-                style: style.copyWith(fontSize: 13),
+                style: style.copyWith(fontSize: 13, fontWeight: FontWeight.w600),
               ),
             ],
           ),
@@ -196,14 +201,14 @@ class RaceDetailsView extends StatelessWidget {
                 style: OutlinedButton.styleFrom(
                   side: BorderSide(
                     color: Get.isDarkMode ? Colors.white : Colors.red,
-                    width: 1.15,
+                    width: 1.5,
                   ),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.5)),
                 ),
                 child: Text(
-                  "View Results",
+                  "VIEW RESULTS",
                   style: style.copyWith(
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w600,
                     fontSize: 12.2,
                     color: Get.isDarkMode ? Colors.white : Colors.red,
                   ),

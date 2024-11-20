@@ -83,7 +83,7 @@ class _RaceResultsViewState extends State<RaceResultsView> {
                 Flexible(
                   child: ExpansionTile(
                     title: Center(
-                      child: Text("View standings after Round ${widget.raceRound}", style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 13)),
+                      child: Text("View standings after Round ${widget.raceRound}", style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12.75)),
                     ),
                     collapsedIconColor: Colors.grey,
                     iconColor: isDark ? Colors.white : Colors.black,
@@ -184,17 +184,17 @@ class BuildStandingsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 34,
+      height: 32,
       width: double.infinity,
       child: OutlinedButton(
         onPressed: onPressed,
         style: OutlinedButton.styleFrom(
-          side: BorderSide(width: 1, color: isDark ? Colors.white : Colors.black),
+          side: BorderSide(width: 0.9, color: isDark ? Colors.white : Colors.black),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-        child: Text(buttonText, style: TextStyle(color: isDark ? Colors.white : Colors.black, fontWeight: FontWeight.w400, fontSize: 13)),
+        child: Text(buttonText, style: TextStyle(color: isDark ? Colors.white : Colors.black, fontWeight: FontWeight.w400, fontSize: 12)),
       ),
     );
   }
@@ -253,7 +253,7 @@ class BuildDriverListTile extends StatelessWidget {
           colorText: isDark ? Colors.black : Colors.white,
           backgroundColor: isDark ? Colors.white : Colors.black,
           snackPosition: SnackPosition.BOTTOM,
-          duration: const Duration(milliseconds: 1750),
+          duration: const Duration(milliseconds: 2500),
           mainButton: TextButton(
             onPressed: () {
               Get.to(
@@ -275,24 +275,28 @@ class BuildDriverListTile extends StatelessWidget {
         );
       },
       leading: SizedBox(
-        width: 38.5,
-        height: 38.5,
+        width: 35,
+        height: 35,
         child: BuildPositionContainer(type: PositionContainerType.driversAfterRace, position: driverPosition),
       ),
-      title: Row(
-        children: [
-          Text(driverName),
-          const Text(" "),
-          Text(
-            driverSurname,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(width: 6),
-          Text(
-            driverNumber,
-            style: TextStyle(fontWeight: FontWeight.bold, color: getTeamColor(driverTeam)),
-          )
-        ],
+      title: FittedBox(
+        fit: BoxFit.scaleDown,
+        alignment: Alignment.centerLeft,
+        child: Row(
+          children: [
+            Text(driverName),
+            const Text(" "),
+            Text(
+              driverSurname,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(width: 6),
+            Text(
+              driverNumber,
+              style: TextStyle(fontWeight: FontWeight.bold, color: getTeamColor(driverTeam)),
+            )
+          ],
+        ),
       ),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -344,9 +348,16 @@ class BuildDriverListTile extends StatelessWidget {
           ),
         ],
       ),
-      trailing: Text(
-        raceTotalTime == "No Race Time" ? status : raceTotalTime,
-        style: const TextStyle(fontSize: 13.2, fontWeight: FontWeight.w400),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            raceTotalTime == "No Race Time" ? status : raceTotalTime,
+            style: const TextStyle(fontSize: 12.7, fontWeight: FontWeight.w400),
+          ),
+          const SizedBox(width: 6),
+          const Icon(Icons.arrow_forward_ios, size: 12, color: Colors.grey),
+        ],
       ),
     );
   }

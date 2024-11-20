@@ -57,7 +57,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
     return Row(
       children: [
         Text(
-          "Lights Out -",
+          "Lights Out In -",
           style: listTileStyle.copyWith(fontWeight: FontWeight.bold, color: Colors.grey, fontSize: 10.5),
         ),
         const SizedBox(width: 4),

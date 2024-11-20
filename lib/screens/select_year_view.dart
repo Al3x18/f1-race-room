@@ -11,7 +11,7 @@ class SelectYearView extends StatefulWidget {
 }
 
 class _SelectYearViewState extends State<SelectYearView> {
-  final List<int> years = List.generate(DateTime.now().year - 2007, (index) => DateTime.now().year - index);
+  final List<int> years = List.generate(DateTime.now().year - 2005, (index) => DateTime.now().year - index);
   final ScrollController _scrollController = ScrollController();
 
   int? selectedYear;
@@ -31,10 +31,13 @@ class _SelectYearViewState extends State<SelectYearView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.check, size: 25),
-          onPressed: () => Get.back(result: selectedYear.toString()),
-        ),
+        automaticallyImplyLeading: false,
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(result: selectedYear.toString()),
+            child: const Text("Done", style: TextStyle(color: Colors.red, fontWeight: FontWeight.w700, fontSize: 13.5)),
+          ),
+        ],
         title: const Text("Select Year", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19.5)),
       ),
       body: ListView.builder(
@@ -49,18 +52,20 @@ class _SelectYearViewState extends State<SelectYearView> {
               });
             },
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
               child: Container(
+                height: 46,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
                   color: selectedYear == year ? Colors.red : Colors.transparent,
                 ),
                 child: ListTile(
+                  dense: true,
                   title: Text(
                     year.toString(),
                     style: TextStyle(
                       fontFamily: "Formula1",
-                      fontSize: 17,
+                      fontSize: 15.8,
                       fontWeight: FontWeight.w600,
                       color: selectedYear == year ? Colors.white : Get.isDarkMode ? Colors.white : Colors.black,
                     ),
