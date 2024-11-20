@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.2.0+1010
+version: 1.2.0+1050
 
 environment:
   sdk: '>=3.4.4 <4.0.0'
@@ -83,11 +83,12 @@ flutter:
      - assets/images/img_not_found.jpg
      - assets/images/track_error.png
      - assets/images/track_error_w.png
-     - assets/images/rr_app_logo.png
+     - assets/images/rr_app_logo_2.png
      - assets/images/ds-dark.png
      - assets/images/ds-light.png
      - assets/images/ts-dark.png
      - assets/images/ts-light.png
+     - assets/images/rr_splash.png
 
      - assets/f1Tracks/Abu_Dhabi_Circuit.png
      - assets/f1Tracks/Australia_Circuit.png
@@ -152,31 +153,31 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 
 flutter_native_splash:
-  image: "assets/images/rr_app_logo.png"
+  image: "assets/images/rr_splash.png"
   android_gravity: center
   ios_content_mode: center
-  color: "#FF0000"
+  color: "#FF3131"
   fullscreen: true
 
   android_12:
-    image: "assets/images/rr_app_logo.png"
-    color: "#FF0000"
+    image: "assets/images/rr_splash.png"
+    color: "#FF3131"
 
 flutter_launcher_icons:
   android: true
   ios: true
-  image_path: "assets/images/rr_app_logo.png"
+  image_path: "assets/images/rr_app_logo_2.png"
   min_sdk_android: 21
 
   web:
     generate: true
-    image_path: "assets/images/rr_app_logo.png"
+    image_path: "assets/images/rr_app_logo_2.png"
     background_color: "#FF0000"
     theme_color: "#FF0000"
   windows:
     generate: true
-    image_path: "assets/images/rr_app_logo.png"
+    image_path: "assets/images/rr_app_logo_2.png"
     icon_size: 48
   macos:
     generate: true
-    image_path: "assets/images/rr_app_logo.png"
+    image_path: "assets/images/rr_app_logo_2.png"
