@@ -112,7 +112,7 @@ class _RacesScheduleViewState extends State<RacesScheduleView> {
                   );
                 },
                 child: Card(
-                  elevation: 4.5,
+                  elevation: 4,
                   //color: Colors.white,
                   child: ListTile(
                     title: Column(
@@ -120,14 +120,14 @@ class _RacesScheduleViewState extends State<RacesScheduleView> {
                       children: [
                         Text(
                           "Round $roundNumber - $raceHour",
-                          style: listTileStyle.copyWith(fontWeight: FontWeight.bold, color: Colors.grey, fontSize: 12),
+                          style: listTileStyle.copyWith(fontWeight: FontWeight.bold, color: Colors.grey, fontSize: 11),
                         ),
                         CountdownTimer(raceDate: raceDateTime),
                         Row(
                           children: [
                             Text(
                               raceName,
-                              style: listTileStyle.copyWith(fontWeight: FontWeight.bold),
+                              style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14),
                             ),
                             const SizedBox(width: 6),
                             Flexible(
@@ -148,11 +148,11 @@ class _RacesScheduleViewState extends State<RacesScheduleView> {
                       children: [
                         Text(
                           'Circuit: $raceCircuitName',
-                          style: listTileStyle.copyWith(color: Colors.grey, fontSize: 12.2),
+                          style: listTileStyle.copyWith(color: Colors.grey, fontSize: 11.8),
                         ),
                         Text(
                           'Location: $raceCircuitLocation, $raceCircuitCountry',
-                          style: listTileStyle.copyWith(color: Colors.grey, fontSize: 12.2),
+                          style: listTileStyle.copyWith(color: Colors.grey, fontSize: 11.8),
                         ),
                       ],
                     ),

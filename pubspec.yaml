@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.1.3+1000
+version: 1.1.5+1100
 
 environment:
   sdk: '>=3.4.4 <4.0.0'
@@ -44,6 +44,8 @@ dependencies:
   package_info_plus: ^8.1.0
   url_launcher: ^6.3.1
   shared_preferences: ^2.3.2
+  flutter_native_splash: ^2.4.3
+  flutter_launcher_icons: ^0.14.1
 
 dev_dependencies:
   flutter_test:
@@ -80,6 +82,7 @@ flutter:
      - assets/images/img_not_found.jpg
      - assets/images/track_error.png
      - assets/images/track_error_w.png
+     - assets/images/rr_app_logo.png
 
      - assets/f1Tracks/Abu_Dhabi_Circuit.png
      - assets/f1Tracks/Australia_Circuit.png
@@ -142,3 +145,33 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_native_splash:
+  image: "assets/images/rr_app_logo.png"
+  android_gravity: center
+  ios_content_mode: center
+  color: "#FF0000"
+  fullscreen: true
+
+  android_12:
+    image: "assets/images/rr_app_logo.png"
+    color: "#FF0000"
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/rr_app_logo.png"
+  min_sdk_android: 21
+
+  web:
+    generate: true
+    image_path: "assets/images/rr_app_logo.png"
+    background_color: "#FF0000"
+    theme_color: "#FF0000"
+  windows:
+    generate: true
+    image_path: "assets/images/rr_app_logo.png"
+    icon_size: 48
+  macos:
+    generate: true
+    image_path: "assets/images/rr_app_logo.png"

@@ -50,7 +50,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
     if (_remainingTime.isNegative) {
       return Text(
         "Race Ended",
-        style: listTileStyle.copyWith(color: Colors.red, fontSize: 11, fontWeight: FontWeight.bold),
+        style: listTileStyle.copyWith(color: Colors.green, fontSize: 10.5, fontWeight: FontWeight.bold),
       );
     }
 
@@ -58,13 +58,13 @@ class _CountdownTimerState extends State<CountdownTimer> {
       children: [
         Text(
           "Lights Out -",
-          style: listTileStyle.copyWith(fontWeight: FontWeight.bold, color: Colors.grey, fontSize: 11),
+          style: listTileStyle.copyWith(fontWeight: FontWeight.bold, color: Colors.grey, fontSize: 10.5),
         ),
         const SizedBox(width: 4),
         Flexible(
           child: Text(
             "$days days, $hours hours, $minutes minutes",
-            style: listTileStyle.copyWith(color: const Color.fromARGB(255, 79, 70, 255), fontSize: 11, fontWeight: FontWeight.bold),
+            style: listTileStyle.copyWith(color: const Color.fromARGB(255, 79, 70, 255), fontSize: 10.5, fontWeight: FontWeight.bold),
           ),
         ),
       ],
