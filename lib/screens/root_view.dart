@@ -101,7 +101,7 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 6),
+            padding: const EdgeInsets.only(right: 4.5),
             child: SizedBox(
               width: 86,
               height: 34,
@@ -135,7 +135,7 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
                   children: [
                     Text(
                       seasonYear,
-                      style: TextStyle(color: Colors.grey.shade600, fontSize: 15, fontWeight: FontWeight.w500),
+                      style: TextStyle(color: Colors.grey.shade600, fontSize: 14.6, fontWeight: FontWeight.w500),
                     ),
                     Icon(isYearMenuOpen ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down, color: Colors.grey.shade600, size: 30),
                   ],
@@ -155,7 +155,7 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
           children: [
             const Text(
               "Race Room",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.6),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19.4),
             ),
             Text(
               currentPage == 0
@@ -165,7 +165,7 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
                       : currentPage == 2
                           ? "Teams Standings"
                           : "Settings",
-              style: TextStyle(color: Colors.grey.shade500, fontSize: 12.5, fontWeight: FontWeight.w600),
+              style: TextStyle(color: Colors.grey.shade500, fontSize: 12.1, fontWeight: FontWeight.w600),
             ),
           ],
         ),
@@ -231,7 +231,7 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
                   icon: Icon(
                     Icons.view_agenda_outlined,
                     color: isDarkMode ? Colors.black : Colors.white,
-                    size: 26.5,
+                    size: 28.5,
                   ),
                 ),
                 Tab(
@@ -250,7 +250,7 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
                   icon: Icon(
                     Icons.settings_outlined,
                     color: isDarkMode ? Colors.black : Colors.white,
-                    size: 26.5,
+                    size: 28.5,
                   ),
                 ),
               ],

@@ -56,7 +56,7 @@ class _RacesScheduleViewState extends State<RacesScheduleView> {
             return;
           },
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 3.8),
+            padding: const EdgeInsets.symmetric(horizontal: 2.8),
             child: ListView.builder(
               controller: widget.controller,
               itemCount: raceSchedule.length,
