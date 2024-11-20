@@ -108,7 +108,6 @@ class RaceDetailsView extends StatelessWidget {
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
-                  decoration: TextDecoration.underline,
                   decorationColor: Colors.white,
                 ),
               ),
