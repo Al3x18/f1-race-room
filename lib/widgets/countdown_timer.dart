@@ -61,7 +61,8 @@ class _CountdownTimerState extends State<CountdownTimer> {
           style: listTileStyle.copyWith(fontWeight: FontWeight.bold, color: Colors.grey, fontSize: 10.5),
         ),
         const SizedBox(width: 4),
-        Flexible(
+        FittedBox(
+          fit: BoxFit.scaleDown,
           child: Text(
             "$days days, $hours hours, $minutes minutes",
             style: listTileStyle.copyWith(color: const Color.fromARGB(255, 79, 70, 255), fontSize: 10.5, fontWeight: FontWeight.bold),
