@@ -83,7 +83,7 @@ class _RaceResultsViewState extends State<RaceResultsView> {
                 Flexible(
                   child: ExpansionTile(
                     title: Center(
-                      child: Text("View standings after Round ${widget.raceRound}", style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12.75)),
+                      child: Text("View standings after Round ${widget.raceRound}", style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 11.5)),
                     ),
                     collapsedIconColor: Colors.grey,
                     iconColor: isDark ? Colors.white : Colors.black,
@@ -100,7 +100,7 @@ class _RaceResultsViewState extends State<RaceResultsView> {
                               onPressed: () => Get.to(() => DriverSToRound(seasonYear: widget.seasonYear, round: widget.raceRound)),
                               buttonText: "Driver Standings",
                             ),
-                            const SizedBox(height: 10),
+                            const SizedBox(height: 8.5),
                             BuildStandingsButton(
                               widget: widget,
                               isDark: isDark,
