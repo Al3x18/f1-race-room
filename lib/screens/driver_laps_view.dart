@@ -79,16 +79,29 @@ class _DriverLapsViewState extends State<DriverLapsView> {
               final positionInLap = driverLaps[index].timings[0].position;
 
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 11),
+                padding: const EdgeInsets.symmetric(horizontal: 13),
                 child: Column(
                   children: [
+                    if (index == 0) const SizedBox(height: 5),
                     ListTile(
                       //leading: Text(lapNumber, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                      title: Text("Lap $lapNumber", style: const TextStyle(fontSize: 16)),
-                      subtitle: Text("Position: $positionInLap", style: const TextStyle(fontSize: 13, color: Colors.grey)),
-                      trailing: Text(lapTime, style: const TextStyle(fontSize: 15.5, fontWeight: FontWeight.w500)),
+                      dense: true,
+                      minTileHeight: 1,
+                      title: Text("LAP $lapNumber", style: const TextStyle(fontSize: 13.5)),
+                      subtitle: Text("Position: $positionInLap", style: const TextStyle(fontSize: 10.5, color: Colors.grey)),
+                      trailing: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          const Text("LAP TIME", style: TextStyle(fontSize: 10.5, color: Colors.grey)),
+                          Text(lapTime, style: const TextStyle(fontSize: 13.5, fontWeight: FontWeight.w500)),
+                        ],
+                      ),
                     ),
-                    const Divider(),
+                    const SizedBox(
+                      height: 0.1,
+                      child: Divider(indent: 15.5, endIndent: 23.5, thickness: 0.5),
+                    ),
                   ],
                 ),
               );

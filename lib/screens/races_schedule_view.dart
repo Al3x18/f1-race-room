@@ -90,7 +90,7 @@ class _RacesScheduleViewState extends State<RacesScheduleView> {
                 final DateTime raceDateTime = DateTime.parse('${raceSchedule[index].date} ${raceSchedule[index].time}');
             
                 return InkWell(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(7),
                   onTap: () {
                     _showModalBottomSheet(
                       context,
