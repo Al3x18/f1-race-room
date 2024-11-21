@@ -29,9 +29,9 @@ The app uses [jolpica-f1](https://github.com/jolpica/jolpica-f1) APIs to get upd
 
 <div style="display: flex; justify-content: space-between; align-items: center;">
     <img src="./assets/mockupsImages/1SC-portrait.png" alt="screenshot" width="20%">
-    <img src="./assets/mockupsImages/2SC-portrait.png" alt="Circuit 2" width="20%">
-    <img src="./assets/mockupsImages/3SC-portrait.png" alt="Circuit 3" width="20%">
-    <img src="./assets/mockupsImages/4SC-portrait.png" alt="Circuit 4" width="20%">
+    <img src="./assets/mockupsImages/2SC-portrait.png" alt="screenshot" width="20%">
+    <img src="./assets/mockupsImages/3SC-portrait.png" alt="screenshot" width="20%">
+    <img src="./assets/mockupsImages/4SC-portrait.png" alt="screenshot" width="20%">
 </div>
 
 ## Driver Standings
