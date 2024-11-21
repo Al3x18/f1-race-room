@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:race_room/api/api_service.dart';
+import 'package:race_room/model/weather_model.dart';
 import 'package:race_room/screens/race_results_view.dart';
 import 'package:race_room/utils/check_date.dart';
 import 'package:race_room/utils/convert_race_time.dart';
 import 'package:race_room/utils/get_track_image.dart';
 import 'package:widget_zoom/widget_zoom.dart';
 
-class RaceDetailsView extends StatelessWidget {
+class RaceDetailsView extends StatefulWidget {
   final ScrollController scrollController;
 
   const RaceDetailsView({
@@ -30,6 +32,8 @@ class RaceDetailsView extends StatelessWidget {
     required this.seasonYear,
     required this.raceRound,
     required this.raceName,
+    required this.circuitLat,
+    required this.circuitLng,
   });
 
   final String raceDate;
@@ -50,6 +54,21 @@ class RaceDetailsView extends StatelessWidget {
   final String seasonYear;
   final String raceRound;
   final String raceName;
+  final String circuitLat;
+  final String circuitLng;
+
+  @override
+  State<RaceDetailsView> createState() => _RaceDetailsViewState();
+}
+
+class _RaceDetailsViewState extends State<RaceDetailsView> {
+  late Future<WeatherData?> weatherData;
+
+  @override
+  void initState() {
+    weatherData = ApiService().fetchTrackWeather(circuitLat: widget.circuitLat, circuitLng: widget.circuitLng);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +78,7 @@ class RaceDetailsView extends StatelessWidget {
     );
 
     return SingleChildScrollView(
-      controller: scrollController,
+      controller: widget.scrollController,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.5, vertical: 0),
         child: Column(
@@ -80,27 +99,29 @@ class RaceDetailsView extends StatelessWidget {
             const SizedBox(height: 2),
             Center(
               child: Text(
-                fp2Date.isEmpty ? "Sprint Weekend" : "Standard Race Weekend",
+                widget.fp2Date.isEmpty ? "Sprint Weekend".toUpperCase() : "Standard Race Weekend".toUpperCase(),
                 style: listTileStyle.copyWith(
-                  fontSize: 16,
+                  fontSize: 15.6,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
               ),
             ),
             const SizedBox(height: 12),
-            _buildRaceDetailSection("Race Schedule", raceDate, raceTime, listTileStyle, seasonYear, raceRound, raceName),
-            if (fp2Date.isEmpty) const SizedBox(height: 12),
-            if (sprintQualifyingDate.isNotEmpty) _buildRaceDetailSection("Sprint Race", sprintDate, sprintTime, listTileStyle, seasonYear, raceRound, raceName),
+            _buildRaceDetailSection("Race Schedule", widget.raceDate, widget.raceTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
+            if (widget.fp2Date.isEmpty) const SizedBox(height: 12),
+            if (widget.sprintQualifyingDate.isNotEmpty)
+              _buildRaceDetailSection("Sprint Race", widget.sprintDate, widget.sprintTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
             const SizedBox(height: 12),
-            _buildRaceDetailSection("FP1", fp1Date, fp1Time, listTileStyle, seasonYear, raceRound, raceName),
+            _buildRaceDetailSection("FP1", widget.fp1Date, widget.fp1Time, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
             const SizedBox(height: 12),
-            if (fp2Date.isNotEmpty) _buildRaceDetailSection("FP2", fp2Date, fp2Time, listTileStyle, seasonYear, raceRound, raceName),
-            if (fp2Date.isNotEmpty) const SizedBox(height: 12),
-            if (fp3Date.isNotEmpty) _buildRaceDetailSection("FP3", fp3Date, fp3Time, listTileStyle, seasonYear, raceRound, raceName),
-            if (sprintQualifyingDate.isNotEmpty) _buildRaceDetailSection("Sprint Qualifying", sprintQualifyingDate, sprintQualifyingTime, listTileStyle, seasonYear, raceRound, raceName),
+            if (widget.fp2Date.isNotEmpty) _buildRaceDetailSection("FP2", widget.fp2Date, widget.fp2Time, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
+            if (widget.fp2Date.isNotEmpty) const SizedBox(height: 12),
+            if (widget.fp3Date.isNotEmpty) _buildRaceDetailSection("FP3", widget.fp3Date, widget.fp3Time, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
+            if (widget.sprintQualifyingDate.isNotEmpty)
+              _buildRaceDetailSection("Sprint Qualifying", widget.sprintQualifyingDate, widget.sprintQualifyingTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
             const SizedBox(height: 12),
-            _buildRaceDetailSection("Qualifying Session", qualifyingDate, qualifyingTime, listTileStyle, seasonYear, raceRound, raceName),
+            _buildRaceDetailSection("Qualifying Session", widget.qualifyingDate, widget.qualifyingTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
             const SizedBox(height: 12),
             const Divider(thickness: 1, indent: 14, endIndent: 14, color: Colors.white),
             const SizedBox(height: 12),
@@ -108,7 +129,7 @@ class RaceDetailsView extends StatelessWidget {
               child: Text(
                 "TRACK MAP",
                 style: listTileStyle.copyWith(
-                  fontSize: 16,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                   decorationColor: Colors.white,
@@ -119,13 +140,132 @@ class RaceDetailsView extends StatelessWidget {
             Center(
               child: WidgetZoom(
                 heroAnimationTag: "circuit",
-                zoomWidget: getTrackImage(trackName),
-                ),
+                zoomWidget: getTrackImage(widget.trackName),
               ),
+            ),
+            const SizedBox(height: 20),
+            const Divider(thickness: 1, indent: 14, endIndent: 14, color: Colors.white),
+            const SizedBox(height: 12),
+            Center(
+              child: Column(
+                children: [
+                  Text(
+                    "TRACK WEATHER",
+                    style: listTileStyle.copyWith(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Text(
+                    "by Open Weather",
+                    style: listTileStyle.copyWith(
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            _buildWeatherSection(listTileStyle),
             const SizedBox(height: 45),
           ],
         ),
       ),
+    );
+  }
+
+  FutureBuilder<WeatherData?> _buildWeatherSection(TextStyle listTileStyle) {
+    return FutureBuilder(
+      future: weatherData,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.red,
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else if (!snapshot.hasData || snapshot.data == null) {
+          return const Center(child: Text('No data available'));
+        }
+
+        final String icon = snapshot.data!.weather[0].icon;
+        final String description = snapshot.data!.weather[0].description;
+        final double temperature = snapshot.data!.main.temp;
+        final double feelsLike = snapshot.data!.main.feelsLike;
+        final int humidity = snapshot.data!.main.humidity;
+        final double windSpeed = snapshot.data!.wind.speed;
+
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Center(
+                child: Column(
+                  children: [
+                    Image.network(ApiService().getWeatherIconUrl(icon), width: 110),
+                    Text(description.toUpperCase(), style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white)),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 25),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("TEMPERATURE", style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white)),
+                      Text("$temperature°C", style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white)),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text("FEELS LIKE", style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white)),
+                      Text("$feelsLike°C", style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white)),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 14),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("HUMIDITY", style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white)),
+                      Text("$humidity%", style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white)),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text("WIND", style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white)),
+                      Text("$windSpeed m/s", style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white)),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Center(
+                child: Column(
+                  children: [
+                    Text("ATMOSPHERIC PRESSURE", style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white)),
+                    Text("${snapshot.data!.main.pressure} hPa", style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white)),
+                  ],
+                ),
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 
