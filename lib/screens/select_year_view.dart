@@ -33,9 +33,12 @@ class _SelectYearViewState extends State<SelectYearView> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         actions: [
-          TextButton(
-            onPressed: () => Get.back(result: selectedYear.toString()),
-            child: const Text("Done", style: TextStyle(color: Colors.red, fontWeight: FontWeight.w700, fontSize: 13.5)),
+          Padding(
+            padding: const EdgeInsets.only(right: 5),
+            child: TextButton(
+              onPressed: () => Get.back(result: selectedYear.toString()),
+              child: const Text("Done", style: TextStyle(color: Colors.red, fontWeight: FontWeight.w700, fontSize: 13.5)),
+            ),
           ),
         ],
         title: const Text("Select Year", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19.5)),
