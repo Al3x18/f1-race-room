@@ -65,7 +65,7 @@ class _DriverLapsViewState extends State<DriverLapsView> {
             );
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (!snapshot.hasData || snapshot.data == null) {
+          } else if (!snapshot.hasData || snapshot.data == null || snapshot.data!.raceTable.races.isEmpty) {
             return const Center(child: Text('No data available'));
           }
 
