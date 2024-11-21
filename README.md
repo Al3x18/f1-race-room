@@ -2,6 +2,8 @@
 
 A Flutter project to have information on the F1 calendar, driver and team rankings and GP results at your fingertips.
 
+The app uses [jolpica-f1](https://github.com/jolpica/jolpica-f1) APIs to get updated information (currently the APIs are updated every week 24 hours after the race).
+
 ## About the App
 
 **The application has four main screens.**
@@ -11,7 +13,7 @@ A Flutter project to have information on the F1 calendar, driver and team rankin
 - Team Standings
 - Settings
 
-**In each section at the top right you can open a screen to select the season (from 2008 to the current season).**
+**In each section at the top right you can open a screen to select the season (from 2006 to the current season).**
 
 <div style="display: flex; justify-content: space-between; align-items: center;">
     <img src="./assets/mockupsImages/1YS-portrait.png" alt="screenshot" width="20%">
@@ -23,7 +25,7 @@ A Flutter project to have information on the F1 calendar, driver and team rankin
 
 - With a tap on the event you can see the date, times of each session and the track map (it may not be available for all tracks from previous years).
 
-- If the race has already been completed by clicking on the "View Results" button you can see the results of the race (currently only available for the main race).
+- If the race has already been completed by clicking on the "VIEW RESULTS" button you can see the results of the race and the driver standings or team standings after that race (currently only available for the main race).
 
 <div style="display: flex; justify-content: space-between; align-items: center;">
     <img src="./assets/mockupsImages/1SC-portrait.png" alt="screenshot" width="20%">
