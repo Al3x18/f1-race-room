@@ -68,27 +68,29 @@ class _RacesScheduleViewState extends State<RacesScheduleView> {
                 final String raceCircuitName = raceSchedule[index].circuit.circuitName;
                 final String raceCircuitLocation = raceSchedule[index].circuit.location.locality;
                 final String raceCircuitCountry = raceSchedule[index].circuit.location.country;
-            
+                final String raceCircuitLat = raceSchedule[index].circuit.location.lat;
+                final String raceCircuitLng = raceSchedule[index].circuit.location.long;
+                
                 final String qualifyingDate = raceSchedule[index].qualifying.date;
                 final String qualifyingTime = raceSchedule[index].qualifying.time;
-            
+
                 final String fp1Date = raceSchedule[index].firstPractice.date;
                 final String fp1Time = raceSchedule[index].firstPractice.time;
-            
+
                 final String fp2Date = raceSchedule[index].secondPractice?.date ?? "";
                 final String? fp2Time = raceSchedule[index].secondPractice?.time;
-            
+
                 final String? fp3Date = raceSchedule[index].thirdPractice?.date;
                 final String? fp3Time = raceSchedule[index].thirdPractice?.time;
-            
+
                 final String? sprintDate = raceSchedule[index].sprint?.date;
                 final String? sprintTime = raceSchedule[index].sprint?.time;
-            
+
                 final String? sprintQualifyingDate = raceSchedule[index].sprintQualifying?.date;
                 final String? sprintQualifyingTime = raceSchedule[index].sprintQualifying?.time;
-            
+
                 final DateTime raceDateTime = DateTime.parse('${raceSchedule[index].date} ${raceSchedule[index].time}');
-            
+
                 return InkWell(
                   borderRadius: BorderRadius.circular(7),
                   onTap: () {
@@ -110,6 +112,8 @@ class _RacesScheduleViewState extends State<RacesScheduleView> {
                       sprintQualifyingTime: sprintQualifyingTime ?? "",
                       raceCircuitName: raceCircuitName,
                       round: roundNumber,
+                      circuitLat: raceCircuitLat,
+                      circuitLng: raceCircuitLng,
                       seasonYear: widget.seasonYear,
                     );
                   },
@@ -203,6 +207,8 @@ void _showModalBottomSheet(
   required String raceCircuitName,
   required String seasonYear,
   required String round,
+  required String circuitLat,
+  required String circuitLng,
 }) {
   showModalBottomSheet(
     context: context,
@@ -236,6 +242,8 @@ void _showModalBottomSheet(
             seasonYear: seasonYear,
             raceRound: round,
             raceName: raceCircuitName,
+            circuitLat: circuitLat,
+            circuitLng: circuitLng,
           );
         },
       );
