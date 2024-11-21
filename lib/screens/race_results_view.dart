@@ -337,11 +337,16 @@ class BuildDriverListTile extends StatelessWidget {
                 style: listTileStyleSubtitle,
               ),
               const SizedBox(width: 4),
-              Text(
-                fastestLap,
-                style: listTileStyleSubtitle.copyWith(
-                  fontWeight: FontWeight.w500,
-                  color: const Color.fromARGB(255, 127, 21, 146),
+              Flexible(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    fastestLap,
+                    style: listTileStyleSubtitle.copyWith(
+                      fontWeight: FontWeight.w500,
+                      color: const Color.fromARGB(255, 127, 21, 146),
+                    ),
+                  ),
                 ),
               ),
             ],
