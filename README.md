@@ -24,6 +24,7 @@ The app uses [jolpica-f1](https://github.com/jolpica/jolpica-f1) APIs to get upd
 - In this section you can see the calendar for the selected season.
 
 - With a tap on the event you can see the date, times of each session and the track map (it may not be available for all tracks from previous years).
+<br>Currently the time is displayed in Rome time (UTC+1)
 
 - Check the current weather on track (by Open Weather API).
 
