@@ -25,6 +25,8 @@ The app uses [jolpica-f1](https://github.com/jolpica/jolpica-f1) APIs to get upd
 
 - With a tap on the event you can see the date, times of each session and the track map (it may not be available for all tracks from previous years).
 
+- Check the current weather on track (by Open Weather API).
+
 - If the race has already been completed by clicking on the "VIEW RESULTS" button you can see the results of the race and the driver standings or team standings after that race (currently only available for the main race).
 
 <div style="display: flex; justify-content: space-between; align-items: center;">
