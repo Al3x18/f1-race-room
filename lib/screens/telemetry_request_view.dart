@@ -37,7 +37,7 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
     const double sizeBoxHeight = 12.0;
     const double dropMenuLabelFontSize = 12.8;
 
-    List<int> years = List<int>.generate(DateTime.now().year - 2018 + 1, (i) => 2018 + i);
+    List<int> years = List<int>.generate(DateTime.now().year - 2023 + 1, (i) => 2023 + i);
     List<int> reversedYears = years.reversed.toList();
 
     List<DropdownMenuEntry<int>> dropdownMenuEntriesYears = reversedYears
@@ -177,7 +177,7 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
             DropdownMenu<String>(
               width: double.infinity,
               dropdownMenuEntries: dropdownMenuEntriesDrivers,
-              menuHeight: MediaQuery.of(context).size.height * 0.45,
+              menuHeight: MediaQuery.of(context).size.height < 670 ? MediaQuery.of(context).size.height * 0.48 : MediaQuery.of(context).size.height * 0.536,
               label: const Text("DRIVER", style: TextStyle(fontSize: dropMenuLabelFontSize)),
               textStyle: const TextStyle(fontSize: dropMenuLabelFontSize),
               onSelected: (value) {
@@ -239,6 +239,7 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
                 ),
               ),
             ),
+            const SizedBox(height: 3),
             _buildServerStatusLabel(),
           ],
         ),
@@ -247,14 +248,17 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
   }
 
   FutureBuilder<Map<String, dynamic>> _buildServerStatusLabel() {
-    const double serverStatusFontSize = 8.0;
+    const double serverStatusFontSize = 8.6;
     return FutureBuilder<Map<String, dynamic>>(
       future: _getServerStatus(),
       builder: (context, snapshot) {
         final String status = snapshot.data?['status'] ?? "Unreachable";
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const SizedBox(height: 10, child: CircularProgressIndicator());
+          return const Padding(
+            padding: EdgeInsets.symmetric(vertical: 4),
+            child: SizedBox(height: 5, width: 5, child: CircularProgressIndicator()),
+          );
         } else if (snapshot.hasError) {
           if (snapshot.error is SocketException || snapshot.error is ClientException) {
             return const Padding(
