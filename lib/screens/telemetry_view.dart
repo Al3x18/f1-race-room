@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:get/get.dart';
 import 'package:race_room/api/api_service.dart';
@@ -32,6 +33,11 @@ class _TelemetryViewState extends State<ShowTelemetryFileView> {
   void initState() {
     super.initState();
     _loadPdfFile();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
   }
 
   Future<void> _loadPdfFile() async {
