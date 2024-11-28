@@ -5,6 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_floating_bottom_bar/flutter_floating_bottom_bar.dart';
 import 'package:get/get.dart';
+import 'package:race_room/screens/telemetry_request_view.dart';
 import 'package:race_room/utils/settings_controller.dart';
 import 'package:race_room/api/api_service.dart';
 import 'package:race_room/model/constructor_standings_model.dart';
@@ -97,6 +98,15 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
               end: Alignment.bottomCenter,
               colors: isDarkMode ? [Colors.black, Colors.black] : [Colors.red, Colors.white],
             ),
+          ),
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.bar_chart_rounded),
+          onPressed: () => Get.to(
+            transition: Transition.zoom,
+            duration: const Duration(milliseconds: 250),
+            popGesture: false,
+            () => const TelemetryRequestView(),
           ),
         ),
         actions: [
