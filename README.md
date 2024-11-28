@@ -61,3 +61,16 @@ The app uses [jolpica-f1](https://github.com/jolpica/jolpica-f1) APIs to get upd
     <img src="./assets/mockupsImages/1S-portrait.png" alt="screenshot" width="20%">
     <img src="./assets/mockupsImages/1DT-portrait.png" alt="screenshot" width="20%">
 </div>
+
+## Telemetry Data Section (IN DEVELOPMENT)
+
+- In this section you can see the telemetry data of the fastest lap for selected driver in each session (currently available only starting from the 2023 season).
+
+- The server to get the data is currently available at [f1-race-room-backend](https://github.com/Al3x18/f1-race-room-backend).
+
+<div style="display: flex; justify-content: space-between; align-items: center;">
+    <img src="./assets/mockupsImages/1TL.png" alt="screenshot" width="20%">
+    <img src="./assets/mockupsImages/2TL.png" alt="screenshot" width="20%">
+    <img src="./assets/mockupsImages/3TL.png" alt="screenshot" width="20%">
+    <img src="./assets/mockupsImages/4TL.png" alt="screenshot" width="20%">
+</div>
