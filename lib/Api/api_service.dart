@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:logger/web.dart';
 import 'package:race_room/model/constructor_standings_model.dart';
@@ -181,4 +182,46 @@ class ApiService {
   String getWeatherIconUrl(String iconCode) {
     return "https://openweathermap.org/img/wn/$iconCode@2x.png";
   }
+
+  Future<Map<String, dynamic>> checkTelemetryServerStatus() async {
+    String apiUrl = "http://192.168.178.112:5050/status";
+
+    final response = await http.get(Uri.parse(apiUrl));
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      _logger.w('API Call error: ${response.statusCode}');
+      return {'status': 'Unreachable'};
+    }
+  }
+
+ Future<Uint8List> fetchTelemetryPdfFile(String year, String trackName, String session, String driverName) async {
+    String apiUrl = "http://192.168.178.112:5050/get-telemetry?year=$year&trackName=$trackName&session=$session&driverName=$driverName";
+
+    try {
+      final response = await http.get(Uri.parse(apiUrl));
+
+      if (response.statusCode == 200) {
+        return response.bodyBytes;
+      } else {
+        _logger.w('API Call error: ${response.statusCode}');
+        final errorMessage = _parseErrorMessage(response.body);
+        throw Exception(errorMessage);
+      }
+    } catch (e) {
+      _logger.e('Error: $e');
+      throw Exception(e);
+    }
+  }
+
+  String _parseErrorMessage(String responseBody) {
+    try {
+      final Map<String, dynamic> errorJson = json.decode(responseBody);
+      return errorJson['error'] ?? 'Unknown error occurred';
+    } catch (e) {
+      return 'Failed to parse error message';
+    }
+  }
 }
+
