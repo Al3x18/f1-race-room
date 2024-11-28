@@ -257,7 +257,7 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Padding(
             padding: EdgeInsets.symmetric(vertical: 4),
-            child: SizedBox(height: 5, width: 5, child: CircularProgressIndicator()),
+            child: SizedBox(height: 5, width: 5, child: CircularProgressIndicator(strokeWidth: 1)),
           );
         } else if (snapshot.hasError) {
           if (snapshot.error is SocketException || snapshot.error is ClientException) {
