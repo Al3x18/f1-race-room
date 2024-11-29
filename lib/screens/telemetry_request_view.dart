@@ -34,6 +34,7 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
     const double sizeBoxHeight = 12.0;
     const double dropMenuLabelFontSize = 12.8;
 
@@ -107,23 +108,24 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () => Get.back(),
-          icon: const Icon(Icons.close, size: 28),
-        ),
+        automaticallyImplyLeading: false,
+        leading: Platform.isIOS ? _buildBackButton() : null,
+        actions: [
+          if (Platform.isAndroid) _buildBackButton(),
+        ],
         title: const Column(
           children: [
             Text(
               "(BETA)",
-              style: TextStyle(fontSize: 12, color: Colors.red, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 9, color: Colors.red, fontWeight: FontWeight.bold),
             ),
             Text(
               "Telemetry",
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(fontSize: 15),
             ),
             Text(
               "Fastest Lap",
-              style: TextStyle(fontSize: 12, color: Colors.grey, fontWeight: FontWeight.w700),
+              style: TextStyle(fontSize: 10.5, color: Colors.grey, fontWeight: FontWeight.w700),
             ),
           ],
         ),
@@ -184,10 +186,10 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
                 driverName = value.toString();
               },
             ),
-            const SizedBox(height: sizeBoxHeight),
+            const SizedBox(height: 15),
             SizedBox(
               width: double.infinity,
-              height: 45,
+              height: 40,
               child: ElevatedButton(
                 onPressed: () {
                   if (year.isNotEmpty || trackName.isNotEmpty || session.isNotEmpty || driverName.isNotEmpty) {
@@ -199,17 +201,17 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
                     } else {
                       ScaffoldMessenger.of(context).clearSnackBars();
 
-                      SnackBar snackBar = const SnackBar(
+                      SnackBar snackBar = SnackBar(
                         behavior: SnackBarBehavior.fixed,
-                        content: Column(
+                        content: const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text("Server is offline or unreachable", style: TextStyle(fontWeight: FontWeight.bold)),
                             Text("Please try again later.", style: TextStyle(fontSize: 12.5)),
                           ],
                         ),
-                        duration: Duration(seconds: 2),
-                        backgroundColor: Colors.black87,
+                        duration: const Duration(seconds: 2),
+                        backgroundColor: isDark ? Colors.white : Colors.black87,
                       );
 
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -225,21 +227,21 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueAccent,
+                  backgroundColor: const Color.fromARGB(255, 237, 63, 51),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(6),
                   ),
                 ),
                 child: const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Request Telemetry", style: TextStyle(color: Colors.white)),
-                    Text("may take a while", style: TextStyle(color: Color.fromARGB(255, 202, 202, 202), fontSize: 9.5)),
+                    Text("Request Telemetry", style: TextStyle(color: Colors.white, fontSize: 13.5)),
+                    Text("may take a while", style: TextStyle(color: Color.fromARGB(255, 202, 202, 202), fontSize: 9.2)),
                   ],
                 ),
               ),
             ),
-            const SizedBox(height: 3),
+            const SizedBox(height: 5),
             _buildServerStatusLabel(),
           ],
         ),
@@ -247,8 +249,15 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
     );
   }
 
+  IconButton _buildBackButton() {
+    return IconButton(
+      onPressed: () => Get.back(),
+      icon: const Icon(Icons.close, size: 28),
+    );
+  }
+
   FutureBuilder<Map<String, dynamic>> _buildServerStatusLabel() {
-    const double serverStatusFontSize = 8.6;
+    const double serverStatusFontSize = 9.2;
     return FutureBuilder<Map<String, dynamic>>(
       future: _getServerStatus(),
       builder: (context, snapshot) {
@@ -257,7 +266,15 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Padding(
             padding: EdgeInsets.symmetric(vertical: 4),
-            child: SizedBox(height: 5, width: 5, child: CircularProgressIndicator(strokeWidth: 1)),
+            child: SizedBox(
+              height: 6,
+              width: 6,
+              child: CircularProgressIndicator(
+                strokeWidth: 1,
+                color: Colors.red,
+                valueColor: AlwaysStoppedAnimation(Colors.red),
+              ),
+            ),
           );
         } else if (snapshot.hasError) {
           if (snapshot.error is SocketException || snapshot.error is ClientException) {

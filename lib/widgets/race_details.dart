@@ -150,7 +150,7 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
               child: Column(
                 children: [
                   Text(
-                    "TRACK WEATHER",
+                    "CURRENT TRACK WEATHER",
                     style: listTileStyle.copyWith(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -329,11 +329,12 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
                     Get.closeAllSnackbars();
                     Get.snackbar(
                       "Results not available",
-                      "Race not finished yet",
+                      "Try again later.",
+                      colorText: Get.isDarkMode ? Colors.black : Colors.white,
                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                       duration: const Duration(seconds: 2),
                       snackPosition: SnackPosition.TOP,
-                      backgroundColor: Get.isDarkMode ? const Color.fromARGB(255, 30, 30, 30) : Colors.white,
+                      backgroundColor: Get.isDarkMode ? Colors.white : const Color.fromARGB(255, 30, 30, 30),
                       borderRadius: 6,
                     );
                   }

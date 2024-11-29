@@ -118,7 +118,10 @@ class _TelemetryViewState extends State<ShowTelemetryFileView> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  CircularProgressIndicator(),
+                  CircularProgressIndicator(
+                    color: Colors.red,
+                    valueColor: AlwaysStoppedAnimation(Colors.red),
+                  ),
                   SizedBox(height: 14),
                   Text("Please wait..."),
                   Text("This may take a while."),
