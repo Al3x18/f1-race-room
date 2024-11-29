@@ -164,9 +164,11 @@ flutter_native_splash:
     color: "#FF3131"
 
 flutter_launcher_icons:
+  image_path_android: "assets/images/rr_app_logo_2.png"
+  image_path_ios: "assets/images/rr_app_logo_2.png"
   android: true
   ios: true
-  image_path: "assets/images/rr_app_logo_2.png"
+  adaptive_icon_background: "assets/images/rr_app_logo_2.png"
   min_sdk_android: 21
 
   web:
