@@ -100,59 +100,11 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
             ),
           ),
         ),
-        leading: IconButton(
-          icon: const Icon(Icons.bar_chart_rounded),
-          onPressed: () => Get.to(
-            transition: Transition.zoom,
-            duration: const Duration(milliseconds: 250),
-            popGesture: false,
-            () => const TelemetryRequestView(),
-          ),
-        ),
+        leading: Platform.isIOS ? _openTelemetryView() : null,
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 4.5),
-            child: SizedBox(
-              width: 86,
-              height: 34,
-              child: InkWell(
-                borderRadius: BorderRadius.circular(10),
-                onTap: () async {
-                  setState(() {
-                    isYearMenuOpen = true;
-                  });
-
-                  String selectedYear = await Get.to(
-                    transition: Transition.downToUp,
-                    duration: const Duration(milliseconds: 360),
-                    popGesture: false,
-                    () => SelectYearView(currentYearSelected: seasonYear),
-                  );
-
-                  if (selectedYear.isNotEmpty && selectedYear != seasonYear && selectedYear != "null") {
-                    setState(() {
-                      seasonYear = selectedYear;
-                    });
-                    _getAllData();
-                  }
-
-                  setState(() {
-                    isYearMenuOpen = false;
-                  });
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      seasonYear,
-                      style: TextStyle(color: Colors.grey.shade600, fontSize: 14.6, fontWeight: FontWeight.w500),
-                    ),
-                    Icon(isYearMenuOpen ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down, color: Colors.grey.shade600, size: 30),
-                  ],
-                ),
-              ),
-            ),
-          ),
+          if (Platform.isAndroid) _openTelemetryView(),
+          if (Platform.isAndroid) const SizedBox(width: 5),
+          _openSelectSeasonView(),
         ],
         title: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -164,7 +116,7 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
               : CrossAxisAlignment.center,
           children: [
             const Text(
-              "Race Room",
+              "RACE ROOM",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19.4),
             ),
             Text(
@@ -267,6 +219,64 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _openSelectSeasonView() {
+    return Padding(
+      padding: EdgeInsets.only(right: 4.5, top: Platform.isAndroid ? 5 : 0),
+      child: SizedBox(
+        width: 82,
+        height: 32,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(10),
+          onTap: () async {
+            setState(() {
+              isYearMenuOpen = true;
+            });
+
+            String selectedYear = await Get.to(
+              transition: Transition.downToUp,
+              duration: const Duration(milliseconds: 360),
+              popGesture: false,
+              () => SelectYearView(currentYearSelected: seasonYear),
+            );
+
+            if (selectedYear.isNotEmpty && selectedYear != seasonYear && selectedYear != "null") {
+              setState(() {
+                seasonYear = selectedYear;
+              });
+              _getAllData();
+            }
+
+            setState(() {
+              isYearMenuOpen = false;
+            });
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                seasonYear,
+                style: TextStyle(color: Colors.grey.shade600, fontSize: 15.5, fontWeight: FontWeight.w500),
+              ),
+              Icon(isYearMenuOpen ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down, color: Colors.grey.shade600, size: 30),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  IconButton _openTelemetryView() {
+    return IconButton(
+      icon: Image.asset("assets/images/telemetry-icon.png", width: 22),
+      onPressed: () => Get.to(
+        transition: Transition.zoom,
+        duration: const Duration(milliseconds: 250),
+        popGesture: false,
+        () => const TelemetryRequestView(),
       ),
     );
   }
