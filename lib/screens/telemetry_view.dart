@@ -122,7 +122,7 @@ class _TelemetryViewState extends State<ShowTelemetryFileView> {
                     color: Colors.red,
                     valueColor: AlwaysStoppedAnimation(Colors.red),
                   ),
-                  SizedBox(height: 14),
+                  SizedBox(height: 23),
                   Text("Please wait..."),
                   Text("This may take a while."),
                   Text("Depends on your internet connection."),
