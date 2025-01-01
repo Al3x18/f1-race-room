@@ -21,6 +21,12 @@ class _SelectYearViewState extends State<SelectYearView> {
     super.initState();
     selectedYear = int.parse(widget.currentYearSelected);
 
+    // Add next year if December 15th or later
+    // final currentDate = DateTime.now();
+    // if (currentDate.month == 12 && currentDate.day > 15) {
+    //   years.insert(0, currentDate.year + 1);
+    // }
+
     final selectedIndex = years.indexOf(selectedYear!);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollController.jumpTo(selectedIndex * 26);
@@ -70,7 +76,11 @@ class _SelectYearViewState extends State<SelectYearView> {
                       fontFamily: "Formula1",
                       fontSize: 15.8,
                       fontWeight: FontWeight.w600,
-                      color: selectedYear == year ? Colors.white : Get.isDarkMode ? Colors.white : Colors.black,
+                      color: selectedYear == year
+                          ? Colors.white
+                          : Get.isDarkMode
+                              ? Colors.white
+                              : Colors.black,
                     ),
                   ),
                   trailing: selectedYear == year ? const Icon(Icons.check, color: Colors.white, size: 26) : null,
