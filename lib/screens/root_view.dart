@@ -100,10 +100,10 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
             ),
           ),
         ),
-        leading: Platform.isIOS ? _openTelemetryView(isDarkMode) : null,
+        leading: Platform.isIOS || kIsWeb ? _openTelemetryView(isDarkMode) : null,
         actions: [
-          if (Platform.isAndroid) _openTelemetryView(isDarkMode),
-          if (Platform.isAndroid) const SizedBox(width: 5),
+          if (Platform.isAndroid && !kIsWeb) _openTelemetryView(isDarkMode),
+          if (Platform.isAndroid && !kIsWeb) const SizedBox(width: 5),
           _openSelectSeasonView(),
         ],
         title: Column(
