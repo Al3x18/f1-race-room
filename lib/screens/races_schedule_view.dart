@@ -61,11 +61,14 @@ class _RacesScheduleViewState extends State<RacesScheduleView> {
     );
   }
 
-  Center racesListIsEmpty() => const Center(
-        child: Text(
-          "No races available for this season.\nCheck back later!",
-          textAlign: TextAlign.center,
-        ),
+  Widget racesListIsEmpty() => ListView(
+        children: [
+          SizedBox(height: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom) * 0.40),
+          Text(
+            "No races available for this season.\nCheck back later!",
+            textAlign: TextAlign.center,
+          ),
+        ],
       );
 
   Widget racesListWidget(List<Race> raceSchedule, TextStyle listTileStyle) {

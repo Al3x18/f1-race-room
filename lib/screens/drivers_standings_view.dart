@@ -39,14 +39,10 @@ class _DriversStandingsState extends State<DriversStandingsView> {
           );
         } else if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
-        } else if (!snapshot.hasData 
-        || snapshot.data == null
-        || snapshot.data!.standingsTable.standingsLists.isEmpty) {
+        } else if (!snapshot.hasData || snapshot.data == null || snapshot.data!.standingsTable.standingsLists.isEmpty) {
           return Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: Text('No driver standings available for this season', textAlign: TextAlign.center),
-            ),
+            child: noDataAvailable(widget.onRefresh),
           );
         }
 
@@ -138,4 +134,18 @@ class _DriversStandingsState extends State<DriversStandingsView> {
       },
     );
   }
+  Widget noDataAvailable(void Function() onRefresh) => RefreshIndicator.adaptive(
+    onRefresh: () async {
+      onRefresh();
+    },
+    child: ListView(
+          children: [
+            SizedBox(height: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom) * 0.40),
+            Text(
+              "No driver standings available for this season.\nCheck back later!",
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+  );
 }

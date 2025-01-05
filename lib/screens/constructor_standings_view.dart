@@ -42,15 +42,7 @@ class _ConstructorStandingsViewState extends State<ConstructorStandingsView> {
         } else if (!snapshot.hasData 
         || snapshot.data == null
         || snapshot.data!.standingsTable.standingsLists.isEmpty) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: Text(
-                'No constructor standings available for this season',
-                textAlign: TextAlign.center,
-              ),
-            ),
-          );
+          return noDataAvailable(widget.onRefresh);
         }
 
         final constructorStandings = snapshot.data!.standingsTable.standingsLists[0].constructorStandings;
@@ -129,4 +121,19 @@ class _ConstructorStandingsViewState extends State<ConstructorStandingsView> {
       },
     );
   }
+
+  Widget noDataAvailable(void Function() onRefresh) => RefreshIndicator.adaptive(
+        onRefresh: () async {
+          onRefresh();
+        },
+        child: ListView(
+          children: [
+            SizedBox(height: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom) * 0.40),
+            Text(
+              "No constructor standings available for this season.\nCheck back later!",
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      );
 }
