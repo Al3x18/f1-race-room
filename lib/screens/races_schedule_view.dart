@@ -55,135 +55,146 @@ class _RacesScheduleViewState extends State<RacesScheduleView> {
             widget.onRefresh();
             return;
           },
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 2.8),
-            child: ListView.builder(
-              controller: widget.controller,
-              itemCount: raceSchedule.length,
-              itemBuilder: (context, index) {
-                final String roundNumber = raceSchedule[index].round.toString();
-                final String raceName = raceSchedule[index].raceName;
-                final String raceDate = raceSchedule[index].date;
-                final String raceHour = convertTimeToLocal(raceSchedule[index].date, raceSchedule[index].time);
-                final String raceCircuitName = raceSchedule[index].circuit.circuitName;
-                final String raceCircuitLocation = raceSchedule[index].circuit.location.locality;
-                final String raceCircuitCountry = raceSchedule[index].circuit.location.country;
-                final String raceCircuitLat = raceSchedule[index].circuit.location.lat;
-                final String raceCircuitLng = raceSchedule[index].circuit.location.long;
-                
-                final String qualifyingDate = raceSchedule[index].qualifying.date;
-                final String qualifyingTime = raceSchedule[index].qualifying.time;
-
-                final String fp1Date = raceSchedule[index].firstPractice.date;
-                final String fp1Time = raceSchedule[index].firstPractice.time;
-
-                final String fp2Date = raceSchedule[index].secondPractice?.date ?? "";
-                final String? fp2Time = raceSchedule[index].secondPractice?.time;
-
-                final String? fp3Date = raceSchedule[index].thirdPractice?.date;
-                final String? fp3Time = raceSchedule[index].thirdPractice?.time;
-
-                final String? sprintDate = raceSchedule[index].sprint?.date;
-                final String? sprintTime = raceSchedule[index].sprint?.time;
-
-                final String? sprintQualifyingDate = raceSchedule[index].sprintQualifying?.date;
-                final String? sprintQualifyingTime = raceSchedule[index].sprintQualifying?.time;
-
-                final DateTime raceDateTime = DateTime.parse('${raceSchedule[index].date} ${raceSchedule[index].time}');
-
-                return InkWell(
-                  borderRadius: BorderRadius.circular(7),
-                  onTap: () {
-                    _showModalBottomSheet(
-                      context,
-                      raceDate: raceDate,
-                      raceTime: raceHour,
-                      qualifyingDate: qualifyingDate,
-                      qualifyingTime: qualifyingTime,
-                      fp1Date: fp1Date,
-                      fp1Time: fp1Time,
-                      fp2Date: fp2Date,
-                      fp2Time: fp2Time ?? "",
-                      fp3Date: fp3Date ?? "",
-                      fp3Time: fp3Time ?? "",
-                      sprintDate: sprintDate ?? "",
-                      sprintTime: sprintTime ?? "",
-                      sprintQualifyingDate: sprintQualifyingDate ?? "",
-                      sprintQualifyingTime: sprintQualifyingTime ?? "",
-                      raceCircuitName: raceCircuitName,
-                      round: roundNumber,
-                      circuitLat: raceCircuitLat,
-                      circuitLng: raceCircuitLng,
-                      seasonYear: widget.seasonYear,
-                    );
-                  },
-                  child: Card(
-                    elevation: 0.45,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
-                    child: ListTile(
-                      title: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Round $roundNumber - $raceHour",
-                            style: listTileStyle.copyWith(fontWeight: FontWeight.bold, color: Colors.grey, fontSize: 11),
-                          ),
-                          CountdownTimer(raceDate: raceDateTime),
-                          Row(
-                            children: [
-                              Text(
-                                raceName,
-                                style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14.3),
-                              ),
-                              const SizedBox(width: 6),
-                              Flexible(
-                                child: Visibility(
-                                  visible: fp2Date.isEmpty,
-                                  child: Text(
-                                    "(Sprint)",
-                                    style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 10.8, color: Colors.red),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Circuit: $raceCircuitName',
-                            style: listTileStyle.copyWith(color: Colors.grey, fontSize: 11.8),
-                          ),
-                          Text(
-                            'Location: $raceCircuitLocation, $raceCircuitCountry',
-                            style: listTileStyle.copyWith(color: Colors.grey, fontSize: 11.8),
-                          ),
-                        ],
-                      ),
-                      trailing: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            formatDate(raceDate, TYPE.date),
-                            style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14),
-                          ),
-                          Text(
-                            formatDate(raceDate, TYPE.shortMonth),
-                            style: listTileStyle.copyWith(fontSize: 12, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
+          child: raceSchedule.isEmpty ? racesListIsEmpty() : racesListWidget(raceSchedule, listTileStyle),
         );
       },
+    );
+  }
+
+  Center racesListIsEmpty() => const Center(
+        child: Text(
+          "No races available for this season.\nCheck back later!",
+          textAlign: TextAlign.center,
+        ),
+      );
+
+  Widget racesListWidget(List<Race> raceSchedule, TextStyle listTileStyle) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 2.8),
+      child: ListView.builder(
+        controller: widget.controller,
+        itemCount: raceSchedule.length,
+        itemBuilder: (context, index) {
+          final String roundNumber = raceSchedule[index].round.toString();
+          final String raceName = raceSchedule[index].raceName;
+          final String raceDate = raceSchedule[index].date;
+          final String raceHour = convertTimeToLocal(raceSchedule[index].date, raceSchedule[index].time);
+          final String raceCircuitName = raceSchedule[index].circuit.circuitName;
+          final String raceCircuitLocation = raceSchedule[index].circuit.location.locality;
+          final String raceCircuitCountry = raceSchedule[index].circuit.location.country;
+          final String raceCircuitLat = raceSchedule[index].circuit.location.lat;
+          final String raceCircuitLng = raceSchedule[index].circuit.location.long;
+
+          final String qualifyingDate = raceSchedule[index].qualifying.date;
+          final String qualifyingTime = raceSchedule[index].qualifying.time;
+
+          final String fp1Date = raceSchedule[index].firstPractice.date;
+          final String fp1Time = raceSchedule[index].firstPractice.time;
+
+          final String fp2Date = raceSchedule[index].secondPractice?.date ?? "";
+          final String? fp2Time = raceSchedule[index].secondPractice?.time;
+
+          final String? fp3Date = raceSchedule[index].thirdPractice?.date;
+          final String? fp3Time = raceSchedule[index].thirdPractice?.time;
+
+          final String? sprintDate = raceSchedule[index].sprint?.date;
+          final String? sprintTime = raceSchedule[index].sprint?.time;
+
+          final String? sprintQualifyingDate = raceSchedule[index].sprintQualifying?.date;
+          final String? sprintQualifyingTime = raceSchedule[index].sprintQualifying?.time;
+
+          final DateTime raceDateTime = DateTime.parse('${raceSchedule[index].date} ${raceSchedule[index].time}');
+
+          return InkWell(
+            borderRadius: BorderRadius.circular(7),
+            onTap: () {
+              _showModalBottomSheet(
+                context,
+                raceDate: raceDate,
+                raceTime: raceHour,
+                qualifyingDate: qualifyingDate,
+                qualifyingTime: qualifyingTime,
+                fp1Date: fp1Date,
+                fp1Time: fp1Time,
+                fp2Date: fp2Date,
+                fp2Time: fp2Time ?? "",
+                fp3Date: fp3Date ?? "",
+                fp3Time: fp3Time ?? "",
+                sprintDate: sprintDate ?? "",
+                sprintTime: sprintTime ?? "",
+                sprintQualifyingDate: sprintQualifyingDate ?? "",
+                sprintQualifyingTime: sprintQualifyingTime ?? "",
+                raceCircuitName: raceCircuitName,
+                round: roundNumber,
+                circuitLat: raceCircuitLat,
+                circuitLng: raceCircuitLng,
+                seasonYear: widget.seasonYear,
+              );
+            },
+            child: Card(
+              elevation: 0.45,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
+              child: ListTile(
+                title: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Round $roundNumber - $raceHour",
+                      style: listTileStyle.copyWith(fontWeight: FontWeight.bold, color: Colors.grey, fontSize: 11),
+                    ),
+                    CountdownTimer(raceDate: raceDateTime),
+                    Row(
+                      children: [
+                        Text(
+                          raceName,
+                          style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14.3),
+                        ),
+                        const SizedBox(width: 6),
+                        Flexible(
+                          child: Visibility(
+                            visible: fp2Date.isEmpty,
+                            child: Text(
+                              "(Sprint)",
+                              style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 10.8, color: Colors.red),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Circuit: $raceCircuitName',
+                      style: listTileStyle.copyWith(color: Colors.grey, fontSize: 11.8),
+                    ),
+                    Text(
+                      'Location: $raceCircuitLocation, $raceCircuitCountry',
+                      style: listTileStyle.copyWith(color: Colors.grey, fontSize: 11.8),
+                    ),
+                  ],
+                ),
+                trailing: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      formatDate(raceDate, TYPE.date),
+                      style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14),
+                    ),
+                    Text(
+                      formatDate(raceDate, TYPE.shortMonth),
+                      style: listTileStyle.copyWith(fontSize: 12, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

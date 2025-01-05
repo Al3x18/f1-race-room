@@ -39,8 +39,18 @@ class _ConstructorStandingsViewState extends State<ConstructorStandingsView> {
           );
         } else if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
-        } else if (!snapshot.hasData || snapshot.data == null) {
-          return const Center(child: Text('No data available'));
+        } else if (!snapshot.hasData 
+        || snapshot.data == null
+        || snapshot.data!.standingsTable.standingsLists.isEmpty) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: Text(
+                'No constructor standings available for this season',
+                textAlign: TextAlign.center,
+              ),
+            ),
+          );
         }
 
         final constructorStandings = snapshot.data!.standingsTable.standingsLists[0].constructorStandings;
