@@ -89,7 +89,5 @@ String formatDate(String date, TYPE type) {
       return DateFormat('MMM', 'en_US').format(dateTime).toUpperCase();
     case TYPE.month:
       return DateFormat('MMMM', 'en_US').format(dateTime);
-    default:
-      return '';
-  }
+    }
 }
