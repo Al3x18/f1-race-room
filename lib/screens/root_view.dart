@@ -100,7 +100,7 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
             ),
           ),
         ),
-        leading: kIsWeb || Platform.isIOS ? _openTelemetryView(isDarkMode) : null,
+        leading: kIsWeb || Platform.isIOS || Platform.isMacOS ? _openTelemetryView(isDarkMode) : null,
         actions: [
           if (!kIsWeb && Platform.isAndroid) _openTelemetryView(isDarkMode),
           if (!kIsWeb && Platform.isAndroid) const SizedBox(width: 5),

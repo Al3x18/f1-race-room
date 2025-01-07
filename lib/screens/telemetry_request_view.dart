@@ -110,7 +110,7 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        leading: kIsWeb || Platform.isIOS ? _buildBackButton() : null,
+        leading: kIsWeb || Platform.isIOS || Platform.isMacOS ? _buildBackButton() : null,
         actions: [
           if (!kIsWeb && Platform.isAndroid) _buildBackButton(),
         ],
