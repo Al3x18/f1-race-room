@@ -100,10 +100,10 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
             ),
           ),
         ),
-        leading: Platform.isIOS || kIsWeb ? _openTelemetryView(isDarkMode) : null,
+        leading: kIsWeb || Platform.isIOS ? _openTelemetryView(isDarkMode) : null,
         actions: [
-          if (Platform.isAndroid && !kIsWeb) _openTelemetryView(isDarkMode),
-          if (Platform.isAndroid && !kIsWeb) const SizedBox(width: 5),
+          if (!kIsWeb && Platform.isAndroid) _openTelemetryView(isDarkMode),
+          if (!kIsWeb && Platform.isAndroid) const SizedBox(width: 5),
           _openSelectSeasonView(),
         ],
         title: Column(
@@ -225,7 +225,7 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
 
   Widget _openSelectSeasonView() {
     return Padding(
-      padding: EdgeInsets.only(right: 4.5, top: Platform.isAndroid ? 5 : 0),
+      padding: EdgeInsets.only(right: 4.5, top: !kIsWeb && Platform.isAndroid ? 5 : 0),
       child: SizedBox(
         width: 82,
         height: 32,

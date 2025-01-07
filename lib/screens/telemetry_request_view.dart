@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
@@ -109,9 +110,9 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        leading: Platform.isIOS ? _buildBackButton() : null,
+        leading: kIsWeb || Platform.isIOS ? _buildBackButton() : null,
         actions: [
-          if (Platform.isAndroid) _buildBackButton(),
+          if (!kIsWeb && Platform.isAndroid) _buildBackButton(),
         ],
         title: const Column(
           children: [
