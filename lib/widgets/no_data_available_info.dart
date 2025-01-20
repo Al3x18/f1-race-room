@@ -14,14 +14,15 @@ class NoDataAvailable extends StatelessWidget {
         },
         child: ListView(
           children: [
-            SizedBox(height: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom) * 0.30),
+            SizedBox(height: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom) * 0.283),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                spacing: 8,
+                spacing: 6,
                 children: [
-                  Icon(Icons.error_outline, size: 85, color: Colors.grey),
+                  Icon(Icons.info_outline_rounded, size: 88, color: Colors.grey),
+                  const SizedBox(height: 5),
                   Text(
                     infoLabel,
                     textAlign: TextAlign.center,

@@ -24,6 +24,7 @@ class _SettingsViewState extends State<SettingsView> {
   );
 
   Color _devNameColor = Colors.grey.shade400;
+  Color _devNameDecorationColor = Colors.grey.shade400;
 
   String version = "Unknown";
   String buildNumber = "Unknown";
@@ -88,6 +89,8 @@ class _SettingsViewState extends State<SettingsView> {
     final TextStyle devLabelStyle = TextStyle(
       fontWeight: FontWeight.w600,
       fontSize: 10,
+      decoration: TextDecoration.underline,
+      decorationColor: _devNameDecorationColor,
       color: _devNameColor,
     );
 
@@ -103,10 +106,12 @@ class _SettingsViewState extends State<SettingsView> {
               GestureDetector(
                 onTapDown: (_) {
                   _devNameColor = Colors.grey.shade300;
+                  _devNameDecorationColor = Colors.grey.shade300;
                   setState(() {});
                 }, 
                 onTapUp: (_) {
                   _devNameColor = Colors.grey.shade400;
+                  _devNameDecorationColor = Colors.grey.shade400;
                   setState(() {});
                   _openUrl(DEV_GITHUB);
                 },
