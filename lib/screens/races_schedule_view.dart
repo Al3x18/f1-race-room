@@ -136,7 +136,7 @@ class _RacesScheduleViewState extends State<RacesScheduleView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Round $roundNumber - ${raceHour == "No Data" ? "TBD" : raceHour}",
+                      "Round $roundNumber - ${raceHour == "No Data" ? "N/A" : raceHour}",
                       style: listTileStyle.copyWith(fontWeight: FontWeight.bold, color: Colors.grey, fontSize: 11),
                     ),
                     CountdownTimer(raceDate: raceDateTime),

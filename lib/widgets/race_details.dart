@@ -314,7 +314,7 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
                 style: style.copyWith(fontSize: 13, fontWeight: FontWeight.w600),
               ),
               Text(
-                convertTimeToLocal(date, time) == "No Data" ? "TBD" : convertTimeToLocal(date, time),
+                convertTimeToLocal(date, time) == "No Data" ? "Time currently not available" : convertTimeToLocal(date, time),
                 style: style.copyWith(fontSize: 13, fontWeight: FontWeight.w600),
               ),
             ],
