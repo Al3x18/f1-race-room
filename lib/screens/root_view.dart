@@ -157,7 +157,7 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
         width: MediaQuery.of(context).size.width * 0.923,
         barColor: Colors.black,
         offset: 0.0,
-        barAlignment: MediaQuery.of(context).size.height < 680 ? Alignment(0, .985) : Alignment(0, 1.03), //TabBar position set based on screen size
+        barAlignment: !kIsWeb && Platform.isIOS ? MediaQuery.of(context).size.height < 680 ? Alignment(0, .985) : Alignment(0, 1.03) : Alignment(0, .998), //TabBar position set based on screen size
         iconHeight: 35,
         iconWidth: 35,
         reverse: false,
