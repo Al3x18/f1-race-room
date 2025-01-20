@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:race_room/utils/not_share.dart';
 import 'package:race_room/utils/settings_controller.dart';
+import 'package:race_room/utils/tab_text_settings_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SettingsView extends StatefulWidget {
@@ -34,6 +35,7 @@ class _SettingsViewState extends State<SettingsView> {
   final String initialSubject = "Race Room, report dated: ${DateTime.now().toString()}";
 
   final SettingsController settingsController = Get.find<SettingsController>();
+  final TabTextSettingsController tabTextSettingsController = Get.find<TabTextSettingsController>();
 
   @override
   void initState() {
@@ -71,21 +73,20 @@ class _SettingsViewState extends State<SettingsView> {
   }
 
   void _openUrl(String url) async {
-  final Uri uri = Uri.parse(url);
-  
-  if (await canLaunchUrl(uri)) {
-    await launchUrl(
-      uri,
-      mode: LaunchMode.inAppWebView,
-    );
-  } else {
-    throw 'Could not launch $url';
+    final Uri uri = Uri.parse(url);
+
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(
+        uri,
+        mode: LaunchMode.inAppWebView,
+      );
+    } else {
+      throw 'Could not launch $url';
+    }
   }
-}
 
   @override
   Widget build(BuildContext context) {
-    
     final TextStyle devLabelStyle = TextStyle(
       fontWeight: FontWeight.w600,
       fontSize: 10,
@@ -108,7 +109,7 @@ class _SettingsViewState extends State<SettingsView> {
                   _devNameColor = Colors.grey.shade300;
                   _devNameDecorationColor = Colors.grey.shade300;
                   setState(() {});
-                }, 
+                },
                 onTapUp: (_) {
                   _devNameColor = Colors.grey.shade400;
                   _devNameDecorationColor = Colors.grey.shade400;
@@ -189,6 +190,22 @@ class _SettingsViewState extends State<SettingsView> {
               }),
             ],
           ),
+          ListTile(
+            leading: const Icon(Icons.text_format_outlined),
+            title: Text("Enable short Tab Text", style: titleTextStyle),
+            subtitle: const Text(
+              "Show short text in Tab buttons",
+              style: TextStyle(color: Colors.grey, fontSize: 11),
+            ),
+            trailing: Switch.adaptive(
+              value: tabTextSettingsController.shortTabText.value,
+              activeColor: Colors.red,
+              onChanged: (value) {
+                tabTextSettingsController.setShortTabText(value);
+                setState(() {});
+              },
+            ),
+          )
         ],
       ),
     );
