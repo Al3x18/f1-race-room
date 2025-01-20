@@ -47,10 +47,24 @@ class _CountdownTimerState extends State<CountdownTimer> {
     final hours = _remainingTime.inHours.remainder(24);
     final minutes = _remainingTime.inMinutes.remainder(60);
 
+    // F1 first race date 1950-05-13 is used ad dummy value to not show countdown timer if race time is not available
+    if (widget.raceDate.isAtSameMomentAs(DateTime(1950, 5, 13))) {
+      return SizedBox.shrink();
+    }
+
     if (_remainingTime.isNegative) {
+      // If more than 2 hours have passed since the race date then the race has probably ended
+      if (_remainingTime.inHours < -2) {
+        return Text(
+          "Race Ended",
+          style: listTileStyle.copyWith(color: Colors.green, fontSize: 10.5, fontWeight: FontWeight.bold),
+        );
+      }
+
+      // if less than 2 hours have passed since the race date and time then the race is still ongoing
       return Text(
-        "Race Ended",
-        style: listTileStyle.copyWith(color: Colors.green, fontSize: 10.5, fontWeight: FontWeight.bold),
+        "Race Ongoing...",
+        style: listTileStyle.copyWith(color: Colors.red, fontSize: 10.5, fontWeight: FontWeight.bold),
       );
     }
 
