@@ -103,7 +103,7 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
               //const SizedBox(height: 2),
               Center(
                 child: Text(
-                  isAllSessionExceptRaceDatesEmpty(widget.fp1Date, widget.fp2Date, widget.fp3Date, widget.sprintQualifyingDate, widget.sprintDate, widget.qualifyingDate)
+                  widget.fp1Date.isNotEmpty
                       ? widget.fp2Date.isEmpty
                           ? "Sprint Weekend".toUpperCase()
                           : "Standard Race Weekend".toUpperCase()
