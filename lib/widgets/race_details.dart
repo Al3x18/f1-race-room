@@ -99,7 +99,9 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
             const SizedBox(height: 2),
             Center(
               child: Text(
-                widget.fp2Date.isEmpty ? "Sprint Weekend".toUpperCase() : "Standard Race Weekend".toUpperCase(),
+                isAllSessionExceptRaceDatesEmpty(widget.fp1Date, widget.fp2Date, widget.fp3Date, widget.sprintQualifyingDate, widget.sprintDate, widget.qualifyingDate)
+                ? widget.fp2Date.isEmpty ? "Sprint Weekend".toUpperCase() : "Standard Race Weekend".toUpperCase() 
+                : "Race Weekend Details".toUpperCase(),
                 style: listTileStyle.copyWith(
                   fontSize: 15.6,
                   fontWeight: FontWeight.bold,
@@ -110,18 +112,16 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
             const SizedBox(height: 12),
             _buildRaceDetailSection("Race Schedule", widget.raceDate, widget.raceTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
             if (widget.fp2Date.isEmpty) const SizedBox(height: 12),
-            if (widget.sprintQualifyingDate.isNotEmpty)
-              _buildRaceDetailSection("Sprint Race", widget.sprintDate, widget.sprintTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
+            if (widget.sprintQualifyingDate.isNotEmpty)  _buildRaceDetailSection("Sprint Race", widget.sprintDate, widget.sprintTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
             const SizedBox(height: 12),
-            _buildRaceDetailSection("FP1", widget.fp1Date, widget.fp1Time, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
+            if (widget.fp1Date.isNotEmpty) _buildRaceDetailSection("FP1", widget.fp1Date, widget.fp1Time, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
             const SizedBox(height: 12),
             if (widget.fp2Date.isNotEmpty) _buildRaceDetailSection("FP2", widget.fp2Date, widget.fp2Time, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
             if (widget.fp2Date.isNotEmpty) const SizedBox(height: 12),
             if (widget.fp3Date.isNotEmpty) _buildRaceDetailSection("FP3", widget.fp3Date, widget.fp3Time, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
-            if (widget.sprintQualifyingDate.isNotEmpty)
-              _buildRaceDetailSection("Sprint Qualifying", widget.sprintQualifyingDate, widget.sprintQualifyingTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
+            if (widget.sprintQualifyingDate.isNotEmpty) _buildRaceDetailSection("Sprint Qualifying", widget.sprintQualifyingDate, widget.sprintQualifyingTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
             const SizedBox(height: 12),
-            _buildRaceDetailSection("Qualifying Session", widget.qualifyingDate, widget.qualifyingTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
+            if (widget.qualifyingDate.isNotEmpty) _buildRaceDetailSection("Qualifying Session", widget.qualifyingDate, widget.qualifyingTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
             const SizedBox(height: 12),
             const Divider(thickness: 1, indent: 14, endIndent: 14, color: Colors.white),
             const SizedBox(height: 12),
@@ -304,7 +304,7 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
                 style: style.copyWith(fontSize: 13, fontWeight: FontWeight.w600),
               ),
               Text(
-                convertTimeToLocal(date, time),
+                convertTimeToLocal(date, time) == "No Data" ? "TBD" : convertTimeToLocal(date, time),
                 style: style.copyWith(fontSize: 13, fontWeight: FontWeight.w600),
               ),
             ],
@@ -329,7 +329,7 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
                     Get.closeAllSnackbars();
                     Get.snackbar(
                       "Results not available",
-                      "Try again later.",
+                      "Try again later",
                       colorText: Get.isDarkMode ? Colors.black : Colors.white,
                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                       duration: const Duration(seconds: 2),
