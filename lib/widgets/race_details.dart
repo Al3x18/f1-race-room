@@ -88,7 +88,6 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
             spacing: 8,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              //const SizedBox(height: 2),
               Center(
                 child: Container(
                   margin: const EdgeInsets.only(top: 10, bottom: 8),
@@ -100,7 +99,6 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
                   ),
                 ),
               ),
-              //const SizedBox(height: 2),
               Center(
                 child: Text(
                   widget.fp1Date.isNotEmpty
@@ -115,25 +113,14 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
                   ),
                 ),
               ),
-              //const SizedBox(height: 12),
               _buildRaceDetailSection("Race Schedule", widget.raceDate, widget.raceTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
-              //if (widget.fp2Date.isEmpty) const SizedBox(height: 12),
-              if (widget.sprintQualifyingDate.isNotEmpty)
-                _buildRaceDetailSection("Sprint Race", widget.sprintDate, widget.sprintTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
-              //const SizedBox(height: 12),
+              if (widget.sprintQualifyingDate.isNotEmpty) _buildRaceDetailSection("Sprint Race", widget.sprintDate, widget.sprintTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
               if (widget.fp1Date.isNotEmpty) _buildRaceDetailSection("FP1", widget.fp1Date, widget.fp1Time, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
-              //const SizedBox(height: 12),
               if (widget.fp2Date.isNotEmpty) _buildRaceDetailSection("FP2", widget.fp2Date, widget.fp2Time, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
-              //if (widget.fp2Date.isNotEmpty) const SizedBox(height: 12),
               if (widget.fp3Date.isNotEmpty) _buildRaceDetailSection("FP3", widget.fp3Date, widget.fp3Time, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
-              if (widget.sprintQualifyingDate.isNotEmpty)
-                _buildRaceDetailSection("Sprint Qualifying", widget.sprintQualifyingDate, widget.sprintQualifyingTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
-              //const SizedBox(height: 12),
-              if (widget.qualifyingDate.isNotEmpty)
-                _buildRaceDetailSection("Qualifying Session", widget.qualifyingDate, widget.qualifyingTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
-              //const SizedBox(height: 12),
+              if (widget.sprintQualifyingDate.isNotEmpty) _buildRaceDetailSection("Sprint Qualifying", widget.sprintQualifyingDate, widget.sprintQualifyingTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
+              if (widget.qualifyingDate.isNotEmpty) _buildRaceDetailSection("Qualifying Session", widget.qualifyingDate, widget.qualifyingTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
               const Divider(thickness: 1, indent: 14, endIndent: 14, color: Colors.white),
-              //const SizedBox(height: 12),
               Center(
                 child: Text(
                   "TRACK MAP",
@@ -145,16 +132,13 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
                   ),
                 ),
               ),
-              //const SizedBox(height: 22),
               Center(
                 child: WidgetZoom(
                   heroAnimationTag: "circuit",
                   zoomWidget: getTrackImage(widget.trackName),
                 ),
               ),
-              //const SizedBox(height: 20),
               const Divider(thickness: 1, indent: 14, endIndent: 14, color: Colors.white),
-              //const SizedBox(height: 12),
               Center(
                 child: Column(
                   children: [
