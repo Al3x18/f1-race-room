@@ -5,6 +5,7 @@ import 'package:get/route_manager.dart';
 import 'package:race_room/utils/convert_race_time.dart';
 import 'package:race_room/model/race_schedule_model.dart';
 import 'package:race_room/widgets/countdown_timer.dart';
+import 'package:race_room/widgets/no_data_available_info.dart';
 import 'package:race_room/widgets/race_details.dart';
 
 class RacesScheduleView extends StatefulWidget {
@@ -61,15 +62,7 @@ class _RacesScheduleViewState extends State<RacesScheduleView> {
     );
   }
 
-  Widget racesListIsEmpty() => ListView(
-        children: [
-          SizedBox(height: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom) * 0.40),
-          Text(
-            "No races available for this season.\nCheck back later!",
-            textAlign: TextAlign.center,
-          ),
-        ],
-      );
+  Widget racesListIsEmpty() => NoDataAvailable(onRefresh: widget.onRefresh, infoLabel: "No races available for this season.");
 
   Widget racesListWidget(List<Race> raceSchedule, TextStyle listTileStyle) {
     return Padding(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:race_room/utils/f1_teams_color.dart';
 import 'package:race_room/model/constructor_standings_model.dart';
 import 'package:race_room/utils/safe_parse_points.dart';
+import 'package:race_room/widgets/no_data_available_info.dart';
 import 'package:race_room/widgets/position_container.dart';
 
 class ConstructorStandingsView extends StatefulWidget {
@@ -42,7 +43,7 @@ class _ConstructorStandingsViewState extends State<ConstructorStandingsView> {
         } else if (!snapshot.hasData 
         || snapshot.data == null
         || snapshot.data!.standingsTable.standingsLists.isEmpty) {
-          return noDataAvailable(widget.onRefresh);
+          return NoDataAvailable(onRefresh: widget.onRefresh, infoLabel: "No constructor standings available for this season.");
         }
 
         final constructorStandings = snapshot.data!.standingsTable.standingsLists[0].constructorStandings;
@@ -121,19 +122,4 @@ class _ConstructorStandingsViewState extends State<ConstructorStandingsView> {
       },
     );
   }
-
-  Widget noDataAvailable(void Function() onRefresh) => RefreshIndicator.adaptive(
-        onRefresh: () async {
-          onRefresh();
-        },
-        child: ListView(
-          children: [
-            SizedBox(height: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom) * 0.40),
-            Text(
-              "No constructor standings available for this season.\nCheck back later!",
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-      );
 }
