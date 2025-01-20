@@ -54,11 +54,11 @@ class Race {
   final String raceName;
   final Circuit circuit;
   final String date;
-  final String time;
-  final FirstPractice firstPractice;
+  final String? time;
+  final FirstPractice? firstPractice;
   final SecondPractice? secondPractice;
   final ThirdPractice? thirdPractice;
-  final Qualifying qualifying;
+  final Qualifying? qualifying;
   final Sprint? sprint;
   final SprintQualifying? sprintQualifying;
 
@@ -69,11 +69,11 @@ class Race {
     required this.raceName,
     required this.circuit,
     required this.date,
-    required this.time,
-    required this.firstPractice,
+    this.time,
+    this.firstPractice,
     this.secondPractice,
     this.thirdPractice,
-    required this.qualifying,
+    this.qualifying,
     this.sprint,
     this.sprintQualifying,
   });
@@ -87,18 +87,12 @@ class Race {
       circuit: Circuit.fromJson(json['Circuit']),
       date: json['date'] ?? 'No Data',
       time: json['time'] ?? 'No Data',
-      firstPractice: FirstPractice.fromJson(json['FirstPractice']),
-      secondPractice: json['SecondPractice'] != null
-          ? SecondPractice.fromJson(json['SecondPractice'])
-          : null,
-      thirdPractice: json['ThirdPractice'] != null
-          ? ThirdPractice.fromJson(json['ThirdPractice'])
-          : null,
-      qualifying: Qualifying.fromJson(json['Qualifying']),
+      firstPractice: json['FirstPractice'] != null ? FirstPractice.fromJson(json['FirstPractice']) : null,
+      secondPractice: json['SecondPractice'] != null ? SecondPractice.fromJson(json['SecondPractice']) : null,
+      thirdPractice: json['ThirdPractice'] != null ? ThirdPractice.fromJson(json['ThirdPractice']) : null,
+      qualifying: json['Qualifying'] != null ? Qualifying.fromJson(json['Qualifying']) : null,
       sprint: json['Sprint'] != null ? Sprint.fromJson(json['Sprint']) : null,
-      sprintQualifying: json['SprintQualifying'] != null
-          ? SprintQualifying.fromJson(json['SprintQualifying'])
-          : null,
+      sprintQualifying: json['SprintQualifying'] != null ? SprintQualifying.fromJson(json['SprintQualifying']) : null,
     );
   }
 }
