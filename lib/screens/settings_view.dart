@@ -97,6 +97,7 @@ class _SettingsViewState extends State<SettingsView> {
 
     return SingleChildScrollView(
       child: Column(
+        spacing: 2.5,
         children: [
           const SizedBox(height: 4),
           Row(
