@@ -18,3 +18,7 @@ bool isDatePast(String dateStr) {
 
   return isPast;
 }
+
+bool isAllSessionExceptRaceDatesEmpty(String fp1Date, String fp2Date, String fp3Date, String sprintQualifyingDate, String sprintDate, String qualifyingDate) {
+  return fp1Date == "No Data" && fp2Date == "No Data" && fp3Date == "No Data" && sprintQualifyingDate == "No Data" && sprintDate == "No Data" && qualifyingDate == "No Data";
+}
