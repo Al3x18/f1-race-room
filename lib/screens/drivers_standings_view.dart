@@ -43,7 +43,7 @@ class _DriversStandingsState extends State<DriversStandingsView> {
         } else if (!snapshot.hasData || snapshot.data == null || snapshot.data!.standingsTable.standingsLists.isEmpty) {
           return Padding(
             padding: const EdgeInsets.all(8.0),
-            child: NoDataAvailable(onRefresh: widget.onRefresh, infoLabel: "No driver standings available for this season.")
+            child: NoDataAvailable(onRefresh: widget.onRefresh, infoLabel: "The standing for this season is not currently available.")
           );
         }
 

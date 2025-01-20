@@ -28,9 +28,9 @@ class NoDataAvailable extends StatelessWidget {
                     style: TextStyle(color: Colors.grey, fontSize: 14),
                   ),
                   Text(
-                    "Check back later.",
+                    "Please check back later.",
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.grey, fontSize: 15),
+                    style: TextStyle(color: Colors.grey, fontSize: 14.5),
                   ),
                 ],
               ),

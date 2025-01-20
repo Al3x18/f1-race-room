@@ -43,7 +43,7 @@ class _ConstructorStandingsViewState extends State<ConstructorStandingsView> {
         } else if (!snapshot.hasData 
         || snapshot.data == null
         || snapshot.data!.standingsTable.standingsLists.isEmpty) {
-          return NoDataAvailable(onRefresh: widget.onRefresh, infoLabel: "No constructor standings available for this season.");
+          return NoDataAvailable(onRefresh: widget.onRefresh, infoLabel: "The standing for this season is not currently available.");
         }
 
         final constructorStandings = snapshot.data!.standingsTable.standingsLists[0].constructorStandings;

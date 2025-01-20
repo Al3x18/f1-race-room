@@ -86,8 +86,14 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
-    const double bottomBarBorderRadius = 18;
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    const double bottomBarBorderRadius = 12;
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+    final TextStyle tabTextStyle = TextStyle(
+      color: isDarkMode ? Colors.black : Colors.white,
+      fontWeight: isDarkMode ? FontWeight.w600 : FontWeight.bold,
+      fontSize: _calculateTabFontSize(context),
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -121,7 +127,7 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
             ),
             Text(
               currentPage == 0
-                  ? "Season Calendar"
+                  ? "Race Calendar"
                   : currentPage == 1
                       ? "Driver Standings"
                       : currentPage == 2
@@ -148,10 +154,10 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
         duration: const Duration(milliseconds: 500),
         curve: Curves.decelerate,
         showIcon: false,
-        width: MediaQuery.of(context).size.width * 0.9,
+        width: MediaQuery.of(context).size.width * 0.923,
         barColor: Colors.black,
         offset: 0.0,
-        barAlignment: Alignment.bottomCenter,
+        barAlignment: MediaQuery.of(context).size.height < 680 ? Alignment(0, .985) : Alignment(0, 1.03), //TabBar position set based on screen size
         iconHeight: 35,
         iconWidth: 35,
         reverse: false,
@@ -184,35 +190,38 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
           borderRadius: BorderRadius.circular(bottomBarBorderRadius),
           child: Material(
             borderRadius: BorderRadius.circular(bottomBarBorderRadius),
-            color: isDarkMode ? const Color.fromARGB(255, 241, 240, 240) : Colors.black,
+            color: isDarkMode ? const Color.fromARGB(255, 241, 240, 240) : Colors.red,
             child: TabBar(
               controller: _tabController,
+              indicatorWeight: 1.6,
               indicatorColor: isDarkMode ? Colors.black : Colors.white,
               tabs: [
                 Tab(
-                  icon: Icon(
-                    Icons.view_agenda_outlined,
-                    color: isDarkMode ? Colors.black : Colors.white,
-                    size: 28.5,
+                  child: Text(
+                    "Race\nCalendar",
+                    textAlign: TextAlign.center,
+                    style: tabTextStyle
                   ),
                 ),
                 Tab(
-                  icon: Image.asset(
-                    isDarkMode ? "assets/images/ds-dark.png" : "assets/images/ds-light.png",
-                    width: 31.5,
+                  child: Text(
+                    "Driver\nStandings",
+                    textAlign: TextAlign.center,
+                    style: tabTextStyle
                   ),
                 ),
                 Tab(
-                  icon: Image.asset(
-                    isDarkMode ? "assets/images/ts-dark.png" : "assets/images/ts-light.png",
-                    width: 31.5,
+                  child: Text(
+                    "Teams\nStandings",
+                    textAlign: TextAlign.center,
+                    style: tabTextStyle
                   ),
                 ),
                 Tab(
-                  icon: Icon(
-                    Icons.settings_outlined,
-                    color: isDarkMode ? Colors.black : Colors.white,
-                    size: 28.5,
+                  child: Text(
+                    "Settings",
+                    textAlign: TextAlign.center,
+                    style: tabTextStyle
                   ),
                 ),
               ],
@@ -279,5 +288,17 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
         () => const TelemetryRequestView(),
       ),
     );
+  }
+
+  double _calculateTabFontSize(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    // Set the tab font size based on the screen size
+    if (screenWidth < 360) {
+      return 8.0; // Extra small screens
+    } else if (screenWidth < 400) {
+      return 9.0; // Small screens
+    } else {
+      return 10.0; // Default font size
+    }
   }
 }
