@@ -223,11 +223,12 @@ void _showModalBottomSheet(
     backgroundColor: Get.isDarkMode ? const Color.fromARGB(255, 201, 45, 34) : Colors.red,
     isScrollControlled: true,
     showDragHandle: false,
+    useSafeArea: true,
     builder: (BuildContext context) {
       return DraggableScrollableSheet(
         initialChildSize: 0.8,
         minChildSize: 0.65,
-        maxChildSize: 1,
+        maxChildSize: 1.0,
         expand: false,
         builder: (context, scrollController) {
           return RaceDetailsView(

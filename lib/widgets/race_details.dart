@@ -77,101 +77,110 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
       fontSize: 15,
     );
 
-    return SingleChildScrollView(
-      controller: widget.scrollController,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.5, vertical: 0),
-        child: Column(
-          spacing: 8,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            //const SizedBox(height: 2),
-            Center(
-              child: Container(
-                margin: const EdgeInsets.only(top: 10, bottom: 8),
-                width: 85,
-                height: 4,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(60),
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            //const SizedBox(height: 2),
-            Center(
-              child: Text(
-                isAllSessionExceptRaceDatesEmpty(widget.fp1Date, widget.fp2Date, widget.fp3Date, widget.sprintQualifyingDate, widget.sprintDate, widget.qualifyingDate)
-                ? widget.fp2Date.isEmpty ? "Sprint Weekend".toUpperCase() : "Standard Race Weekend".toUpperCase() 
-                : "Race Weekend Details".toUpperCase(),
-                style: listTileStyle.copyWith(
-                  fontSize: 15.6,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            //const SizedBox(height: 12),
-            _buildRaceDetailSection("Race Schedule", widget.raceDate, widget.raceTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
-            //if (widget.fp2Date.isEmpty) const SizedBox(height: 12),
-            if (widget.sprintQualifyingDate.isNotEmpty)  _buildRaceDetailSection("Sprint Race", widget.sprintDate, widget.sprintTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
-            //const SizedBox(height: 12),
-            if (widget.fp1Date.isNotEmpty) _buildRaceDetailSection("FP1", widget.fp1Date, widget.fp1Time, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
-            //const SizedBox(height: 12),
-            if (widget.fp2Date.isNotEmpty) _buildRaceDetailSection("FP2", widget.fp2Date, widget.fp2Time, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
-            //if (widget.fp2Date.isNotEmpty) const SizedBox(height: 12),
-            if (widget.fp3Date.isNotEmpty) _buildRaceDetailSection("FP3", widget.fp3Date, widget.fp3Time, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
-            if (widget.sprintQualifyingDate.isNotEmpty) _buildRaceDetailSection("Sprint Qualifying", widget.sprintQualifyingDate, widget.sprintQualifyingTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
-            //const SizedBox(height: 12),
-            if (widget.qualifyingDate.isNotEmpty) _buildRaceDetailSection("Qualifying Session", widget.qualifyingDate, widget.qualifyingTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
-            //const SizedBox(height: 12),
-            const Divider(thickness: 1, indent: 14, endIndent: 14, color: Colors.white),
-            //const SizedBox(height: 12),
-            Center(
-              child: Text(
-                "TRACK MAP",
-                style: listTileStyle.copyWith(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  decorationColor: Colors.white,
-                ),
-              ),
-            ),
-            //const SizedBox(height: 22),
-            Center(
-              child: WidgetZoom(
-                heroAnimationTag: "circuit",
-                zoomWidget: getTrackImage(widget.trackName),
-              ),
-            ),
-            //const SizedBox(height: 20),
-            const Divider(thickness: 1, indent: 14, endIndent: 14, color: Colors.white),
-            //const SizedBox(height: 12),
-            Center(
-              child: Column(
-                children: [
-                  Text(
-                    "CURRENT TRACK WEATHER",
-                    style: listTileStyle.copyWith(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+    // ClipRRect is used to round the corners of the content to match the corners of the sheet when user scroll the content up
+    return ClipRRect(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+      child: SingleChildScrollView(
+        controller: widget.scrollController,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.5, vertical: 0),
+          child: Column(
+            spacing: 8,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              //const SizedBox(height: 2),
+              Center(
+                child: Container(
+                  margin: const EdgeInsets.only(top: 10, bottom: 8),
+                  width: 85,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(60),
+                    color: Colors.white,
                   ),
-                  Text(
-                    "by Open Weather",
-                    style: listTileStyle.copyWith(
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
-            _buildWeatherSection(listTileStyle),
-            const SizedBox(height: 45),
-          ],
+              //const SizedBox(height: 2),
+              Center(
+                child: Text(
+                  isAllSessionExceptRaceDatesEmpty(widget.fp1Date, widget.fp2Date, widget.fp3Date, widget.sprintQualifyingDate, widget.sprintDate, widget.qualifyingDate)
+                      ? widget.fp2Date.isEmpty
+                          ? "Sprint Weekend".toUpperCase()
+                          : "Standard Race Weekend".toUpperCase()
+                      : "Race Weekend Details".toUpperCase(),
+                  style: listTileStyle.copyWith(
+                    fontSize: 15.6,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              //const SizedBox(height: 12),
+              _buildRaceDetailSection("Race Schedule", widget.raceDate, widget.raceTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
+              //if (widget.fp2Date.isEmpty) const SizedBox(height: 12),
+              if (widget.sprintQualifyingDate.isNotEmpty)
+                _buildRaceDetailSection("Sprint Race", widget.sprintDate, widget.sprintTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
+              //const SizedBox(height: 12),
+              if (widget.fp1Date.isNotEmpty) _buildRaceDetailSection("FP1", widget.fp1Date, widget.fp1Time, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
+              //const SizedBox(height: 12),
+              if (widget.fp2Date.isNotEmpty) _buildRaceDetailSection("FP2", widget.fp2Date, widget.fp2Time, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
+              //if (widget.fp2Date.isNotEmpty) const SizedBox(height: 12),
+              if (widget.fp3Date.isNotEmpty) _buildRaceDetailSection("FP3", widget.fp3Date, widget.fp3Time, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
+              if (widget.sprintQualifyingDate.isNotEmpty)
+                _buildRaceDetailSection("Sprint Qualifying", widget.sprintQualifyingDate, widget.sprintQualifyingTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
+              //const SizedBox(height: 12),
+              if (widget.qualifyingDate.isNotEmpty)
+                _buildRaceDetailSection("Qualifying Session", widget.qualifyingDate, widget.qualifyingTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
+              //const SizedBox(height: 12),
+              const Divider(thickness: 1, indent: 14, endIndent: 14, color: Colors.white),
+              //const SizedBox(height: 12),
+              Center(
+                child: Text(
+                  "TRACK MAP",
+                  style: listTileStyle.copyWith(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    decorationColor: Colors.white,
+                  ),
+                ),
+              ),
+              //const SizedBox(height: 22),
+              Center(
+                child: WidgetZoom(
+                  heroAnimationTag: "circuit",
+                  zoomWidget: getTrackImage(widget.trackName),
+                ),
+              ),
+              //const SizedBox(height: 20),
+              const Divider(thickness: 1, indent: 14, endIndent: 14, color: Colors.white),
+              //const SizedBox(height: 12),
+              Center(
+                child: Column(
+                  children: [
+                    Text(
+                      "CURRENT TRACK WEATHER",
+                      style: listTileStyle.copyWith(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      "by Open Weather",
+                      style: listTileStyle.copyWith(
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              _buildWeatherSection(listTileStyle),
+              const SizedBox(height: 45),
+            ],
+          ),
         ),
       ),
     );
