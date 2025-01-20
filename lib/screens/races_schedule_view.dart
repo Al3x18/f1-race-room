@@ -81,21 +81,21 @@ class _RacesScheduleViewState extends State<RacesScheduleView> {
           final String roundNumber = raceSchedule[index].round.toString();
           final String raceName = raceSchedule[index].raceName;
           final String raceDate = raceSchedule[index].date;
-          final String raceHour = convertTimeToLocal(raceSchedule[index].date, raceSchedule[index].time);
+          final String raceHour = convertTimeToLocal(raceSchedule[index].date, raceSchedule[index].time!);
           final String raceCircuitName = raceSchedule[index].circuit.circuitName;
           final String raceCircuitLocation = raceSchedule[index].circuit.location.locality;
           final String raceCircuitCountry = raceSchedule[index].circuit.location.country;
           final String raceCircuitLat = raceSchedule[index].circuit.location.lat;
           final String raceCircuitLng = raceSchedule[index].circuit.location.long;
 
-          final String qualifyingDate = raceSchedule[index].qualifying.date;
-          final String qualifyingTime = raceSchedule[index].qualifying.time;
+          final String qualifyingDate = raceSchedule[index].qualifying?.date ?? "";
+          final String qualifyingTime = raceSchedule[index].qualifying?.time ?? "";
 
-          final String fp1Date = raceSchedule[index].firstPractice.date;
-          final String fp1Time = raceSchedule[index].firstPractice.time;
+          final String fp1Date = raceSchedule[index].firstPractice?.date ?? "";
+          final String fp1Time = raceSchedule[index].firstPractice?.time ?? "";
 
           final String fp2Date = raceSchedule[index].secondPractice?.date ?? "";
-          final String? fp2Time = raceSchedule[index].secondPractice?.time;
+          final String fp2Time = raceSchedule[index].secondPractice?.time ?? "";
 
           final String? fp3Date = raceSchedule[index].thirdPractice?.date;
           final String? fp3Time = raceSchedule[index].thirdPractice?.time;
@@ -106,7 +106,8 @@ class _RacesScheduleViewState extends State<RacesScheduleView> {
           final String? sprintQualifyingDate = raceSchedule[index].sprintQualifying?.date;
           final String? sprintQualifyingTime = raceSchedule[index].sprintQualifying?.time;
 
-          final DateTime raceDateTime = DateTime.parse('${raceSchedule[index].date} ${raceSchedule[index].time}');
+          // if 'No Data' in raceSchedule[index].time then set DateTime to 1950-05-13 (first F1 race), this allows to countdown timer to return SizedBox.shrink() instead of countdown
+          final DateTime raceDateTime = raceSchedule[index].time != "No Data" ? DateTime.parse('${raceSchedule[index].date} ${raceSchedule[index].time}') : DateTime(1950, 5, 13);
 
           return InkWell(
             borderRadius: BorderRadius.circular(7),
@@ -120,7 +121,7 @@ class _RacesScheduleViewState extends State<RacesScheduleView> {
                 fp1Date: fp1Date,
                 fp1Time: fp1Time,
                 fp2Date: fp2Date,
-                fp2Time: fp2Time ?? "",
+                fp2Time: fp2Time,
                 fp3Date: fp3Date ?? "",
                 fp3Time: fp3Time ?? "",
                 sprintDate: sprintDate ?? "",
@@ -142,7 +143,7 @@ class _RacesScheduleViewState extends State<RacesScheduleView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Round $roundNumber - $raceHour",
+                      "Round $roundNumber - ${raceHour == "No Data" ? "TBD" : raceHour}",
                       style: listTileStyle.copyWith(fontWeight: FontWeight.bold, color: Colors.grey, fontSize: 11),
                     ),
                     CountdownTimer(raceDate: raceDateTime),
@@ -155,7 +156,7 @@ class _RacesScheduleViewState extends State<RacesScheduleView> {
                         const SizedBox(width: 6),
                         Flexible(
                           child: Visibility(
-                            visible: fp2Date.isEmpty,
+                            visible: fp2Date.isEmpty && fp1Date.isNotEmpty,
                             child: Text(
                               "(Sprint)",
                               style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 10.8, color: Colors.red),
