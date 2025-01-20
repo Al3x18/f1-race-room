@@ -13,7 +13,7 @@ class SettingsView extends StatefulWidget {
 }
 
 class _SettingsViewState extends State<SettingsView> {
-  final TextStyle devByStyle = TextStyle(
+  final TextStyle _devByStyle = TextStyle(
     fontWeight: FontWeight.w600,
     fontSize: 9.2,
     color: Colors.grey.shade400,
@@ -22,6 +22,8 @@ class _SettingsViewState extends State<SettingsView> {
   final TextStyle titleTextStyle = const TextStyle(
     fontSize: 14.4,
   );
+
+  Color _devNameColor = Colors.grey.shade400;
 
   String version = "Unknown";
   String buildNumber = "Unknown";
@@ -67,17 +69,49 @@ class _SettingsViewState extends State<SettingsView> {
     }
   }
 
+  void _openUrl(String url) async {
+  final Uri uri = Uri.parse(url);
+  
+  if (await canLaunchUrl(uri)) {
+    await launchUrl(
+      uri,
+      mode: LaunchMode.inAppWebView,
+    );
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+
   @override
   Widget build(BuildContext context) {
+    
+    final TextStyle devLabelStyle = TextStyle(
+      fontWeight: FontWeight.w600,
+      fontSize: 10,
+      color: _devNameColor,
+    );
+
     return SingleChildScrollView(
       child: Column(
         children: [
           const SizedBox(height: 4),
-          Column(
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 4,
             children: [
-              Text("Developed by:", style: devByStyle),
-              Text(devName, style: devByStyle),
+              Text("Developed by:", style: _devByStyle),
+              GestureDetector(
+                onTapDown: (_) {
+                  _devNameColor = Colors.grey.shade300;
+                  setState(() {});
+                }, 
+                onTapUp: (_) {
+                  _devNameColor = Colors.grey.shade400;
+                  setState(() {});
+                  _openUrl(DEV_GITHUB);
+                },
+                child: Text(devName, style: devLabelStyle),
+              ),
             ],
           ),
           ListTile(
