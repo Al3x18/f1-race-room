@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:race_room/utils/settings_controller.dart';
+import 'package:race_room/utils/tab_text_settings_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:race_room/screens/root_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Get.put(SettingsController());
+  Get.put(TabTextSettingsController());
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
