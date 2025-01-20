@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_floating_bottom_bar/flutter_floating_bottom_bar.dart';
 import 'package:get/get.dart';
 import 'package:race_room/screens/telemetry_request_view.dart';
-import 'package:race_room/utils/settings_controller.dart';
 import 'package:race_room/api/api_service.dart';
 import 'package:race_room/model/constructor_standings_model.dart';
 import 'package:race_room/model/driver_standings_model.dart';
@@ -16,6 +15,7 @@ import 'package:race_room/screens/drivers_standings_view.dart';
 import 'package:race_room/screens/races_schedule_view.dart';
 import 'package:race_room/screens/select_year_view.dart';
 import 'package:race_room/screens/settings_view.dart';
+import 'package:race_room/utils/tab_text_settings_controller.dart';
 
 class RootView extends StatefulWidget {
   const RootView({super.key});
@@ -30,7 +30,7 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
   late Future<MRDataConstructorStandings?> futureConstructorStandingsData;
   late Future<MRDataRaceSchedule?> futureRaceScheduleData;
 
-  final SettingsController settingsController = Get.find<SettingsController>();
+  final TabTextSettingsController tabTextSettingsController = Get.find<TabTextSettingsController>();
 
   String seasonYear = DateTime.now().year.toString();
 
@@ -89,10 +89,16 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
     const double bottomBarBorderRadius = 12;
     final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
-    final TextStyle tabTextStyle = TextStyle(
+    final TextStyle tabTextStyleFull = TextStyle(
       color: isDarkMode ? Colors.black : Colors.white,
       fontWeight: isDarkMode ? FontWeight.w600 : FontWeight.bold,
       fontSize: _calculateTabFontSize(context),
+    );
+
+    final TextStyle tabTextStyleShort = TextStyle(
+      color: isDarkMode ? Colors.black : Colors.white,
+      fontWeight: isDarkMode ? FontWeight.w600 : FontWeight.bold,
+      fontSize: 18,
     );
 
     return Scaffold(
@@ -157,7 +163,11 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
         width: MediaQuery.of(context).size.width * 0.923,
         barColor: Colors.black,
         offset: 0.0,
-        barAlignment: !kIsWeb && Platform.isIOS ? MediaQuery.of(context).size.height < 680 ? Alignment(0, .985) : Alignment(0, 1.03) : Alignment(0, .998), //TabBar position set based on screen size
+        barAlignment: !kIsWeb && Platform.isIOS
+            ? MediaQuery.of(context).size.height < 680
+                ? Alignment(0, .985)
+                : Alignment(0, 1.03)
+            : Alignment(0, .998), //TabBar position set based on screen size
         iconHeight: 35,
         iconWidth: 35,
         reverse: false,
@@ -191,40 +201,30 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
           child: Material(
             borderRadius: BorderRadius.circular(bottomBarBorderRadius),
             color: isDarkMode ? const Color.fromARGB(255, 241, 240, 240) : Colors.red,
-            child: TabBar(
-              controller: _tabController,
-              indicatorWeight: 1.6,
-              indicatorColor: isDarkMode ? Colors.black : Colors.white,
-              tabs: [
-                Tab(
-                  child: Text(
-                    "Race\nCalendar",
-                    textAlign: TextAlign.center,
-                    style: tabTextStyle
+            child: Obx(
+              () => TabBar(
+                controller: _tabController,
+                indicatorWeight: 1.6,
+                indicatorColor: isDarkMode ? Colors.black : Colors.white,
+                tabs: [
+                  Tab(
+                    child: Text(tabTextSettingsController.shortTabText.value ? "RC" : "Races\nCalendar",
+                        textAlign: TextAlign.center, style: tabTextSettingsController.shortTabText.value ? tabTextStyleShort : tabTextStyleFull),
                   ),
-                ),
-                Tab(
-                  child: Text(
-                    "Driver\nStandings",
-                    textAlign: TextAlign.center,
-                    style: tabTextStyle
+                  Tab(
+                    child: Text(tabTextSettingsController.shortTabText.value ? "DS" : "Driver\nStandings",
+                        textAlign: TextAlign.center, style: tabTextSettingsController.shortTabText.value ? tabTextStyleShort : tabTextStyleFull),
                   ),
-                ),
-                Tab(
-                  child: Text(
-                    "Teams\nStandings",
-                    textAlign: TextAlign.center,
-                    style: tabTextStyle
+                  Tab(
+                    child: Text(tabTextSettingsController.shortTabText.value ? "TS" : "Teams\nStandings",
+                        textAlign: TextAlign.center, style: tabTextSettingsController.shortTabText.value ? tabTextStyleShort : tabTextStyleFull),
                   ),
-                ),
-                Tab(
-                  child: Text(
-                    "Settings",
-                    textAlign: TextAlign.center,
-                    style: tabTextStyle
+                  Tab(
+                    child: Text(tabTextSettingsController.shortTabText.value ? "ST" : "Settings",
+                        textAlign: TextAlign.center, style: tabTextSettingsController.shortTabText.value ? tabTextStyleShort : tabTextStyleFull),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
