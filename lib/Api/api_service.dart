@@ -184,7 +184,7 @@ class ApiService {
   }
 
   Future<Map<String, dynamic>> checkTelemetryServerStatus() async {
-    String apiUrl = "http://$TELEMETRY_SERVER_PUBLIC_IP:$TELEMETRY_SERVER_PORT/status";
+    String apiUrl = "http://$TELEMETRY_SERVER_PUBLIC_IP_OR_URL:$TELEMETRY_SERVER_PORT/status";
 
     final response = await http.get(Uri.parse(apiUrl));
 
@@ -197,7 +197,7 @@ class ApiService {
   }
 
  Future<Uint8List> fetchTelemetryPdfFile(String year, String trackName, String session, String driverName) async {
-    String apiUrl = "http://$TELEMETRY_SERVER_PUBLIC_IP:$TELEMETRY_SERVER_PORT/get-telemetry?year=$year&trackName=$trackName&session=$session&driverName=$driverName";
+    String apiUrl = "http://$TELEMETRY_SERVER_PUBLIC_IP_OR_URL:$TELEMETRY_SERVER_PORT/get-telemetry?year=$year&trackName=$trackName&session=$session&driverName=$driverName";
 
     try {
       final response = await http.get(Uri.parse(apiUrl));
