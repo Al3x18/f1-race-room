@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:race_room/utils/app_colors.dart';
 import 'package:race_room/utils/medal_colors.dart';
 
 enum PositionContainerType { driverAndConstructorView, driversAfterRace }
@@ -29,7 +30,7 @@ class BuildPositionContainer extends StatelessWidget {
     if (type == PositionContainerType.driverAndConstructorView) {
       return Container(
         decoration: BoxDecoration(
-          color: position == "1" ? const Color.fromARGB(255, 49, 56, 255) : Colors.transparent,
+          color: position == "1" ? AppColors.positionContainerTSPositionOne : AppColors.positionContainerTSPositionNotOne,
           borderRadius: BorderRadius.circular(100),
         ),
         child: SizedBox(
@@ -43,7 +44,7 @@ class BuildPositionContainer extends StatelessWidget {
               style: listTileStyle.copyWith(
                 fontWeight: FontWeight.bold,
                 fontSize: fontSizeDriverAndConstructor,
-                color: position == "1" ? Colors.white : const Color.fromARGB(255, 106, 106, 106),
+                color: position == "1" ? AppColors.positionOneTSText : AppColors.positionNotOneTSText,
               ),
             ),
           ),
@@ -58,7 +59,7 @@ class BuildPositionContainer extends StatelessWidget {
                   ? MedalColors.silver
                   : position == "3"
                       ? MedalColors.lightBronze
-                      : Colors.transparent,
+                      : AppColors.positionContainerDSNotFirstThree,
           borderRadius: BorderRadius.circular(100),
         ),
         child: Center(
@@ -71,9 +72,9 @@ class BuildPositionContainer extends StatelessWidget {
               ? position == "1" 
               || position == "2"
               || position == "3"
-              ? Colors.black 
-              : Colors.white
-              : const Color.fromARGB(255, 74, 74, 74),
+              ? AppColors.positionContainerDSFirstThreeTextDark
+              : AppColors.positionContainerDSFirstThreeTextLight
+              : AppColors.positionContainerDSNotFirstThreeText,
             ),
           ),
         ),

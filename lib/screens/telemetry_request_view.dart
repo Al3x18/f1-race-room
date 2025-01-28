@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:race_room/api/api_service.dart';
 import 'package:race_room/screens/telemetry_view.dart';
+import 'package:race_room/utils/app_colors.dart';
 
 class TelemetryRequestView extends StatefulWidget {
   const TelemetryRequestView({super.key});
@@ -118,7 +119,7 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
           children: [
             Text(
               "(BETA)",
-              style: TextStyle(fontSize: 9, color: Colors.red, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 9, color: AppColors.telemetryRequestAppBarBetaText, fontWeight: FontWeight.bold),
             ),
             Text(
               "Telemetry",
@@ -126,7 +127,7 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
             ),
             Text(
               "Fastest Lap",
-              style: TextStyle(fontSize: 10.5, color: Colors.grey, fontWeight: FontWeight.w700),
+              style: TextStyle(fontSize: 10.5, color: AppColors.telemetryRequestTypeText, fontWeight: FontWeight.w700),
             ),
           ],
         ),
@@ -141,7 +142,7 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
                 visible: showAdvice,
                 child: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 2),
-                  child: Text("Select all parameters to request the telemetry", style: TextStyle(color: Colors.red, fontSize: 11)),
+                  child: Text("Select all parameters to request the telemetry", style: TextStyle(color: AppColors.telemetryRequestErrorAdvice, fontSize: 11)),
                 ),
               ),
             ),
@@ -212,7 +213,7 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
                           ],
                         ),
                         duration: const Duration(seconds: 2),
-                        backgroundColor: isDark ? Colors.white : Colors.black87,
+                        backgroundColor: isDark ? AppColors.telemetryRequestSnackBarBackgroundDark : AppColors.telemetryRequestSnackBarBackgroundLight,
                       );
 
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -228,7 +229,7 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 237, 63, 51),
+                  backgroundColor: AppColors.telemetryRequestElevatedButtonBackground,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(6),
                   ),
@@ -236,8 +237,8 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
                 child: const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Request Telemetry", style: TextStyle(color: Colors.white, fontSize: 13.5)),
-                    Text("may take a while", style: TextStyle(color: Color.fromARGB(255, 202, 202, 202), fontSize: 9.2)),
+                    Text("Request Telemetry", style: TextStyle(color: AppColors.telemetryRequestElevatedButtonText, fontSize: 13.5)),
+                    Text("may take a while", style: TextStyle(color: AppColors.telemetryRequestElevatedButtonTextSubtitle, fontSize: 9.2)),
                   ],
                 ),
               ),
@@ -272,8 +273,8 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
               width: 6,
               child: CircularProgressIndicator(
                 strokeWidth: 1,
-                color: Colors.red,
-                valueColor: AlwaysStoppedAnimation(Colors.red),
+                color: AppColors.circularProgressIndicator,
+                valueColor: AlwaysStoppedAnimation(AppColors.circularProgressIndicator),
               ),
             ),
           );
@@ -283,7 +284,7 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
               padding: EdgeInsets.symmetric(vertical: 3),
               child: Text(
                 "SERVER STATUS - UNREACHABLE",
-                style: TextStyle(color: Colors.red, fontSize: serverStatusFontSize, fontWeight: FontWeight.bold),
+                style: TextStyle(color: AppColors.telemetryRequestServerStatusUnreachableText, fontSize: serverStatusFontSize, fontWeight: FontWeight.bold),
               ),
             );
           } else {
@@ -291,7 +292,7 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
               padding: const EdgeInsets.all(4.0),
               child: Text(
                 "Error: ${snapshot.error}",
-                style: const TextStyle(color: Colors.red, fontSize: serverStatusFontSize),
+                style: const TextStyle(color: AppColors.telemetryRequestServerStatusGeneralErrorText, fontSize: serverStatusFontSize),
               ),
             );
           }
@@ -300,7 +301,7 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
             padding: const EdgeInsets.symmetric(vertical: 3),
             child: Text(
               "SERVER STATUS - ${status.toUpperCase()}",
-              style: TextStyle(color: status == 'online' ? Colors.green : Colors.red, fontSize: serverStatusFontSize, fontWeight: FontWeight.w600),
+              style: TextStyle(color: status == 'online' ? AppColors.telemetryRequestServerStatusOnlineText : AppColors.telemetryRequestServerStatusGeneralErrorText, fontSize: serverStatusFontSize, fontWeight: FontWeight.w600),
             ),
           );
         } else {
@@ -308,7 +309,7 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
             padding: EdgeInsets.symmetric(vertical: 3),
             child: Text(
               "SERVER STATUS - UNKNOWN",
-              style: TextStyle(color: Colors.grey, fontSize: serverStatusFontSize, fontWeight: FontWeight.w600),
+              style: TextStyle(color: AppColors.telemetryRequestServerStatusUnknownText, fontSize: serverStatusFontSize, fontWeight: FontWeight.w600),
             ),
           );
         }

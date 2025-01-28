@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:race_room/utils/app_colors.dart';
 
 class CountdownTimer extends StatefulWidget {
   final DateTime raceDate;
@@ -57,14 +58,14 @@ class _CountdownTimerState extends State<CountdownTimer> {
       if (_remainingTime.inHours < -2) {
         return Text(
           "Race Ended",
-          style: listTileStyle.copyWith(color: Colors.green, fontSize: 10.5, fontWeight: FontWeight.bold),
+          style: listTileStyle.copyWith(color: AppColors.countdownTimerRaceEnded, fontSize: 10.5, fontWeight: FontWeight.bold),
         );
       }
 
       // if less than 2 hours have passed since the race date and time then the race is still ongoing
       return Text(
         "Race Ongoing...",
-        style: listTileStyle.copyWith(color: Colors.red, fontSize: 10.5, fontWeight: FontWeight.bold),
+        style: listTileStyle.copyWith(color: AppColors.countdownTimerRaceOngoing, fontSize: 10.5, fontWeight: FontWeight.bold),
       );
     }
 
@@ -72,7 +73,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
       children: [
         Text(
           "Lights Out In -",
-          style: listTileStyle.copyWith(fontWeight: FontWeight.bold, color: Colors.grey, fontSize: 10.5),
+          style: listTileStyle.copyWith(fontWeight: FontWeight.bold, color: AppColors.countdownLightsOutText, fontSize: 10.5),
         ),
         const SizedBox(width: 4),
         Flexible(
@@ -81,7 +82,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
             fit: BoxFit.scaleDown,
             child: Text(
               "$days days, $hours hours, $minutes minutes",
-              style: listTileStyle.copyWith(color: const Color.fromARGB(255, 79, 70, 255), fontSize: 10.5, fontWeight: FontWeight.bold),
+              style: listTileStyle.copyWith(color: AppColors.countdownTimerText, fontSize: 10.5, fontWeight: FontWeight.bold),
             ),
           ),
         ),

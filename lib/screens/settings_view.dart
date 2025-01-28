@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:race_room/utils/app_colors.dart';
 import 'package:race_room/utils/not_share.dart';
 import 'package:race_room/utils/settings_controller.dart';
 import 'package:race_room/utils/tab_text_settings_controller.dart';
@@ -24,8 +25,8 @@ class _SettingsViewState extends State<SettingsView> {
     fontSize: 14.4,
   );
 
-  Color _devNameColor = Colors.grey.shade400;
-  Color _devNameDecorationColor = Colors.grey.shade400;
+  Color _devNameColor = AppColors.settingsDevName;
+  Color _devNameDecorationColor = AppColors.settingsDevNameDecoration;
 
   String version = "Unknown";
   String buildNumber = "Unknown";
@@ -128,14 +129,14 @@ class _SettingsViewState extends State<SettingsView> {
               version,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
             ),
-            subtitle: Text("Build number: $buildNumber", style: const TextStyle(color: Colors.grey, fontSize: 11)),
+            subtitle: Text("Build number: $buildNumber", style: const TextStyle(color: AppColors.settingsBuildNumber, fontSize: 11)),
           ),
           ListTile(
             leading: const Icon(Icons.mail_outline),
             title: Text("Report an Issue", style: titleTextStyle),
             subtitle: const Text(
               "or request new feature",
-              style: TextStyle(color: Colors.grey, fontSize: 11),
+              style: TextStyle(color: AppColors.settingsReportSubtitle, fontSize: 11),
             ),
             trailing: const Icon(Icons.chevron_right),
             onTap: () => _sendEmail(),
@@ -145,14 +146,14 @@ class _SettingsViewState extends State<SettingsView> {
             subtitle: Obx(() {
               return Row(
                 children: [
-                  const Text("Current mode: ", style: TextStyle(color: Colors.grey, fontSize: 11)),
+                  const Text("Current mode: ", style: TextStyle(color: AppColors.settingsExpansionTile, fontSize: 11)),
                   Text(
                     settingsController.currentTheme.value == ThemeMode.light
                         ? "Light"
                         : settingsController.currentTheme.value == ThemeMode.dark
                             ? "Dark"
                             : "System",
-                    style: const TextStyle(color: Colors.grey, fontSize: 11),
+                    style: const TextStyle(color: AppColors.settingsExpansionTile, fontSize: 11),
                   ),
                 ],
               );
@@ -196,11 +197,11 @@ class _SettingsViewState extends State<SettingsView> {
             title: Text("Enable short Tab Text", style: titleTextStyle),
             subtitle: const Text(
               "Show short text in Tab buttons",
-              style: TextStyle(color: Colors.grey, fontSize: 11),
+              style: TextStyle(color: AppColors.settingsEnableShortTextSubtitle, fontSize: 11),
             ),
             trailing: Switch.adaptive(
               value: tabTextSettingsController.shortTabText.value,
-              activeColor: Colors.red,
+              activeColor: AppColors.settingsSwitchActive,
               onChanged: (value) {
                 tabTextSettingsController.setShortTabText(value);
                 setState(() {});

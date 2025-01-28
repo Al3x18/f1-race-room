@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:race_room/api/api_service.dart';
 import 'package:race_room/model/driver_laps_model.dart';
+import 'package:race_room/utils/app_colors.dart';
 
 class DriverLapsView extends StatefulWidget {
   const DriverLapsView({
@@ -60,7 +61,7 @@ class _DriverLapsViewState extends State<DriverLapsView> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(
-                color: Colors.red,
+                color: AppColors.circularProgressIndicator,
               ),
             );
           } else if (snapshot.hasError) {
@@ -88,12 +89,12 @@ class _DriverLapsViewState extends State<DriverLapsView> {
                       dense: true,
                       minTileHeight: 1,
                       title: Text("LAP $lapNumber", style: const TextStyle(fontSize: 13.5)),
-                      subtitle: Text("Position: $positionInLap", style: const TextStyle(fontSize: 10.5, color: Colors.grey)),
+                      subtitle: Text("Position: $positionInLap", style: const TextStyle(fontSize: 10.5, color: AppColors.driverLapsPosition)),
                       trailing: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          const Text("LAP TIME", style: TextStyle(fontSize: 10.5, color: Colors.grey)),
+                          const Text("LAP TIME", style: TextStyle(fontSize: 10.5, color: AppColors.driverLapsTime)),
                           Text(lapTime, style: const TextStyle(fontSize: 13.5, fontWeight: FontWeight.w500)),
                         ],
                       ),

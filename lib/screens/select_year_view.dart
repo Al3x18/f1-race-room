@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:race_room/utils/app_colors.dart';
 
 class SelectYearView extends StatefulWidget {
   const SelectYearView({super.key, required this.currentYearSelected});
@@ -43,7 +44,7 @@ class _SelectYearViewState extends State<SelectYearView> {
             padding: const EdgeInsets.only(right: 5),
             child: TextButton(
               onPressed: () => Get.back(result: selectedYear.toString()),
-              child: const Text("Done", style: TextStyle(color: Colors.red, fontWeight: FontWeight.w700, fontSize: 13.5)),
+              child: const Text("Done", style: TextStyle(color: AppColors.selectYearAppBarButton, fontWeight: FontWeight.w700, fontSize: 13.5)),
             ),
           ),
         ],
@@ -66,7 +67,7 @@ class _SelectYearViewState extends State<SelectYearView> {
                 height: 46,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
-                  color: selectedYear == year ? Colors.red : Colors.transparent,
+                  color: selectedYear == year ? AppColors.selectYearDecorationColorYearSelected : AppColors.selectYearDecorationColorYearNotSelected,
                 ),
                 child: ListTile(
                   dense: true,
@@ -77,13 +78,13 @@ class _SelectYearViewState extends State<SelectYearView> {
                       fontSize: 15.8,
                       fontWeight: FontWeight.w600,
                       color: selectedYear == year
-                          ? Colors.white
+                          ? AppColors.selectYearTextYearSelected
                           : Get.isDarkMode
-                              ? Colors.white
-                              : Colors.black,
+                              ? AppColors.selectYearTextYearNotSelectedDark
+                              : AppColors.selectYearTextYearNotSelectedLight,
                     ),
                   ),
-                  trailing: selectedYear == year ? const Icon(Icons.check, color: Colors.white, size: 26) : null,
+                  trailing: selectedYear == year ? const Icon(Icons.check, color: AppColors.selectedYearTrailingIcon, size: 26) : null,
                 ),
               ),
             ),

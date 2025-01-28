@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:race_room/utils/app_colors.dart';
 
 class NoDataAvailable extends StatelessWidget {
   const NoDataAvailable({super.key, required this.onRefresh, required this.infoLabel});
@@ -21,17 +22,17 @@ class NoDataAvailable extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 spacing: 6,
                 children: [
-                  Icon(Icons.info_outline_rounded, size: 88, color: Colors.grey),
+                  Icon(Icons.info_outline_rounded, size: 88, color: AppColors.noDataAvailableIcon),
                   const SizedBox(height: 5),
                   Text(
                     infoLabel,
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.grey, fontSize: 14),
+                    style: TextStyle(color: AppColors.noDataAvailableText, fontSize: 14),
                   ),
                   Text(
                     "Please check back later.",
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.grey, fontSize: 14.5),
+                    style: TextStyle(color: AppColors.noDataAvailableText, fontSize: 14.5),
                   ),
                 ],
               ),

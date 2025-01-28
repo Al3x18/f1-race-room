@@ -4,6 +4,7 @@ import 'package:race_room/api/api_service.dart';
 import 'package:race_room/screens/driver_laps_view.dart';
 import 'package:race_room/screens/round_driver_s_view.dart';
 import 'package:race_room/screens/round_teams_s_view.dart';
+import 'package:race_room/utils/app_colors.dart';
 import 'package:race_room/utils/f1_teams_color.dart';
 import 'package:race_room/model/race_results_model.dart';
 import 'package:race_room/widgets/position_container.dart';
@@ -250,8 +251,8 @@ class BuildDriverListTile extends StatelessWidget {
         Get.snackbar(
           "Driver Laps.\nThis feature is in beta",
           "The results might be incomplete or inaccurate.",
-          colorText: isDark ? Colors.black : Colors.white,
-          backgroundColor: isDark ? Colors.white : Colors.black,
+          colorText: isDark ? AppColors.raceResultsSnackBarTextDark : AppColors.raceResultsSnackBarTextLight,
+          backgroundColor: isDark ? AppColors.raceResultsSnackBarBackgroundDark : AppColors.raceResultsSnackBarBackgroundLight,
           snackPosition: SnackPosition.BOTTOM,
           duration: const Duration(milliseconds: 2500),
           mainButton: TextButton(
@@ -268,7 +269,7 @@ class BuildDriverListTile extends StatelessWidget {
             },
             child: const Text(
               "View\nAnyway",
-              style: TextStyle(color: Colors.red),
+              style: TextStyle(color: AppColors.raceResultsSnackBarTextButton),
               textAlign: TextAlign.center,
             ),
           ),
@@ -344,7 +345,7 @@ class BuildDriverListTile extends StatelessWidget {
                     fastestLap,
                     style: listTileStyleSubtitle.copyWith(
                       fontWeight: FontWeight.w500,
-                      color: const Color.fromARGB(255, 127, 21, 146),
+                      color: AppColors.raceResultsFastestLap,
                     ),
                   ),
                 ),
@@ -361,7 +362,7 @@ class BuildDriverListTile extends StatelessWidget {
             style: const TextStyle(fontSize: 12.7, fontWeight: FontWeight.w400),
           ),
           const SizedBox(width: 6),
-          const Icon(Icons.arrow_forward_ios, size: 12, color: Colors.grey),
+          const Icon(Icons.arrow_forward_ios, size: 12, color: AppColors.raceResultsListTileIcon),
         ],
       ),
     );

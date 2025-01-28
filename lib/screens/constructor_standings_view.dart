@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:race_room/utils/app_colors.dart';
 import 'package:race_room/utils/f1_teams_color.dart';
 import 'package:race_room/model/constructor_standings_model.dart';
 import 'package:race_room/utils/safe_parse_points.dart';
@@ -35,7 +36,7 @@ class _ConstructorStandingsViewState extends State<ConstructorStandingsView> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
             child: CircularProgressIndicator(
-              color: Colors.red,
+              color: AppColors.circularProgressIndicator,
             ),
           );
         } else if (snapshot.hasError) {
@@ -72,7 +73,7 @@ class _ConstructorStandingsViewState extends State<ConstructorStandingsView> {
                   if (index == 0)
                     Text(
                       "Constructor Standings after Round $roundNumber",
-                      style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.grey),
+                      style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 12, color: AppColors.constructorStandingsAfterRound),
                     ),
                   ListTile(
                     leading: BuildPositionContainer(type: PositionContainerType.driverAndConstructorView, position: constructorPosition),
@@ -101,14 +102,14 @@ class _ConstructorStandingsViewState extends State<ConstructorStandingsView> {
                       children: [
                         Text(
                           constructorNationality,
-                          style: listTileStyle.copyWith(color: Colors.grey, fontSize: 12, fontWeight: FontWeight.bold),
+                          style: listTileStyle.copyWith(color: AppColors.constructorStandingsNationality, fontSize: 12, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(width: MediaQuery.of(context).size.width * 0.022),
                         Visibility(
                           visible: constructorWins != "0",
                           child: Text(
                             "Wins: $constructorWins",
-                            style: listTileStyle.copyWith(fontSize: 12, color: const Color.fromARGB(255, 222, 179, 5), fontWeight: FontWeight.bold),
+                            style: listTileStyle.copyWith(fontSize: 12, color: AppColors.constructorStandingsWins, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ],

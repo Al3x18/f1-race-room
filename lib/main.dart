@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:race_room/utils/app_colors.dart';
 import 'package:race_room/utils/settings_controller.dart';
 import 'package:race_room/utils/tab_text_settings_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -64,19 +65,19 @@ ThemeMode getThemeMode(String theme) {
 ThemeData _buildLightTheme() {
   return ThemeData(
     brightness: Brightness.light,
-    primaryColor: Colors.white,
+    primaryColor: AppColors.themeLightPrimary,
     fontFamily: "Formula1",
-    scaffoldBackgroundColor: Colors.white,
-    cardColor: Colors.white,
+    scaffoldBackgroundColor: AppColors.scaffoldLightBackground,
+    cardColor: AppColors.cardLight,
   );
 }
 
 ThemeData _buildDarkTheme() {
   return ThemeData(
     brightness: Brightness.dark,
-    primaryColor: Colors.black,
+    primaryColor: AppColors.themeDarkPrimary,
     fontFamily: "Formula1",
-    scaffoldBackgroundColor: Colors.black,
-    cardColor: Colors.black,
+    scaffoldBackgroundColor: AppColors.scaffoldDarkBackground,
+    cardColor: AppColors.cardDark,
   );
 }

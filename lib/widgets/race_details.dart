@@ -3,6 +3,7 @@ import 'package:get/route_manager.dart';
 import 'package:race_room/api/api_service.dart';
 import 'package:race_room/model/weather_model.dart';
 import 'package:race_room/screens/race_results_view.dart';
+import 'package:race_room/utils/app_colors.dart';
 import 'package:race_room/utils/check_date.dart';
 import 'package:race_room/utils/convert_race_time.dart';
 import 'package:race_room/utils/get_track_image.dart';
@@ -95,7 +96,7 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
                   height: 4,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(60),
-                    color: Colors.white,
+                    color: AppColors.raceDetailsScrollIndicatorTop,
                   ),
                 ),
               ),
@@ -109,7 +110,7 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
                   style: listTileStyle.copyWith(
                     fontSize: 15.6,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: AppColors.raceDetailsTitleText,
                   ),
                 ),
               ),
@@ -120,15 +121,14 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
               if (widget.fp3Date.isNotEmpty) _buildRaceDetailSection("FP3", widget.fp3Date, widget.fp3Time, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
               if (widget.sprintQualifyingDate.isNotEmpty) _buildRaceDetailSection("Sprint Qualifying", widget.sprintQualifyingDate, widget.sprintQualifyingTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
               if (widget.qualifyingDate.isNotEmpty) _buildRaceDetailSection("Qualifying Session", widget.qualifyingDate, widget.qualifyingTime, listTileStyle, widget.seasonYear, widget.raceRound, widget.raceName),
-              const Divider(thickness: 1, indent: 14, endIndent: 14, color: Colors.white),
+              const Divider(thickness: 1, indent: 14, endIndent: 14, color: AppColors.raceDetailsDivider),
               Center(
                 child: Text(
                   "TRACK MAP",
                   style: listTileStyle.copyWith(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    decorationColor: Colors.white,
+                    color: AppColors.raceDetailsTrackMapText,
                   ),
                 ),
               ),
@@ -138,7 +138,7 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
                   zoomWidget: getTrackImage(widget.trackName),
                 ),
               ),
-              const Divider(thickness: 1, indent: 14, endIndent: 14, color: Colors.white),
+              const Divider(thickness: 1, indent: 14, endIndent: 14, color: AppColors.raceDetailsDivider),
               Center(
                 child: Column(
                   children: [
@@ -147,7 +147,7 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
                       style: listTileStyle.copyWith(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: AppColors.raceDetailsWeatherText,
                       ),
                     ),
                     Text(
@@ -155,7 +155,7 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
                       style: listTileStyle.copyWith(
                         fontSize: 10,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: AppColors.raceDetailsWeatherTextSubtitle,
                       ),
                     ),
                   ],
@@ -177,7 +177,7 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
             child: CircularProgressIndicator(
-              color: Colors.red,
+              color: AppColors.circularProgressIndicator,
             ),
           );
         } else if (snapshot.hasError) {
@@ -203,7 +203,7 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
                 child: Column(
                   children: [
                     Image.network(ApiService().getWeatherIconUrl(icon), width: 88),
-                    Text(description.toUpperCase(), style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white)),
+                    Text(description.toUpperCase(), style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 16, color: AppColors.raceDetailsWeatherText)),
                   ],
                 ),
               ),
@@ -214,15 +214,15 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("TEMPERATURE", style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white)),
-                      Text("$temperature°C", style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white)),
+                      Text("TEMPERATURE", style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14, color: AppColors.raceDetailsWeatherText)),
+                      Text("$temperature°C", style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14, color: AppColors.raceDetailsWeatherText)),
                     ],
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text("FEELS LIKE", style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white)),
-                      Text("$feelsLike°C", style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white)),
+                      Text("FEELS LIKE", style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14, color: AppColors.raceDetailsWeatherText)),
+                      Text("$feelsLike°C", style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14, color: AppColors.raceDetailsWeatherText)),
                     ],
                   ),
                 ],
@@ -234,15 +234,15 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("HUMIDITY", style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white)),
-                      Text("$humidity%", style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white)),
+                      Text("HUMIDITY", style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14, color: AppColors.raceDetailsWeatherText)),
+                      Text("$humidity%", style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14, color: AppColors.raceDetailsWeatherText)),
                     ],
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text("WIND", style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white)),
-                      Text("$windSpeed m/s", style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white)),
+                      Text("WIND", style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14, color: AppColors.raceDetailsWeatherText)),
+                      Text("$windSpeed m/s", style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14, color: AppColors.raceDetailsWeatherText)),
                     ],
                   ),
                 ],
@@ -251,8 +251,8 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
               Center(
                 child: Column(
                   children: [
-                    Text("ATMOSPHERIC PRESSURE", style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white)),
-                    Text("${snapshot.data!.main.pressure} hPa", style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white)),
+                    Text("ATMOSPHERIC PRESSURE", style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14, color: AppColors.raceDetailsWeatherText)),
+                    Text("${snapshot.data!.main.pressure} hPa", style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 14, color: AppColors.raceDetailsWeatherText)),
                   ],
                 ),
               )
@@ -269,13 +269,13 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Get.isDarkMode ? Colors.black : Colors.white,
+        color: Get.isDarkMode ? AppColors.raceDetailsSessionContainerDecorationDark : AppColors.raceDetailsSessionContainerDecorationLight,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text(title, style: style.copyWith(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.grey)),
+          Text(title, style: style.copyWith(fontWeight: FontWeight.bold, fontSize: 12, color: AppColors.raceDetailsSessionContainerTitleText)),
           const Divider(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -324,18 +324,18 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
                     Get.snackbar(
                       "Results not available",
                       "Try again later",
-                      colorText: Get.isDarkMode ? Colors.black : Colors.white,
+                      colorText: Get.isDarkMode ? AppColors.raceDetailsSessionResultsSnackTextDark : AppColors.raceDetailsSessionResultsSnackTextLight,
                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                       duration: const Duration(seconds: 2),
                       snackPosition: SnackPosition.TOP,
-                      backgroundColor: Get.isDarkMode ? Colors.white : const Color.fromARGB(255, 30, 30, 30),
+                      backgroundColor: Get.isDarkMode ? AppColors.raceDetailsSessionResultsSnackBackgroundDark : AppColors.raceDetailsSessionResultsSnackBackgroundLight,
                       borderRadius: 6,
                     );
                   }
                 },
                 style: OutlinedButton.styleFrom(
                   side: BorderSide(
-                    color: Get.isDarkMode ? Colors.white : Colors.red,
+                    color: Get.isDarkMode ? AppColors.raceDetailsSessionResultsOutlineButtonBordersDark : AppColors.raceDetailsSessionResultsOutlineButtonBordersLight,
                     width: 1.5,
                   ),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.5)),
@@ -345,7 +345,7 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
                   style: style.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 12.2,
-                    color: Get.isDarkMode ? Colors.white : Colors.red,
+                    color: Get.isDarkMode ? AppColors.raceDetailsSessionResultsOutlineButtonTextDark : AppColors.raceDetailsSessionResultsOutlineButtonTextLight,
                   ),
                 ),
               ),

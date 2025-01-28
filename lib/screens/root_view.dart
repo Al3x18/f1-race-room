@@ -15,6 +15,7 @@ import 'package:race_room/screens/drivers_standings_view.dart';
 import 'package:race_room/screens/races_schedule_view.dart';
 import 'package:race_room/screens/select_year_view.dart';
 import 'package:race_room/screens/settings_view.dart';
+import 'package:race_room/utils/app_colors.dart';
 import 'package:race_room/utils/tab_text_settings_controller.dart';
 
 class RootView extends StatefulWidget {
@@ -90,13 +91,13 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
     final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     final TextStyle tabTextStyleFull = TextStyle(
-      color: isDarkMode ? Colors.black : Colors.white,
+      color: isDarkMode ? AppColors.rootTabTextStyleFullDark : AppColors.rootTabTextStyleFullLight,
       fontWeight: isDarkMode ? FontWeight.w600 : FontWeight.bold,
       fontSize: _calculateTabFontSize(context),
     );
 
     final TextStyle tabTextStyleShort = TextStyle(
-      color: isDarkMode ? Colors.black : Colors.white,
+      color: isDarkMode ? AppColors.rootTabTextStyleShortDark : AppColors.rootTabTextStyleShortLight,
       fontWeight: isDarkMode ? FontWeight.w600 : FontWeight.bold,
       fontSize: 18,
     );
@@ -108,7 +109,7 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: isDarkMode ? [Colors.black, Colors.black] : [Colors.red, Colors.white],
+              colors: isDarkMode ? AppColors.rootAppBarGradientDark : AppColors.rootAppBarGradientLight,
             ),
           ),
         ),
@@ -139,7 +140,7 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
                       : currentPage == 2
                           ? "Teams Standings"
                           : "Settings",
-              style: TextStyle(color: Colors.grey.shade500, fontSize: 12.1, fontWeight: FontWeight.w600),
+              style: TextStyle(color: AppColors.rootAppBarTitle, fontSize: 12.1, fontWeight: FontWeight.w600),
             ),
           ],
         ),
@@ -151,7 +152,7 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
             onPressed: null,
             icon: Icon(
               Icons.arrow_upward_rounded,
-              color: Colors.white,
+              color: AppColors.rootBottomBarIcon,
               size: width,
             ),
           ),
@@ -161,7 +162,7 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
         curve: Curves.decelerate,
         showIcon: false,
         width: MediaQuery.of(context).size.width * 0.923,
-        barColor: Colors.black,
+        barColor: AppColors.rootBottomBar,
         offset: 0.0,
         barAlignment: !kIsWeb && Platform.isIOS
             ? MediaQuery.of(context).size.height < 680
@@ -200,12 +201,12 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
           borderRadius: BorderRadius.circular(bottomBarBorderRadius),
           child: Material(
             borderRadius: BorderRadius.circular(bottomBarBorderRadius),
-            color: isDarkMode ? const Color.fromARGB(255, 241, 240, 240) : Colors.red,
+            color: isDarkMode ? AppColors.rootTabBarDark : AppColors.rootTabBarLight,
             child: Obx(
               () => TabBar(
                 controller: _tabController,
                 indicatorWeight: 1.6,
-                indicatorColor: isDarkMode ? Colors.black : Colors.white,
+                indicatorColor: isDarkMode ? AppColors.rootTabBarIndicatorDark : AppColors.rootTabBarIndicatorLight,
                 tabs: [
                   Tab(
                     child: Text(tabTextSettingsController.shortTabText.value ? "RC" : "Races\nCalendar",
@@ -268,9 +269,9 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
             children: [
               Text(
                 seasonYear,
-                style: TextStyle(color: Colors.grey.shade600, fontSize: 15.5, fontWeight: FontWeight.w500),
+                style: TextStyle(color: AppColors.rootSeasonYearText, fontSize: 15.5, fontWeight: FontWeight.w500),
               ),
-              Icon(isYearMenuOpen ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down, color: Colors.grey.shade600, size: 30),
+              Icon(isYearMenuOpen ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down, color: AppColors.rootSeasonYearTextIcon, size: 30),
             ],
           ),
         ),

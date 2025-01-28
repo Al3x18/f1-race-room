@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:race_room/utils/app_colors.dart';
 import 'package:race_room/utils/convert_race_time.dart';
 import 'package:race_room/model/race_schedule_model.dart';
 import 'package:race_room/widgets/countdown_timer.dart';
@@ -40,7 +41,7 @@ class _RacesScheduleViewState extends State<RacesScheduleView> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
             child: CircularProgressIndicator(
-              color: Colors.red,
+              color: AppColors.circularProgressIndicator,
             ),
           );
         } else if (snapshot.hasError) {
@@ -137,7 +138,7 @@ class _RacesScheduleViewState extends State<RacesScheduleView> {
                   children: [
                     Text(
                       "Round $roundNumber - ${raceHour == "No Data" ? "N/A" : raceHour}",
-                      style: listTileStyle.copyWith(fontWeight: FontWeight.bold, color: Colors.grey, fontSize: 11),
+                      style: listTileStyle.copyWith(fontWeight: FontWeight.bold, color: AppColors.raceScheduleRoundAndHours, fontSize: 11),
                     ),
                     CountdownTimer(raceDate: raceDateTime),
                     Row(
@@ -152,7 +153,7 @@ class _RacesScheduleViewState extends State<RacesScheduleView> {
                             visible: fp2Date.isEmpty && fp1Date.isNotEmpty,
                             child: Text(
                               "(Sprint)",
-                              style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 10.8, color: Colors.red),
+                              style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 10.8, color: AppColors.raceScheduleSprintText),
                             ),
                           ),
                         ),
@@ -165,11 +166,11 @@ class _RacesScheduleViewState extends State<RacesScheduleView> {
                   children: [
                     Text(
                       'Circuit: $raceCircuitName',
-                      style: listTileStyle.copyWith(color: Colors.grey, fontSize: 11.8),
+                      style: listTileStyle.copyWith(color: AppColors.raceScheduleCircuitName, fontSize: 11.8),
                     ),
                     Text(
                       'Location: $raceCircuitLocation, $raceCircuitCountry',
-                      style: listTileStyle.copyWith(color: Colors.grey, fontSize: 11.8),
+                      style: listTileStyle.copyWith(color: AppColors.raceScheduleLocation, fontSize: 11.8),
                     ),
                   ],
                 ),
@@ -220,7 +221,7 @@ void _showModalBottomSheet(
 }) {
   showModalBottomSheet(
     context: context,
-    backgroundColor: Get.isDarkMode ? const Color.fromARGB(255, 201, 45, 34) : Colors.red,
+    backgroundColor: Get.isDarkMode ? AppColors.raceScheduleBottomSheetBackgroundDark : AppColors.raceScheduleBottomSheetBackgroundLight,
     isScrollControlled: true,
     showDragHandle: false,
     useSafeArea: true,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:race_room/utils/app_colors.dart';
 import 'package:race_room/utils/f1_teams_color.dart';
 import 'package:race_room/model/driver_standings_model.dart';
 import 'package:race_room/utils/safe_parse_points.dart';
@@ -35,7 +36,7 @@ class _DriversStandingsState extends State<DriversStandingsView> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
             child: CircularProgressIndicator(
-              color: Colors.red,
+              color: AppColors.circularProgressIndicator,
             ),
           );
         } else if (snapshot.hasError) {
@@ -75,7 +76,7 @@ class _DriversStandingsState extends State<DriversStandingsView> {
                   if (index == 0)
                     Text(
                       "Driver Standings after Round $roundNumber",
-                      style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.grey),
+                      style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 12, color: AppColors.driverStandingsAfterRound),
                     ),
                   ListTile(
                     leading: BuildPositionContainer(type: PositionContainerType.driverAndConstructorView, position: driverPosition),
@@ -114,14 +115,14 @@ class _DriversStandingsState extends State<DriversStandingsView> {
                       children: [
                         Text(
                           driverTeam,
-                          style: listTileStyle.copyWith(fontSize: 12, color: Colors.grey, fontWeight: FontWeight.bold),
+                          style: listTileStyle.copyWith(fontSize: 12, color: AppColors.driverStandingsTeam, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(width: MediaQuery.of(context).size.width * 0.020),
                         Visibility(
                           visible: driverWins != "0",
                           child: Text(
                             "Wins: $driverWins",
-                            style: listTileStyle.copyWith(fontSize: 12, color: const Color.fromARGB(255, 222, 179, 5), fontWeight: FontWeight.bold),
+                            style: listTileStyle.copyWith(fontSize: 12, color: AppColors.driverStandingsWins, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ],

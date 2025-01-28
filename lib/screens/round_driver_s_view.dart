@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:race_room/api/api_service.dart';
+import 'package:race_room/utils/app_colors.dart';
 import 'package:race_room/utils/f1_teams_color.dart';
 import 'package:race_room/model/driver_standings_model.dart';
 import 'package:race_room/utils/safe_parse_points.dart';
@@ -55,7 +56,7 @@ class _DriverSToRoundState extends State<DriverSToRound> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(
-                color: Colors.red,
+                color: AppColors.circularProgressIndicator,
               ),
             );
           } else if (snapshot.hasError) {
@@ -124,14 +125,14 @@ class _DriverSToRoundState extends State<DriverSToRound> {
                     children: [
                       Text(
                         driverTeam,
-                        style: listTileStyle.copyWith(fontSize: 12.5, color: Colors.grey, fontWeight: FontWeight.bold),
+                        style: listTileStyle.copyWith(fontSize: 12.5, color: AppColors.driverStandingsTeam, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.022),
                       Visibility(
                         visible: driverWins != "0",
                         child: Text(
                           "Wins: $driverWins",
-                          style: listTileStyle.copyWith(fontSize: 12.5, color: const Color.fromARGB(255, 222, 179, 5), fontWeight: FontWeight.bold),
+                          style: listTileStyle.copyWith(fontSize: 12.5, color: AppColors.driverStandingsWins, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ],

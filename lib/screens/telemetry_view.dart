@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:get/get.dart';
 import 'package:race_room/api/api_service.dart';
+import 'package:race_room/utils/app_colors.dart';
 import 'package:race_room/utils/save_pdf_locally.dart';
 
 class ShowTelemetryFileView extends StatefulWidget {
@@ -79,7 +80,7 @@ class _TelemetryViewState extends State<ShowTelemetryFileView> {
     final double topMargin = isLandscape ? screenHeight * 0.01 : screenHeight * 0.052;
     final double rightMargin = isLandscape ? screenWidth * 0.046 : screenWidth * 0.022;
 
-    const TextStyle causesTextStyle = TextStyle(color: Colors.grey, fontSize: 10.5);
+    const TextStyle causesTextStyle = TextStyle(color: AppColors.telemetryCausesText, fontSize: 10.5);
 
     return Scaffold(
       body: Stack(
@@ -91,12 +92,12 @@ class _TelemetryViewState extends State<ShowTelemetryFileView> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.error, color: Colors.red, size: 48),
+                    const Icon(Icons.error, color: AppColors.telemetryErrorIcon, size: 48),
                     const SizedBox(height: 14),
                     Text(
                       errorMessage!,
                       textAlign: TextAlign.center,
-                      style: const TextStyle(color: Colors.red, fontSize: 15.5),
+                      style: const TextStyle(color: AppColors.telemetryErrorText, fontSize: 15.5),
                     ),
                     const SizedBox(height: 22),
                     Text("Some possible causes", style: causesTextStyle.copyWith(fontWeight: FontWeight.bold)),
@@ -119,8 +120,8 @@ class _TelemetryViewState extends State<ShowTelemetryFileView> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   CircularProgressIndicator(
-                    color: Colors.red,
-                    valueColor: AlwaysStoppedAnimation(Colors.red),
+                    color: AppColors.circularProgressIndicator,
+                    valueColor: AlwaysStoppedAnimation(AppColors.circularProgressIndicator),
                   ),
                   SizedBox(height: 23),
                   Text("Please wait..."),
@@ -132,7 +133,7 @@ class _TelemetryViewState extends State<ShowTelemetryFileView> {
           else
             PDFView(
               filePath: _pdfFile!.path,
-              backgroundColor: isDark ? Colors.black : Colors.white,
+              backgroundColor: isDark ? AppColors.telemetryBackgroundDark : AppColors.telemetryBackgroundLight,
             ),
           Positioned(
             top: topMargin,
