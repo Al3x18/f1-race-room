@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:race_room/api/api_service.dart';
-import 'package:race_room/screens/telemetry_view.dart';
-import 'package:race_room/utils/app_colors.dart';
+import 'package:race_room/screens/telemetry/telemetry_view.dart';
+import 'package:race_room/utils/colors/app_colors.dart';
 
 class TelemetryRequestView extends StatefulWidget {
   const TelemetryRequestView({super.key});

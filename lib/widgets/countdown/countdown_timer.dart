@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:race_room/utils/app_colors.dart';
+import 'package:race_room/utils/colors/app_colors.dart';
 
 class CountdownTimer extends StatefulWidget {
   final DateTime raceDate;

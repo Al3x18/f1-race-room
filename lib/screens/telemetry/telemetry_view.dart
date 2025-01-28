@@ -5,8 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:get/get.dart';
 import 'package:race_room/api/api_service.dart';
-import 'package:race_room/utils/app_colors.dart';
-import 'package:race_room/utils/save_pdf_locally.dart';
+import 'package:race_room/utils/colors/app_colors.dart';
+import 'package:race_room/utils/general/save_pdf_locally.dart';
 
 class ShowTelemetryFileView extends StatefulWidget {
   const ShowTelemetryFileView({

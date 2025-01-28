@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:race_room/api/api_service.dart';
 import 'package:race_room/model/weather_model.dart';
-import 'package:race_room/screens/race_results_view.dart';
-import 'package:race_room/utils/app_colors.dart';
-import 'package:race_room/utils/check_date.dart';
-import 'package:race_room/utils/convert_race_time.dart';
-import 'package:race_room/utils/get_track_image.dart';
+import 'package:race_room/screens/race_results/race_results_view.dart';
+import 'package:race_room/utils/colors/app_colors.dart';
+import 'package:race_room/utils/date/check_date.dart';
+import 'package:race_room/utils/date/convert_race_time.dart';
+import 'package:race_room/utils/track/get_track_image.dart';
 import 'package:widget_zoom/widget_zoom.dart';
 
 class RaceDetailsView extends StatefulWidget {

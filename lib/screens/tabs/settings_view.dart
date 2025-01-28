@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:race_room/utils/app_colors.dart';
+import 'package:race_room/utils/colors/app_colors.dart';
 import 'package:race_room/utils/not_share.dart';
-import 'package:race_room/utils/settings_controller.dart';
-import 'package:race_room/utils/tab_text_settings_controller.dart';
+import 'package:race_room/utils/controllers/settings_controller.dart';
+import 'package:race_room/utils/controllers/tab_text_settings_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SettingsView extends StatefulWidget {

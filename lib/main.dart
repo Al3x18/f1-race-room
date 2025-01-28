@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:race_room/utils/app_colors.dart';
-import 'package:race_room/utils/settings_controller.dart';
-import 'package:race_room/utils/tab_text_settings_controller.dart';
+import 'package:race_room/utils/colors/app_colors.dart';
+import 'package:race_room/utils/controllers/settings_controller.dart';
+import 'package:race_room/utils/controllers/tab_text_settings_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:race_room/screens/root_view.dart';
 

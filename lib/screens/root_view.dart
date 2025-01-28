@@ -5,18 +5,18 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_floating_bottom_bar/flutter_floating_bottom_bar.dart';
 import 'package:get/get.dart';
-import 'package:race_room/screens/telemetry_request_view.dart';
+import 'package:race_room/screens/telemetry/telemetry_request_view.dart';
 import 'package:race_room/api/api_service.dart';
 import 'package:race_room/model/constructor_standings_model.dart';
 import 'package:race_room/model/driver_standings_model.dart';
 import 'package:race_room/model/race_schedule_model.dart';
-import 'package:race_room/screens/constructor_standings_view.dart';
-import 'package:race_room/screens/drivers_standings_view.dart';
-import 'package:race_room/screens/races_schedule_view.dart';
-import 'package:race_room/screens/select_year_view.dart';
-import 'package:race_room/screens/settings_view.dart';
-import 'package:race_room/utils/app_colors.dart';
-import 'package:race_room/utils/tab_text_settings_controller.dart';
+import 'package:race_room/screens/tabs/constructor_standings_view.dart';
+import 'package:race_room/screens/tabs/drivers_standings_view.dart';
+import 'package:race_room/screens/tabs/races_schedule_view.dart';
+import 'package:race_room/screens/select_year/select_year_view.dart';
+import 'package:race_room/screens/tabs/settings_view.dart';
+import 'package:race_room/utils/colors/app_colors.dart';
+import 'package:race_room/utils/controllers/tab_text_settings_controller.dart';
 
 class RootView extends StatefulWidget {
   const RootView({super.key});

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:race_room/utils/app_colors.dart';
+import 'package:race_room/utils/colors/app_colors.dart';
 
 class NoDataAvailable extends StatelessWidget {
   const NoDataAvailable({super.key, required this.onRefresh, required this.infoLabel});

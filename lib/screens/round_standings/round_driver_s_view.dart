@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:race_room/api/api_service.dart';
-import 'package:race_room/utils/app_colors.dart';
-import 'package:race_room/utils/f1_teams_color.dart';
+import 'package:race_room/utils/colors/app_colors.dart';
+import 'package:race_room/utils/colors/f1_teams_color.dart';
 import 'package:race_room/model/driver_standings_model.dart';
-import 'package:race_room/utils/safe_parse_points.dart';
-import 'package:race_room/widgets/position_container.dart';
+import 'package:race_room/utils/general/safe_parse_points.dart';
+import 'package:race_room/widgets/position_container/position_container.dart';
 
 class DriverSToRound extends StatefulWidget {
   const DriverSToRound({

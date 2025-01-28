@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:race_room/utils/app_colors.dart';
-import 'package:race_room/utils/medal_colors.dart';
+import 'package:race_room/utils/colors/app_colors.dart';
+import 'package:race_room/utils/colors/medal_colors.dart';
 
 enum PositionContainerType { driverAndConstructorView, driversAfterRace }
 

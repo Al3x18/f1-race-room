@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:race_room/api/api_service.dart';
 import 'package:race_room/model/driver_laps_model.dart';
-import 'package:race_room/utils/app_colors.dart';
+import 'package:race_room/utils/colors/app_colors.dart';
 
 class DriverLapsView extends StatefulWidget {
   const DriverLapsView({

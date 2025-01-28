@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:race_room/utils/get_track_image.dart';
+import 'package:race_room/utils/track/get_track_image.dart';
 import 'package:widget_zoom/widget_zoom.dart';
 
 class TrackMapView extends StatefulWidget {
