@@ -1,178 +1,166 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
+  //MARK: General - Palette Base
+  // Colori primari
+  static const Color primary = Color(0xFF3B82F6); // Blu cielo brillante
+  static const Color secondary = Color(0xFF4DABF7); // Blu chiaro
+  static const Color accent = Color(0xFFF59E0B); // Arancione dorato
 
-  //MARK: General
-  static const Color _greyShade600 = Color.fromARGB(255, 158, 158, 158);
+  // Colori neutri
+  static const Color neutral900 = Color(0xFF1E293B); // Blu scuro
+  static const Color neutral800 = Color(0xFF334155); // Blu grigio
+  static const Color neutral700 = Color(0xFF475569); // Grigio medio
+  static const Color neutral600 = Color(0xFF94A3B8); // Grigio chiaro
+  static const Color neutral200 = Color(0xFFE2E8F0); // Grigio ghiaccio
+  static const Color neutral100 = Color(0xFFF8FAFC); // Bianco neve
 
-  static const Color circularProgressIndicator = Colors.red;
+  // Colori di stato
+  static const Color success = Color(0xFF34D399); // Verde menta
+  static const Color warning = Color(0xFFFBBF24); // Giallo sole
+  static const Color error = Color(0xFFF87171); // Rosso salmone
 
-  static const Color themeLightPrimary = Colors.white;
-  static const Color scaffoldLightBackground = Colors.white;
+  // Colori di sistema
+  static const Color circularProgressIndicator = primary;
+
+  // Tema chiaro
+  static const Color themeLightPrimary = primary;
+  static const Color scaffoldLightBackground = neutral100;
   static const Color cardLight = Colors.white;
 
-  static const Color themeDarkPrimary = Colors.black;
-  static const Color scaffoldDarkBackground = Colors.black;
-  static const Color cardDark = Colors.black;
+  // Tema scuro
+  static const Color themeDarkPrimary = primary;
+  static const Color scaffoldDarkBackground = neutral900;
+  static const Color cardDark = neutral700;
 
   //MARK: RootView
-  static const Color rootTabTextStyleFullLight = Colors.white;
-  static const Color rootTabTextStyleFullDark = Colors.black;
+  static const List<Color> rootAppBarGradientDark = [
+    neutral900,
+    neutral800,
+  ];
+  static const List<Color> rootAppBarGradientLight = [
+    primary,
+    secondary,
+  ];
 
-  static const Color rootTabTextStyleShortLight = Colors.white;
-  static const Color rootTabTextStyleShortDark = Colors.black;
-
-  static const List<Color> rootAppBarGradientDark = [Colors.black, Colors.black];
-  static const List<Color> rootAppBarGradientLight = [Colors.red, Colors.white];
-
-  static const Color rootAppBarTitle = _greyShade600;
-
-  static const Color rootBottomBarIcon = Colors.white;
-
-  static const Color rootBottomBar = Colors.black;
-
-  static const Color rootTabBarDark = Color.fromARGB(255, 241, 240, 240);
-  static const Color rootTabBarLight = Colors.red;
-  static const Color rootTabBarIndicatorDark = Colors.black;
+  static const Color rootTabBarDark = neutral800;
+  static const Color rootTabBarLight = primary;
+  static const Color rootTabBarIndicatorDark = primary;
   static const Color rootTabBarIndicatorLight = Colors.white;
+  static const Color rootBottomBar = neutral900;
 
-  static const Color rootSeasonYearText = _greyShade600;
-  static const Color rootSeasonYearTextIcon = _greyShade600;
+  static const Color rootTabTextStyleFullLight = Colors.white;
+  static const Color rootTabTextStyleFullDark = Colors.white;
+  static const Color rootTabTextStyleShortLight = Colors.white;
+  static const Color rootTabTextStyleShortDark = Colors.white;
 
-  //MARK: ConstructorStandingsView
-  static const Color constructorStandingsAfterRound = Colors.grey;
-  static const Color constructorStandingsNationality = Colors.grey;
-  static const Color constructorStandingsWins = Color.fromARGB(255, 222, 179, 5);
+  static const Color rootAppBarTitle = Colors.white;
+  static const Color rootBottomBarIcon = Colors.white;
+  static const Color rootSeasonYearText = Colors.white;
+  static const Color rootSeasonYearTextIcon = Colors.white;
 
-  //MARK: DriverLapsView
-  static const Color driverLapsPosition = Colors.grey;
-  static const Color driverLapsTime = Colors.grey;
+  //MARK: Race Schedule
+  static const Color raceScheduleRoundAndHours = neutral600;
+  static const Color raceScheduleSprintText = primary;
+  static const Color raceScheduleCircuitName = neutral600;
+  static const Color raceScheduleLocation = neutral600;
+  static const Color raceScheduleBottomSheetBackgroundDark = neutral800;
+  static const Color raceScheduleBottomSheetBackgroundLight = primary;
 
-  static const Color driverStandingsAfterRound = Colors.grey;
-  static const Color driverStandingsTeam = Colors.grey;
-  static const Color driverStandingsWins = Color.fromARGB(255, 222, 179, 5);
+  //MARK: Standings
+  static const Color constructorStandingsWins = primary;
+  static const Color driverStandingsWins = primary;
+  static const Color constructorStandingsAfterRound = neutral600;
+  static const Color constructorStandingsNationality = neutral600;
+  static const Color driverStandingsAfterRound = neutral600;
+  static const Color driverStandingsTeam = neutral600;
 
-  //MARK: RaceResultsView
+  //MARK: Driver Laps
+  static const Color driverLapsPosition = neutral600;
+  static const Color driverLapsTime = neutral600;
+
+  //MARK: Settings
+  static const Color settingsSwitchActive = primary;
+  static const Color settingsDevName = neutral600;
+  static const Color settingsDevNameDecoration = neutral600;
+  static const Color settingsExpansionTile = neutral600;
+  static const Color settingsBuildNumber = neutral600;
+  static const Color settingsReportSubtitle = neutral600;
+  static const Color settingsEnableShortTextSubtitle = neutral600;
+
+  //MARK: Telemetry
+  static const Color telemetryRequestAppBarBetaText = error;
+  static const Color telemetryRequestTypeText = neutral600;
+  static const Color telemetryRequestElevatedButtonBackground = primary;
+  static const Color telemetryRequestElevatedButtonText = Colors.white;
+  static const Color telemetryRequestElevatedButtonTextSubtitle = neutral200;
+  static const Color telemetryRequestServerStatusOnlineText = success;
+  static const Color telemetryRequestServerStatusUnreachableText = error;
+  static const Color telemetryRequestServerStatusUnknownText = neutral600;
+  static const Color telemetryRequestServerStatusGeneralErrorText = error;
+  static const Color telemetryRequestErrorAdvice = error;
+  static const Color telemetryBackgroundDark = neutral900;
+  static const Color telemetryBackgroundLight = Colors.white;
+  static const Color telemetryCausesText = neutral600;
+  static const Color telemetryErrorIcon = error;
+  static const Color telemetryErrorText = error;
+  static const Color telemetryRequestSnackBarBackgroundDark = neutral800;
+  static const Color telemetryRequestSnackBarBackgroundLight = primary;
+
+  //MARK: Race Results
+  static const Color raceResultsFastestLap = primary;
+  static const Color raceResultsSnackBarBackgroundDark = neutral800;
+  static const Color raceResultsSnackBarBackgroundLight = primary;
   static const Color raceResultsSnackBarTextDark = Colors.black;
   static const Color raceResultsSnackBarTextLight = Colors.white;
+  static const Color raceResultsSnackBarTextButton = error;
+  static const Color raceResultsListTileIcon = neutral600;
 
-  static const Color raceResultsSnackBarBackgroundDark = Colors.white;
-  static const Color raceResultsSnackBarBackgroundLight = Colors.black;
-
-  static const Color raceResultsSnackBarTextButton = Colors.red;
-
-  static const Color raceResultsFastestLap = Color.fromARGB(255, 127, 21, 146);
-
-  static const Color raceResultsListTileIcon = Colors.grey;
-
-  //MARK: RaceScheduleView
-  static const Color raceScheduleRoundAndHours = Colors.grey;
-  static const Color raceScheduleSprintText = Colors.red;
-  static const Color raceScheduleCircuitName = Colors.grey;
-  static const Color raceScheduleLocation = Colors.grey;
-
-  static const Color raceScheduleBottomSheetBackgroundDark = Color.fromARGB(255, 201, 45, 34);
-  static const Color raceScheduleBottomSheetBackgroundLight = Colors.red;
-
-  //MARK: SelectYearView
-  static const Color selectYearAppBarButton = Colors.red;
-  static const Color selectYearDecorationColorYearSelected = Colors.red;
+  //MARK: Select Year
+  static const Color selectYearAppBarButton = primary;
+  static const Color selectYearDecorationColorYearSelected = primary;
   static const Color selectYearDecorationColorYearNotSelected = Colors.transparent;
-
   static const Color selectYearTextYearSelected = Colors.white;
   static const Color selectYearTextYearNotSelectedDark = Colors.white;
   static const Color selectYearTextYearNotSelectedLight = Colors.black;
-
   static const Color selectedYearTrailingIcon = Colors.white;
 
-  //MARK: SettingsView
-  static const Color settingsDevName = Color.fromARGB(255, 189, 189, 189);
-  static const Color settingsDevNameDecoration = Color.fromARGB(255, 189, 189, 189);
-
-  static const Color settingsBuildNumber = Colors.grey;
-
-  static const Color settingsReportSubtitle = Colors.grey;
-
-  static const Color settingsExpansionTile = Colors.grey;
-
-  static const Color settingsEnableShortTextSubtitle = Colors.grey;
-  static const Color settingsSwitchActive = Colors.red;
-
-  //MARK: TelemetryRequestView
-  static const Color telemetryRequestAppBarBetaText = Colors.red;
-  static const Color telemetryRequestTypeText = Colors.grey;
-
-  static const Color telemetryRequestErrorAdvice = Colors.red;
-
-  static const Color telemetryRequestElevatedButtonBackground = Color.fromARGB(255, 237, 63, 51);
-  static const Color telemetryRequestElevatedButtonText = Colors.white;
-  static const Color telemetryRequestElevatedButtonTextSubtitle = Color.fromARGB(255, 202, 202, 202);
-
-  static const Color telemetryRequestSnackBarBackgroundDark = Colors.white;
-  static const Color telemetryRequestSnackBarBackgroundLight = Colors.black87;
-
-  static const Color telemetryRequestServerStatusUnreachableText = Colors.red;
-  static const Color telemetryRequestServerStatusOnlineText = Colors.green;
-  static const Color telemetryRequestServerStatusUnknownText = Colors.grey;
-  static const Color telemetryRequestServerStatusGeneralErrorText = Colors.red;
-
-  //MARK: TelemetryView
-  static const Color telemetryCausesText = Colors.grey;
-  static const Color telemetryErrorIcon = Colors.red;
-  static const Color telemetryErrorText = Colors.red;
-
-  static const Color telemetryBackgroundDark = Colors.black;
-  static const Color telemetryBackgroundLight = Colors.white;
-
-  //MARK: CountdownTimer
-  static const Color countdownTimerRaceEnded = Colors.green;
-  static const Color countdownTimerRaceOngoing = Colors.red;
-
-  static const Color countdownLightsOutText = Colors.grey;
-
-  static const Color countdownTimerText = Color.fromARGB(255, 79, 70, 255);
-
-  //MARK: NoDataAvailable
-  static const Color noDataAvailableIcon = Colors.grey;
-  static const Color noDataAvailableText = Colors.grey;
-
-  //MARK: PositionContainer
-  static const Color positionContainerTSPositionOne = Color.fromARGB(255, 49, 56, 255);
+  //MARK: Position Container
+  static const Color positionContainerTSPositionOne = primary;
   static const Color positionContainerTSPositionNotOne = Colors.transparent;
-
   static const Color positionOneTSText = Colors.white;
-  static const Color positionNotOneTSText = Color.fromARGB(255, 106, 106, 106);
-
+  static const Color positionNotOneTSText = neutral600;
   static const Color positionContainerDSNotFirstThree = Colors.transparent;
-
   static const Color positionContainerDSFirstThreeTextDark = Colors.black;
   static const Color positionContainerDSFirstThreeTextLight = Colors.white;
+  static const Color positionContainerDSNotFirstThreeText = neutral600;
 
-  static const Color positionContainerDSNotFirstThreeText = Color.fromARGB(255, 74, 74, 74);
-
-  //MARK: RaceDetailsView
+  //MARK: Race Details
   static const Color raceDetailsScrollIndicatorTop = Colors.white;
   static const Color raceDetailsTitleText = Colors.white;
-
   static const Color raceDetailsDivider = Colors.white;
-
   static const Color raceDetailsTrackMapText = Colors.white;
-
   static const Color raceDetailsWeatherText = Colors.white;
   static const Color raceDetailsWeatherTextSubtitle = Colors.white;
-
-  static const Color raceDetailsSessionContainerDecorationDark = Colors.black;
+  static const Color raceDetailsSessionContainerDecorationDark = Color(0xFF2A2E37); // Grigio antracite
   static const Color raceDetailsSessionContainerDecorationLight = Colors.white;
-
-  static const Color raceDetailsSessionContainerTitleText = Colors.grey;
-
+  static const Color raceDetailsSessionContainerTitleText = neutral600;
   static const Color raceDetailsSessionResultsSnackTextDark = Colors.black;
   static const Color raceDetailsSessionResultsSnackTextLight = Colors.white;
-  static const Color raceDetailsSessionResultsSnackBackgroundDark = Colors.white;
-  static const Color raceDetailsSessionResultsSnackBackgroundLight = Color.fromARGB(255, 30, 30, 30);
-
+  static const Color raceDetailsSessionResultsSnackBackgroundDark = neutral800;
+  static const Color raceDetailsSessionResultsSnackBackgroundLight = primary;
   static const Color raceDetailsSessionResultsOutlineButtonBordersDark = Colors.white;
-  static const Color raceDetailsSessionResultsOutlineButtonBordersLight = Colors.red;
+  static const Color raceDetailsSessionResultsOutlineButtonBordersLight = primary;
   static const Color raceDetailsSessionResultsOutlineButtonTextDark = Colors.white;
-  static const Color raceDetailsSessionResultsOutlineButtonTextLight = Colors.red;
+  static const Color raceDetailsSessionResultsOutlineButtonTextLight = primary;
+
+  //MARK: Countdown
+  static const Color countdownTimerRaceEnded = success;
+  static const Color countdownTimerRaceOngoing = error;
+  static const Color countdownTimerText = primary;
+  static const Color countdownLightsOutText = neutral600;
+
+  //MARK: No Data Available
+  static const Color noDataAvailableIcon = neutral600;
+  static const Color noDataAvailableText = neutral600;
 }

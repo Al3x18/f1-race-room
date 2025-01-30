@@ -130,7 +130,7 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
           children: [
             const Text(
               "RACE ROOM",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19.4),
+              style: TextStyle(color: AppColors.rootAppBarTitle, fontWeight: FontWeight.bold, fontSize: 19.4),
             ),
             Text(
               currentPage == 0

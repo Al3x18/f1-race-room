@@ -30,6 +30,8 @@ class RacesScheduleView extends StatefulWidget {
 class _RacesScheduleViewState extends State<RacesScheduleView> {
   @override
   Widget build(BuildContext context) {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     const TextStyle listTileStyle = TextStyle(
       fontFamily: "Formula1",
       fontSize: 15,
@@ -57,7 +59,7 @@ class _RacesScheduleViewState extends State<RacesScheduleView> {
             widget.onRefresh();
             return;
           },
-          child: raceSchedule.isEmpty ? racesListIsEmpty() : racesListWidget(raceSchedule, listTileStyle),
+          child: raceSchedule.isEmpty ? racesListIsEmpty() : racesListWidget(raceSchedule, listTileStyle, isDark),
         );
       },
     );
@@ -65,7 +67,7 @@ class _RacesScheduleViewState extends State<RacesScheduleView> {
 
   Widget racesListIsEmpty() => NoDataAvailable(onRefresh: widget.onRefresh, infoLabel: "No races available for this season.");
 
-  Widget racesListWidget(List<Race> raceSchedule, TextStyle listTileStyle) {
+  Widget racesListWidget(List<Race> raceSchedule, TextStyle listTileStyle, bool isDark) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 2.8),
       child: ListView.builder(
@@ -130,6 +132,7 @@ class _RacesScheduleViewState extends State<RacesScheduleView> {
               );
             },
             child: Card(
+              color: isDark ? AppColors.cardDark : AppColors.cardLight,
               elevation: 0.45,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
               child: ListTile(

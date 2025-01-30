@@ -195,7 +195,7 @@ class _SettingsViewState extends State<SettingsView> {
           ListTile(
             leading: const Icon(Icons.text_format_outlined),
             title: Text("Enable short Tab Text", style: titleTextStyle),
-            subtitle: const Text(
+            subtitle: Text(
               "Show short text in Tab buttons",
               style: TextStyle(color: AppColors.settingsEnableShortTextSubtitle, fontSize: 11),
             ),

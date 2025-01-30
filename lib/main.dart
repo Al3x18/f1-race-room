@@ -68,7 +68,6 @@ ThemeData _buildLightTheme() {
     primaryColor: AppColors.themeLightPrimary,
     fontFamily: "Formula1",
     scaffoldBackgroundColor: AppColors.scaffoldLightBackground,
-    cardColor: AppColors.cardLight,
   );
 }
 
@@ -78,6 +77,5 @@ ThemeData _buildDarkTheme() {
     primaryColor: AppColors.themeDarkPrimary,
     fontFamily: "Formula1",
     scaffoldBackgroundColor: AppColors.scaffoldDarkBackground,
-    cardColor: AppColors.cardDark,
   );
 }
