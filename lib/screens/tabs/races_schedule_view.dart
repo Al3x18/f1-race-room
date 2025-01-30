@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/route_manager.dart';
 import 'package:race_room/utils/colors/app_colors.dart';
 import 'package:race_room/utils/date/convert_race_time.dart';
@@ -106,6 +107,8 @@ class _RacesScheduleViewState extends State<RacesScheduleView> {
           return InkWell(
             borderRadius: BorderRadius.circular(7),
             onTap: () {
+              HapticFeedback.lightImpact();
+              
               _showModalBottomSheet(
                 context,
                 raceDate: raceDate,
