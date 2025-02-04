@@ -113,9 +113,9 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
             ),
           ),
         ),
-        leading: kIsWeb || Platform.isIOS || Platform.isMacOS ? _openTelemetryView(isDarkMode) : null,
+        leading: kIsWeb || Platform.isIOS || Platform.isMacOS ? _openTelemetryView() : null,
         actions: [
-          if (!kIsWeb && Platform.isAndroid) _openTelemetryView(isDarkMode),
+          if (!kIsWeb && Platform.isAndroid) _openTelemetryView(),
           if (!kIsWeb && Platform.isAndroid) const SizedBox(width: 5),
           _openSelectSeasonView(),
         ],
@@ -279,9 +279,9 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
     );
   }
 
-  IconButton _openTelemetryView(bool isDark) {
+  IconButton _openTelemetryView() {
     return IconButton(
-      icon: Image.asset(isDark ? "assets/images/telemetry-icon-dark.png" : "assets/images/telemetry-icon.png", width: 22),
+      icon: Image.asset("assets/images/telemetry-icon-dark.png", width: 22),
       onPressed: () => Get.to(
         transition: Transition.zoom,
         duration: const Duration(milliseconds: 250),
