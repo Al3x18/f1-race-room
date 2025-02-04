@@ -25,11 +25,11 @@ class _SettingsViewState extends State<SettingsView> {
     fontSize: 14.4,
   );
 
-  Color _devNameColor = AppColors.settingsDevName;
-  Color _devNameDecorationColor = AppColors.settingsDevNameDecoration;
+  final Rx<Color> _devNameColor = AppColors.settingsDevName.obs;
+  final Rx<Color> _devNameDecorationColor = AppColors.settingsDevNameDecoration.obs;
 
-  String version = "Unknown";
-  String buildNumber = "Unknown";
+  final RxString version = "Unknown".obs;
+  final RxString buildNumber = "Unknown".obs;
 
   final String devMail = REPORT_BUG_EMAIL;
   final String devName = DEV_NAME;
@@ -47,10 +47,8 @@ class _SettingsViewState extends State<SettingsView> {
   void _getAppInfo() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
-    setState(() {
-      version = packageInfo.version;
-      buildNumber = packageInfo.buildNumber;
-    });
+    version.value = packageInfo.version;
+    buildNumber.value = packageInfo.buildNumber;
   }
 
   void _sendEmail() async {
@@ -88,14 +86,6 @@ class _SettingsViewState extends State<SettingsView> {
 
   @override
   Widget build(BuildContext context) {
-    final TextStyle devLabelStyle = TextStyle(
-      fontWeight: FontWeight.w600,
-      fontSize: 10,
-      decoration: TextDecoration.underline,
-      decorationColor: _devNameDecorationColor,
-      color: _devNameColor,
-    );
-
     return SingleChildScrollView(
       child: Column(
         spacing: 2.5,
@@ -106,30 +96,37 @@ class _SettingsViewState extends State<SettingsView> {
             spacing: 4,
             children: [
               Text("Developed by:", style: _devByStyle),
-              GestureDetector(
-                onTapDown: (_) {
-                  _devNameColor = Colors.grey.shade300;
-                  _devNameDecorationColor = Colors.grey.shade300;
-                  setState(() {});
-                },
-                onTapUp: (_) {
-                  _devNameColor = Colors.grey.shade400;
-                  _devNameDecorationColor = Colors.grey.shade400;
-                  setState(() {});
-                  _openUrl(DEV_GITHUB);
-                },
-                child: Text(devName, style: devLabelStyle),
-              ),
+              Obx(() => GestureDetector(
+                    onTapDown: (_) {
+                      _devNameColor.value = Colors.grey.shade300;
+                      _devNameDecorationColor.value = Colors.grey.shade300;
+                    },
+                    onTapUp: (_) {
+                      _devNameColor.value = Colors.grey.shade400;
+                      _devNameDecorationColor.value = Colors.grey.shade400;
+                      _openUrl(DEV_GITHUB);
+                    },
+                    child: Text(
+                      devName,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 10,
+                        decoration: TextDecoration.underline,
+                        decorationColor: _devNameDecorationColor.value,
+                        color: _devNameColor.value,
+                      ),
+                    ),
+                  )),
             ],
           ),
           ListTile(
             leading: const Icon(Icons.info_outline),
             title: Text("App Version", style: titleTextStyle),
-            trailing: Text(
-              version,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-            ),
-            subtitle: Text("Build number: $buildNumber", style: const TextStyle(color: AppColors.settingsBuildNumber, fontSize: 11)),
+            trailing: Obx(() => Text(
+                  version.value,
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                )),
+            subtitle: Obx(() => Text("Build number: ${buildNumber.value}", style: const TextStyle(color: AppColors.settingsBuildNumber, fontSize: 11))),
           ),
           ListTile(
             leading: const Icon(Icons.mail_outline),
@@ -160,36 +157,42 @@ class _SettingsViewState extends State<SettingsView> {
             }),
             leading: const Icon(Icons.display_settings_outlined),
             children: [
-              Obx(() {
-                return ListTile(
-                  leading: const Icon(Icons.light_mode_outlined),
-                  title: Text("Light", style: titleTextStyle),
-                  onTap: () {
-                    settingsController.setTheme("Light");
-                  },
-                  trailing: settingsController.currentTheme.value == ThemeMode.light ? const Icon(Icons.check) : null,
-                );
-              }),
-              Obx(() {
-                return ListTile(
-                  leading: const Icon(Icons.sync),
-                  title: Text("System", style: titleTextStyle),
-                  onTap: () {
-                    settingsController.setTheme("System");
-                  },
-                  trailing: settingsController.currentTheme.value == ThemeMode.system ? const Icon(Icons.check) : null,
-                );
-              }),
-              Obx(() {
-                return ListTile(
-                  leading: const Icon(Icons.dark_mode_outlined),
-                  title: Text("Dark", style: titleTextStyle),
-                  onTap: () {
-                    settingsController.setTheme("Dark");
-                  },
-                  trailing: settingsController.currentTheme.value == ThemeMode.dark ? const Icon(Icons.check) : null,
-                );
-              }),
+              Obx(
+                () {
+                  return ListTile(
+                    leading: const Icon(Icons.light_mode_outlined),
+                    title: Text("Light", style: titleTextStyle),
+                    onTap: () {
+                      settingsController.setTheme("Light");
+                    },
+                    trailing: settingsController.currentTheme.value == ThemeMode.light ? const Icon(Icons.check) : null,
+                  );
+                },
+              ),
+              Obx(
+                () {
+                  return ListTile(
+                    leading: const Icon(Icons.sync),
+                    title: Text("System", style: titleTextStyle),
+                    onTap: () {
+                      settingsController.setTheme("System");
+                    },
+                    trailing: settingsController.currentTheme.value == ThemeMode.system ? const Icon(Icons.check) : null,
+                  );
+                },
+              ),
+              Obx(
+                () {
+                  return ListTile(
+                    leading: const Icon(Icons.dark_mode_outlined),
+                    title: Text("Dark", style: titleTextStyle),
+                    onTap: () {
+                      settingsController.setTheme("Dark");
+                    },
+                    trailing: settingsController.currentTheme.value == ThemeMode.dark ? const Icon(Icons.check) : null,
+                  );
+                },
+              ),
             ],
           ),
           ListTile(
@@ -199,13 +202,14 @@ class _SettingsViewState extends State<SettingsView> {
               "Show short text in Tab buttons",
               style: TextStyle(color: AppColors.settingsEnableShortTextSubtitle, fontSize: 11),
             ),
-            trailing: Switch.adaptive(
-              value: tabTextSettingsController.shortTabText.value,
-              activeColor: AppColors.settingsSwitchActive,
-              onChanged: (value) {
-                tabTextSettingsController.setShortTabText(value);
-                setState(() {});
-              },
+            trailing: Obx(
+              () => Switch.adaptive(
+                value: tabTextSettingsController.shortTabText.value,
+                activeColor: AppColors.settingsSwitchActive,
+                onChanged: (value) {
+                  tabTextSettingsController.setShortTabText(value);
+                },
+              ),
             ),
           )
         ],

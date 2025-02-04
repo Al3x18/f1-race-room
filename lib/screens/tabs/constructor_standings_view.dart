@@ -6,7 +6,7 @@ import 'package:race_room/utils/general/safe_parse_points.dart';
 import 'package:race_room/widgets/no_data/no_data_available_info.dart';
 import 'package:race_room/widgets/position_container/position_container.dart';
 
-class ConstructorStandingsView extends StatefulWidget {
+class ConstructorStandingsView extends StatelessWidget {
   const ConstructorStandingsView({
     super.key,
     required this.futureConstructorStandingsData,
@@ -19,11 +19,6 @@ class ConstructorStandingsView extends StatefulWidget {
   final void Function() onRefresh;
 
   @override
-  State<ConstructorStandingsView> createState() => _ConstructorStandingsViewState();
-}
-
-class _ConstructorStandingsViewState extends State<ConstructorStandingsView> {
-  @override
   Widget build(BuildContext context) {
     const TextStyle listTileStyle = TextStyle(
       fontFamily: "Formula1",
@@ -31,7 +26,7 @@ class _ConstructorStandingsViewState extends State<ConstructorStandingsView> {
     );
 
     return FutureBuilder(
-      future: widget.futureConstructorStandingsData,
+      future: futureConstructorStandingsData,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
@@ -41,21 +36,19 @@ class _ConstructorStandingsViewState extends State<ConstructorStandingsView> {
           );
         } else if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
-        } else if (!snapshot.hasData 
-        || snapshot.data == null
-        || snapshot.data!.standingsTable.standingsLists.isEmpty) {
-          return NoDataAvailable(onRefresh: widget.onRefresh, infoLabel: "The teams standing for this season is not currently available.");
+        } else if (!snapshot.hasData || snapshot.data == null || snapshot.data!.standingsTable.standingsLists.isEmpty) {
+          return NoDataAvailable(onRefresh: onRefresh, infoLabel: "The teams standing for this season is not currently available.");
         }
 
         final constructorStandings = snapshot.data!.standingsTable.standingsLists[0].constructorStandings;
 
         return RefreshIndicator.adaptive(
           onRefresh: () async {
-            widget.onRefresh();
+            onRefresh();
             return;
           },
           child: ListView.builder(
-            controller: widget.controller,
+            controller: controller,
             itemCount: constructorStandings.length,
             itemBuilder: (context, index) {
               final String roundNumber = snapshot.data!.standingsTable.round.toString();
@@ -91,9 +84,7 @@ class _ConstructorStandingsViewState extends State<ConstructorStandingsView> {
                         Visibility(
                           visible: safeParsePoints(firstConstructorPoints) - safeParsePoints(constructorPoints) > 0,
                           child: Text(
-                              "(-${(safeParsePoints(firstConstructorPoints) - safeParsePoints(constructorPoints)) % 1 == 0 
-                              ? (safeParsePoints(firstConstructorPoints) - safeParsePoints(constructorPoints)).toInt() 
-                              : (safeParsePoints(firstConstructorPoints) - safeParsePoints(constructorPoints)).toStringAsFixed(1)})",
+                            "(-${(safeParsePoints(firstConstructorPoints) - safeParsePoints(constructorPoints)) % 1 == 0 ? (safeParsePoints(firstConstructorPoints) - safeParsePoints(constructorPoints)).toInt() : (safeParsePoints(firstConstructorPoints) - safeParsePoints(constructorPoints)).toStringAsFixed(1)})",
                           ),
                         ),
                       ],

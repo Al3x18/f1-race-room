@@ -6,7 +6,7 @@ import 'package:race_room/utils/general/safe_parse_points.dart';
 import 'package:race_room/widgets/no_data/no_data_available_info.dart';
 import 'package:race_room/widgets/position_container/position_container.dart';
 
-class DriversStandingsView extends StatefulWidget {
+class DriversStandingsView extends StatelessWidget {
   const DriversStandingsView({
     super.key,
     required this.controller,
@@ -19,11 +19,6 @@ class DriversStandingsView extends StatefulWidget {
   final void Function() onRefresh;
 
   @override
-  State<DriversStandingsView> createState() => _DriversStandingsState();
-}
-
-class _DriversStandingsState extends State<DriversStandingsView> {
-  @override
   Widget build(BuildContext context) {
     const TextStyle listTileStyle = TextStyle(
       fontFamily: "Formula1",
@@ -31,7 +26,7 @@ class _DriversStandingsState extends State<DriversStandingsView> {
     );
 
     return FutureBuilder(
-      future: widget.futureDriverStandingsData,
+      future: futureDriverStandingsData,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
@@ -44,7 +39,7 @@ class _DriversStandingsState extends State<DriversStandingsView> {
         } else if (!snapshot.hasData || snapshot.data == null || snapshot.data!.standingsTable.standingsLists.isEmpty) {
           return Padding(
             padding: const EdgeInsets.all(8.0),
-            child: NoDataAvailable(onRefresh: widget.onRefresh, infoLabel: "The drivers standing for this season is not currently available.")
+            child: NoDataAvailable(onRefresh: onRefresh, infoLabel: "The drivers standing for this season is not currently available.")
           );
         }
 
@@ -52,11 +47,11 @@ class _DriversStandingsState extends State<DriversStandingsView> {
 
         return RefreshIndicator.adaptive(
           onRefresh: () async {
-            widget.onRefresh();
+            onRefresh();
             return;
           },
           child: ListView.builder(
-            controller: widget.controller,
+            controller: controller,
             itemCount: driverStandings.length,
             itemBuilder: (context, index) {
               final String roundNumber = snapshot.data!.standingsTable.round.toString();

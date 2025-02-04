@@ -10,7 +10,7 @@ import 'package:race_room/widgets/countdown/countdown_timer.dart';
 import 'package:race_room/widgets/no_data/no_data_available_info.dart';
 import 'package:race_room/widgets/race_details/race_details.dart';
 
-class RacesScheduleView extends StatefulWidget {
+class RacesScheduleView extends StatelessWidget {
   const RacesScheduleView({
     super.key,
     required this.controller,
@@ -25,11 +25,6 @@ class RacesScheduleView extends StatefulWidget {
   final void Function() onRefresh;
 
   @override
-  State<RacesScheduleView> createState() => _RacesScheduleViewState();
-}
-
-class _RacesScheduleViewState extends State<RacesScheduleView> {
-  @override
   Widget build(BuildContext context) {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
@@ -39,7 +34,7 @@ class _RacesScheduleViewState extends State<RacesScheduleView> {
     );
 
     return FutureBuilder(
-      future: widget.futureRaceScheduleData,
+      future: futureRaceScheduleData,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
@@ -57,7 +52,7 @@ class _RacesScheduleViewState extends State<RacesScheduleView> {
 
         return RefreshIndicator.adaptive(
           onRefresh: () async {
-            widget.onRefresh();
+            onRefresh();
             return;
           },
           child: raceSchedule.isEmpty ? racesListIsEmpty() : racesListWidget(raceSchedule, listTileStyle, isDark),
@@ -66,13 +61,13 @@ class _RacesScheduleViewState extends State<RacesScheduleView> {
     );
   }
 
-  Widget racesListIsEmpty() => NoDataAvailable(onRefresh: widget.onRefresh, infoLabel: "No races available for this season.");
+  Widget racesListIsEmpty() => NoDataAvailable(onRefresh: onRefresh, infoLabel: "No races available for this season.");
 
   Widget racesListWidget(List<Race> raceSchedule, TextStyle listTileStyle, bool isDark) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 2.8),
       child: ListView.builder(
-        controller: widget.controller,
+        controller: controller,
         itemCount: raceSchedule.length,
         itemBuilder: (context, index) {
           final String roundNumber = raceSchedule[index].round.toString();
@@ -131,7 +126,7 @@ class _RacesScheduleViewState extends State<RacesScheduleView> {
                 round: roundNumber,
                 circuitLat: raceCircuitLat,
                 circuitLng: raceCircuitLng,
-                seasonYear: widget.seasonYear,
+                seasonYear: seasonYear,
               );
             },
             child: Card(
