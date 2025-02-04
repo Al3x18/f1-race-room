@@ -15,15 +15,14 @@ class NoDataAvailable extends StatelessWidget {
         },
         child: ListView(
           children: [
-            SizedBox(height: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom) * 0.283),
+            SizedBox(height: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom) * 0.290),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                spacing: 6,
                 children: [
-                  Icon(Icons.info_outline_rounded, size: 88, color: AppColors.noDataAvailableIcon),
-                  const SizedBox(height: 5),
+                  Icon(Icons.info_outline, size: 80, color: AppColors.noDataAvailableIcon),
+                  const SizedBox(height: 8),
                   Text(
                     infoLabel,
                     textAlign: TextAlign.center,
@@ -32,7 +31,7 @@ class NoDataAvailable extends StatelessWidget {
                   Text(
                     "Please check back later.",
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: AppColors.noDataAvailableText, fontSize: 14.5),
+                    style: TextStyle(color: AppColors.noDataAvailableText, fontSize: 14),
                   ),
                 ],
               ),
