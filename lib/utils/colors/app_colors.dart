@@ -3,22 +3,22 @@ import 'package:flutter/material.dart';
 class AppColors {
   //MARK: General - Palette Base
   // Colori primari
-  static const Color primary = Color(0xFF3B82F6); // Blu cielo brillante
-  static const Color secondary = Color(0xFF4DABF7); // Blu chiaro
-  static const Color accent = Color(0xFFF59E0B); // Arancione dorato
+  static const Color primary = Color(0xFF1A56DB); // Blu più scuro e profondo
+  static const Color secondary = Color(0xFF2563EB); // Blu medio intenso
+  static const Color accent = Color(0xFFD97706); // Arancione più scuro
 
   // Colori neutri
-  static const Color neutral900 = Color(0xFF1E293B); // Blu scuro
-  static const Color neutral800 = Color(0xFF334155); // Blu grigio
-  static const Color neutral700 = Color(0xFF475569); // Grigio medio
-  static const Color neutral600 = Color(0xFF94A3B8); // Grigio chiaro
-  static const Color neutral200 = Color(0xFFE2E8F0); // Grigio ghiaccio
-  static const Color neutral100 = Color(0xFFF8FAFC); // Bianco neve
+  static const Color neutral900 = Color(0xFF0F172A); // Blu scurissimo
+  static const Color neutral800 = Color(0xFF1E293B); // Blu molto scuro
+  static const Color neutral700 = Color(0xFF334155); // Grigio blu scuro
+  static const Color neutral600 = Color(0xFF64748B); // Grigio medio
+  static const Color neutral200 = Color(0xFFE2E8F0); // Grigio chiaro
+  static const Color neutral100 = Color(0xFFF8FAFC); // Bianco sporco
 
   // Colori di stato
-  static const Color success = Color(0xFF34D399); // Verde menta
-  static const Color warning = Color(0xFFFBBF24); // Giallo sole
-  static const Color error = Color(0xFFF87171); // Rosso salmone
+  static const Color success = Color(0xFF059669); // Verde più scuro
+  static const Color warning = Color(0xFFD97706); // Arancione più intenso
+  static const Color error = Color(0xFFDC2626); // Rosso più intenso
 
   // Colori di sistema
   static const Color circularProgressIndicator = primary;
