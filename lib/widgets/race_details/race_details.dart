@@ -90,13 +90,16 @@ class _RaceDetailsViewState extends State<RaceDetailsView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
-                child: Container(
-                  margin: const EdgeInsets.only(top: 10, bottom: 8),
-                  width: 85,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(60),
-                    color: AppColors.raceDetailsScrollIndicatorTop,
+                child: GestureDetector(
+                  onTap: () => Get.back(),
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 10, bottom: 8),
+                    width: 85,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(60),
+                      color: AppColors.raceDetailsScrollIndicatorTop,
+                    ),
                   ),
                 ),
               ),
