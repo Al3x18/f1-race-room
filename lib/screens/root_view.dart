@@ -5,16 +5,16 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_floating_bottom_bar/flutter_floating_bottom_bar.dart';
 import 'package:get/get.dart';
-import 'package:race_room/screens/telemetry/telemetry_request_view.dart';
+import 'package:race_room/screens/tabs/more/more_view.dart';
+//import 'package:race_room/screens/telemetry/telemetry_request_view.dart';
 import 'package:race_room/api/api_service.dart';
-import 'package:race_room/model/constructor_standings_model.dart';
-import 'package:race_room/model/driver_standings_model.dart';
-import 'package:race_room/model/race_schedule_model.dart';
+import 'package:race_room/model/f1/constructor_standings_model.dart';
+import 'package:race_room/model/f1/driver_standings_model.dart';
+import 'package:race_room/model/f1/race_schedule_model.dart';
 import 'package:race_room/screens/tabs/constructor_standings_view.dart';
 import 'package:race_room/screens/tabs/drivers_standings_view.dart';
 import 'package:race_room/screens/tabs/races_schedule_view.dart';
 import 'package:race_room/screens/select_year/select_year_view.dart';
-import 'package:race_room/screens/tabs/settings_view.dart';
 import 'package:race_room/utils/colors/app_colors.dart';
 import 'package:race_room/utils/controllers/tab_text_settings_controller.dart';
 
@@ -113,10 +113,10 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
             ),
           ),
         ),
-        leading: kIsWeb || Platform.isIOS || Platform.isMacOS ? _openTelemetryView() : null,
+        //leading: kIsWeb || Platform.isIOS || Platform.isMacOS ? _openTelemetryView() : null,
         actions: [
-          if (!kIsWeb && Platform.isAndroid) _openTelemetryView(),
-          if (!kIsWeb && Platform.isAndroid) const SizedBox(width: 5),
+          //if (!kIsWeb && Platform.isAndroid) _openTelemetryView(),
+          //if (!kIsWeb && Platform.isAndroid) const SizedBox(width: 5),
           _openSelectSeasonView(),
         ],
         title: Column(
@@ -139,7 +139,7 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
                       ? "Driver Standings"
                       : currentPage == 2
                           ? "Teams Standings"
-                          : "Settings",
+                          : "Explore More",
               style: TextStyle(color: AppColors.rootAppBarTitle, fontSize: 12.1, fontWeight: FontWeight.w600),
             ),
           ],
@@ -193,7 +193,7 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
               futureConstructorStandingsData: futureConstructorStandingsData,
               controller: controller,
             ),
-            const SettingsView(),
+            const MoreView()
           ],
         ),
         // ClipRRect and Material are used to make the TabBar ripple effect rounded on external borders
@@ -220,10 +220,15 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
                     child: Text(tabTextSettingsController.shortTabText.value ? "TS" : "Teams\nStandings",
                         textAlign: TextAlign.center, style: tabTextSettingsController.shortTabText.value ? tabTextStyleShort : tabTextStyleFull),
                   ),
+                  // Tab(
+                  //   child: Text(tabTextSettingsController.shortTabText.value ? "ST" : "Settings",
+                  //       textAlign: TextAlign.center, style: tabTextSettingsController.shortTabText.value ? tabTextStyleShort : tabTextStyleFull),
+                  // ),
                   Tab(
-                    child: Text(tabTextSettingsController.shortTabText.value ? "ST" : "Settings",
-                        textAlign: TextAlign.center, style: tabTextSettingsController.shortTabText.value ? tabTextStyleShort : tabTextStyleFull),
-                  ),
+                    child: tabTextSettingsController.shortTabText.value
+                        ? Icon(Icons.more_horiz, color: AppColors.rootTabBarIndicatorLight, size: 40)
+                        : Text("Explore\nMore", textAlign: TextAlign.center, style: tabTextStyleFull),
+                  )
                 ],
               ),
             ),
@@ -279,17 +284,17 @@ class _RootViewState extends State<RootView> with SingleTickerProviderStateMixin
     );
   }
 
-  IconButton _openTelemetryView() {
-    return IconButton(
-      icon: Image.asset("assets/images/telemetry-icon-dark.png", width: 22),
-      onPressed: () => Get.to(
-        transition: Transition.zoom,
-        duration: const Duration(milliseconds: 250),
-        popGesture: false,
-        () => const TelemetryRequestView(),
-      ),
-    );
-  }
+  // IconButton _openTelemetryView() {
+  //   return IconButton(
+  //     icon: Image.asset("assets/images/telemetry-icon-dark.png", width: 22),
+  //     onPressed: () => Get.to(
+  //       transition: Transition.zoom,
+  //       duration: const Duration(milliseconds: 250),
+  //       popGesture: false,
+  //       () => const TelemetryRequestView(appBarType: AppBarType.home),
+  //     ),
+  //   );
+  // }
 
   double _calculateTabFontSize(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;

@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/route_manager.dart';
 import 'package:race_room/utils/colors/app_colors.dart';
 import 'package:race_room/utils/date/convert_race_time.dart';
-import 'package:race_room/model/race_schedule_model.dart';
+import 'package:race_room/model/f1/race_schedule_model.dart';
 import 'package:race_room/widgets/countdown/countdown_timer.dart';
 import 'package:race_room/widgets/no_data/no_data_available_info.dart';
 import 'package:race_room/widgets/race_details/race_details.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:race_room/api/api_service.dart';
-import 'package:race_room/model/weather_model.dart';
+import 'package:race_room/model/weather/weather_model.dart';
 import 'package:race_room/screens/race_results/race_results_view.dart';
 import 'package:race_room/utils/colors/app_colors.dart';
 import 'package:race_room/utils/date/check_date.dart';

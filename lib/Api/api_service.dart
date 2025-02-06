@@ -2,13 +2,15 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:logger/web.dart';
-import 'package:race_room/model/constructor_standings_model.dart';
-import 'package:race_room/model/driver_laps_model.dart';
-import 'package:race_room/model/driver_standings_model.dart';
-import 'package:race_room/model/race_results_model.dart';
-import 'package:race_room/model/race_schedule_model.dart';
-import 'package:race_room/model/weather_model.dart';
+import 'package:race_room/model/f1/constructor_standings_model.dart';
+import 'package:race_room/model/f1/driver_laps_model.dart';
+import 'package:race_room/model/f1/driver_standings_model.dart';
+import 'package:race_room/model/f1/race_results_model.dart';
+import 'package:race_room/model/f1/race_schedule_model.dart';
+import 'package:race_room/model/news/news_article_model.dart';
+import 'package:race_room/model/weather/weather_model.dart';
 import 'package:race_room/utils/not_share.dart';
+import 'package:xml/xml.dart';
 
 class ApiService {
   final Logger _logger = Logger();
@@ -196,7 +198,7 @@ class ApiService {
     }
   }
 
- Future<Uint8List> fetchTelemetryPdfFile(String year, String trackName, String session, String driverName) async {
+  Future<Uint8List> fetchTelemetryPdfFile(String year, String trackName, String session, String driverName) async {
     String apiUrl = "http://$TELEMETRY_SERVER_PUBLIC_IP_OR_URL:$TELEMETRY_SERVER_PORT/get-telemetry?year=$year&trackName=$trackName&session=$session&driverName=$driverName";
 
     try {
@@ -223,5 +225,30 @@ class ApiService {
       return 'Failed to parse error message';
     }
   }
-}
 
+  Future<List<NewsArticleModel>> fetchNews(String localization) async {
+    // ignore: non_constant_identifier_names
+    String RSS_EN_Url = "https://www.motorsport.com/rss/f1/news/";
+    // ignore: non_constant_identifier_names
+    String RSS_IT_Url = "https://it.motorsport.com/rss/f1/news/";
+
+    // ignore: non_constant_identifier_names
+    String RSSUrl = localization == 'en' 
+    ? RSS_EN_Url
+    : localization == 'it'
+    ? RSS_IT_Url
+    : RSS_EN_Url;
+
+    final response = await http.get(Uri.parse(RSSUrl));
+
+    if (response.statusCode == 200) {
+      final document = XmlDocument.parse(response.body);
+      final items = document.findAllElements('item');
+
+      return items.map((item) => NewsArticleModel.fromXml(item)).toList();
+    } else {
+      _logger.e('RSS Call error: ${response.statusCode}');
+      return [];
+    }
+  }
+}

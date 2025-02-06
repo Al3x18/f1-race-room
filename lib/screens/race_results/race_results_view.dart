@@ -6,7 +6,7 @@ import 'package:race_room/screens/round_standings/round_driver_s_view.dart';
 import 'package:race_room/screens/round_standings/round_teams_s_view.dart';
 import 'package:race_room/utils/colors/app_colors.dart';
 import 'package:race_room/utils/colors/f1_teams_color.dart';
-import 'package:race_room/model/race_results_model.dart';
+import 'package:race_room/model/f1/race_results_model.dart';
 import 'package:race_room/widgets/position_container/position_container.dart';
 
 class RaceResultsView extends StatefulWidget {

@@ -87,6 +87,7 @@ class AppColors {
   static const Color settingsBuildNumber = neutral600;
   static const Color settingsReportSubtitle = neutral600;
   static const Color settingsEnableShortTextSubtitle = neutral600;
+  static const List<Color> settingsAppBarLight = [Colors.white, Colors.white];
 
   //MARK: Telemetry
   static const Color telemetryRequestAppBarBetaText = error;
@@ -163,4 +164,13 @@ class AppColors {
   //MARK: No Data Available
   static const Color noDataAvailableIcon = neutral600;
   static const Color noDataAvailableText = neutral600;
+
+  //MARK: MoreView
+  static const Color moreViewSubtitle = Color.fromARGB(255, 158, 158, 158);
+
+  //MARK: NewsView
+  static const Color newsViewSubtitle = Color.fromARGB(255, 158, 158, 158);
+  static const List<Color> newsViewAppBarLight = [Colors.white, Colors.white];
+  static const Color newsPopMenuBackgroundLight = Colors.white;
+  static const Color newsPopMenuBackgroundDark = scaffoldDarkBackground;
 }

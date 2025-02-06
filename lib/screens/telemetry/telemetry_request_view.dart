@@ -8,8 +8,12 @@ import 'package:race_room/api/api_service.dart';
 import 'package:race_room/screens/telemetry/telemetry_view.dart';
 import 'package:race_room/utils/colors/app_colors.dart';
 
+enum AppBarType { moreMenu, home }
+
 class TelemetryRequestView extends StatefulWidget {
-  const TelemetryRequestView({super.key});
+  const TelemetryRequestView({super.key, required this.appBarType});
+
+  final AppBarType appBarType;
 
   @override
   State<TelemetryRequestView> createState() => _TelemetryRequestViewState();
@@ -110,10 +114,10 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
 
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        leading: kIsWeb || Platform.isIOS || Platform.isMacOS ? _buildBackButton() : null,
+        automaticallyImplyLeading: widget.appBarType == AppBarType.moreMenu ? true : false,
+        leading: widget.appBarType == AppBarType.moreMenu ? null : (kIsWeb || Platform.isIOS || Platform.isMacOS ? _buildBackButton() : null),
         actions: [
-          if (!kIsWeb && Platform.isAndroid) _buildBackButton(),
+          if (!kIsWeb && Platform.isAndroid && widget.appBarType != AppBarType.moreMenu) _buildBackButton(),
         ],
         title: const Column(
           children: [

@@ -77,5 +77,8 @@ ThemeData _buildDarkTheme() {
     primaryColor: AppColors.themeDarkPrimary,
     fontFamily: "Formula1",
     scaffoldBackgroundColor: AppColors.scaffoldDarkBackground,
+    appBarTheme: AppBarTheme(
+      backgroundColor: AppColors.scaffoldDarkBackground,
+    ),
   );
 }
