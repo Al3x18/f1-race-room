@@ -39,6 +39,8 @@ class _CountdownTimerState extends State<CountdownTimer> {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     const TextStyle listTileStyle = TextStyle(
       fontFamily: "Formula1",
       fontSize: 15,
@@ -82,7 +84,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
             fit: BoxFit.scaleDown,
             child: Text(
               "$days days, $hours hours, $minutes minutes",
-              style: listTileStyle.copyWith(color: AppColors.countdownTimerText, fontSize: 10.5, fontWeight: FontWeight.bold),
+              style: listTileStyle.copyWith(color: isDark ? AppColors.countdownTimerTextDark : AppColors.countdownTimerText, fontSize: 10.5, fontWeight: FontWeight.bold),
             ),
           ),
         ),

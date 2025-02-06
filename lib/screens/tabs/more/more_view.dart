@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:race_room/screens/tabs/more/more_screens/news_view.dart';
 import 'package:race_room/screens/tabs/more/more_screens/settings_view.dart';
-import 'package:race_room/screens/telemetry/telemetry_request_view.dart';
+import 'package:race_room/screens/tabs/more/more_screens/telemetry/telemetry_request_view.dart';
 import 'package:race_room/utils/colors/app_colors.dart';
 
 class MoreView extends StatelessWidget {
@@ -30,7 +30,7 @@ class MoreView extends StatelessWidget {
             subtitle: "open telemetry data section",
             leadingIcon: Image.asset(isDark ? "assets/images/telemetry-icon-dark.png" : "assets/images/telemetry-icon.png", width: 21),
             onTap: () => Get.to(
-              () => const TelemetryRequestView(appBarType: AppBarType.moreMenu),
+              () => const TelemetryRequestView(appBarType: AppBarType.moreMenu, betaMode: BetaMode.on),
             ),
           ),
           _buildMoreViewListTile(

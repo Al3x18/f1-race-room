@@ -21,8 +21,8 @@ class NoDataAvailable extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.info_outline, size: 80, color: AppColors.noDataAvailableIcon),
-                  const SizedBox(height: 8),
+                  Icon(Icons.warning_amber, size: 74, color: AppColors.noDataAvailableIcon),
+                  const SizedBox(height: 14),
                   Text(
                     infoLabel,
                     textAlign: TextAlign.center,

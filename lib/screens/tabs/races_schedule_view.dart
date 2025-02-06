@@ -154,7 +154,7 @@ class RacesScheduleView extends StatelessWidget {
                             visible: fp2Date.isEmpty && fp1Date.isNotEmpty,
                             child: Text(
                               "(Sprint)",
-                              style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 10.8, color: AppColors.raceScheduleSprintText),
+                              style: listTileStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 10.8, color: isDark ? AppColors.raceScheduleSprintTextDark : AppColors.raceScheduleSprintText),
                             ),
                           ),
                         ),

@@ -59,6 +59,10 @@ class _NewsViewState extends State<NewsView> {
           PopupMenuButton<String>(
             initialValue: localization,
             color: isDarkMode ? AppColors.newsPopMenuBackgroundDark : AppColors.newsPopMenuBackgroundLight,
+            constraints: const BoxConstraints(
+              minWidth:60,
+              maxWidth: 60,
+            ),
             icon: Text(
               localization.toUpperCase(),
               style: const TextStyle(fontWeight: FontWeight.bold),

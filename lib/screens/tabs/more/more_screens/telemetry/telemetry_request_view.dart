@@ -5,15 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:race_room/api/api_service.dart';
-import 'package:race_room/screens/telemetry/telemetry_view.dart';
+import 'package:race_room/screens/tabs/more/more_screens/telemetry/telemetry_view.dart';
 import 'package:race_room/utils/colors/app_colors.dart';
+
+enum BetaMode { on, off }
 
 enum AppBarType { moreMenu, home }
 
 class TelemetryRequestView extends StatefulWidget {
-  const TelemetryRequestView({super.key, required this.appBarType});
+  const TelemetryRequestView({super.key, required this.appBarType, this.betaMode = BetaMode.off});
 
   final AppBarType appBarType;
+  final BetaMode betaMode;
 
   @override
   State<TelemetryRequestView> createState() => _TelemetryRequestViewState();
@@ -122,16 +125,12 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
         title: const Column(
           children: [
             Text(
-              "(BETA)",
-              style: TextStyle(fontSize: 9, color: AppColors.telemetryRequestAppBarBetaText, fontWeight: FontWeight.bold),
-            ),
-            Text(
-              "Telemetry",
-              style: TextStyle(fontSize: 15),
+              "TELEMETRY",
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
             Text(
               "Fastest Lap",
-              style: TextStyle(fontSize: 10.5, color: AppColors.telemetryRequestTypeText, fontWeight: FontWeight.w700),
+              style: TextStyle(fontSize: 11, color: AppColors.telemetryRequestTypeText, fontWeight: FontWeight.w700),
             ),
           ],
         ),
@@ -155,6 +154,11 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
               dropdownMenuEntries: dropdownMenuEntriesYears,
               label: const Text("YEAR", style: TextStyle(fontSize: dropMenuLabelFontSize)),
               textStyle: const TextStyle(fontSize: dropMenuLabelFontSize),
+              menuStyle: MenuStyle(
+                backgroundColor: WidgetStatePropertyAll(
+                  isDark ? AppColors.dropDownMenuBackgroundDark : AppColors.dropDownMenuBackgroundLight,
+                ),
+              ),
               onSelected: (value) {
                 year = value.toString();
               },
@@ -167,6 +171,11 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
               menuHeight: MediaQuery.of(context).size.height * 0.67,
               label: const Text("TRACK", style: TextStyle(fontSize: dropMenuLabelFontSize)),
               textStyle: const TextStyle(fontSize: dropMenuLabelFontSize),
+              menuStyle: MenuStyle(
+                backgroundColor: WidgetStatePropertyAll(
+                  isDark ? AppColors.dropDownMenuBackgroundDark : AppColors.dropDownMenuBackgroundLight,
+                ),
+              ),
               onSelected: (value) {
                 trackName = value.toString();
               },
@@ -177,6 +186,11 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
               dropdownMenuEntries: dropdownMenuEntriesSessions,
               label: const Text("SESSION", style: TextStyle(fontSize: dropMenuLabelFontSize)),
               textStyle: const TextStyle(fontSize: dropMenuLabelFontSize),
+              menuStyle: MenuStyle(
+                backgroundColor: WidgetStatePropertyAll(
+                  isDark ? AppColors.dropDownMenuBackgroundDark : AppColors.dropDownMenuBackgroundLight,
+                ),
+              ),
               onSelected: (value) {
                 session = value.toString();
               },
@@ -188,6 +202,11 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
               menuHeight: MediaQuery.of(context).size.height < 670 ? MediaQuery.of(context).size.height * 0.48 : MediaQuery.of(context).size.height * 0.536,
               label: const Text("DRIVER", style: TextStyle(fontSize: dropMenuLabelFontSize)),
               textStyle: const TextStyle(fontSize: dropMenuLabelFontSize),
+              menuStyle: MenuStyle(
+                backgroundColor: WidgetStatePropertyAll(
+                  isDark ? AppColors.dropDownMenuBackgroundDark : AppColors.dropDownMenuBackgroundLight,
+                ),
+              ),
               onSelected: (value) {
                 driverName = value.toString();
               },
@@ -247,8 +266,12 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
                 ),
               ),
             ),
-            const SizedBox(height: 5),
+            const SizedBox(height: 1.5),
             _buildServerStatusLabel(),
+            Visibility(
+              visible: widget.betaMode == BetaMode.on,
+              child: _buildBetaWarning(),
+            ),
           ],
         ),
       ),
@@ -262,8 +285,21 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
     );
   }
 
+  Widget _buildBetaWarning() {
+    return Column(
+      children: [
+        const SizedBox(height: 15),
+        const Text(
+          "WARNING!\nTHIS FEATURE IS IN BETA\nTHERE MAY BE BUGS AND MALFUNCTIONS",
+          textAlign: TextAlign.center,
+          style: TextStyle(color: Colors.grey, fontSize: 11.5, fontWeight: FontWeight.bold),
+        ),
+      ],
+    );
+  }
+
   FutureBuilder<Map<String, dynamic>> _buildServerStatusLabel() {
-    const double serverStatusFontSize = 9.2;
+    const double serverStatusFontSize = 8.4;
     return FutureBuilder<Map<String, dynamic>>(
       future: _getServerStatus(),
       builder: (context, snapshot) {
@@ -288,7 +324,7 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
               padding: EdgeInsets.symmetric(vertical: 3),
               child: Text(
                 "SERVER STATUS - UNREACHABLE",
-                style: TextStyle(color: AppColors.telemetryRequestServerStatusUnreachableText, fontSize: serverStatusFontSize, fontWeight: FontWeight.bold),
+                style: TextStyle(color: AppColors.telemetryRequestServerStatusUnreachableText, fontSize: serverStatusFontSize, fontWeight: FontWeight.w500),
               ),
             );
           } else {
@@ -305,7 +341,10 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
             padding: const EdgeInsets.symmetric(vertical: 3),
             child: Text(
               "SERVER STATUS - ${status.toUpperCase()}",
-              style: TextStyle(color: status == 'online' ? AppColors.telemetryRequestServerStatusOnlineText : AppColors.telemetryRequestServerStatusGeneralErrorText, fontSize: serverStatusFontSize, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                  color: status == 'online' ? AppColors.telemetryRequestServerStatusOnlineText : AppColors.telemetryRequestServerStatusGeneralErrorText,
+                  fontSize: serverStatusFontSize,
+                  fontWeight: FontWeight.w600),
             ),
           );
         } else {

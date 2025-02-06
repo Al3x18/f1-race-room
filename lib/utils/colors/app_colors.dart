@@ -22,6 +22,8 @@ class AppColors {
 
   // Colori di sistema
   static const Color circularProgressIndicator = primary;
+  static const Color dropDownMenuBackgroundLight = neutral100;
+  static const Color dropDownMenuBackgroundDark = Color.fromARGB(255, 40, 50, 80);
 
   // Tema chiaro
   static const Color themeLightPrimary = primary;
@@ -31,7 +33,7 @@ class AppColors {
   // Tema scuro
   static const Color themeDarkPrimary = primary;
   static const Color scaffoldDarkBackground = neutral900;
-  static const Color cardDark = neutral700;
+  static const Color cardDark = Color.fromARGB(255, 51, 48, 70);
 
   //MARK: RootView
   static const List<Color> rootAppBarGradientDark = [
@@ -40,11 +42,11 @@ class AppColors {
   ];
   static const List<Color> rootAppBarGradientLight = [
     primary,
-    secondary,
+    Color.fromARGB(255, 110, 156, 255),
   ];
 
   static const Color rootTabBarDark = neutral800;
-  static const Color rootTabBarLight = primary;
+  static const Color rootTabBarLight = Color.fromARGB(255, 42, 103, 255);
   static const Color rootTabBarIndicatorDark = primary;
   static const Color rootTabBarIndicatorLight = Colors.white;
   static const Color rootBottomBar = neutral900;
@@ -62,9 +64,10 @@ class AppColors {
   //MARK: Race Schedule
   static const Color raceScheduleRoundAndHours = neutral600;
   static const Color raceScheduleSprintText = primary;
+  static const Color raceScheduleSprintTextDark = Color.fromARGB(255, 49, 114, 254);
   static const Color raceScheduleCircuitName = neutral600;
   static const Color raceScheduleLocation = neutral600;
-  static const Color raceScheduleBottomSheetBackgroundDark = neutral800;
+  static const Color raceScheduleBottomSheetBackgroundDark = Color.fromARGB(255, 49, 62, 86);
   static const Color raceScheduleBottomSheetBackgroundLight = primary;
 
   //MARK: Standings
@@ -96,7 +99,7 @@ class AppColors {
   static const Color telemetryRequestElevatedButtonText = Colors.white;
   static const Color telemetryRequestElevatedButtonTextSubtitle = neutral200;
   static const Color telemetryRequestServerStatusOnlineText = success;
-  static const Color telemetryRequestServerStatusUnreachableText = error;
+  static const Color telemetryRequestServerStatusUnreachableText = Colors.grey;
   static const Color telemetryRequestServerStatusUnknownText = neutral600;
   static const Color telemetryRequestServerStatusGeneralErrorText = error;
   static const Color telemetryRequestErrorAdvice = error;
@@ -143,10 +146,10 @@ class AppColors {
   static const Color raceDetailsTrackMapText = Colors.white;
   static const Color raceDetailsWeatherText = Colors.white;
   static const Color raceDetailsWeatherTextSubtitle = Colors.white;
-  static const Color raceDetailsSessionContainerDecorationDark = Color(0xFF2A2E37); // Grigio antracite
+  static const Color raceDetailsSessionContainerDecorationDark = Colors.black87;
   static const Color raceDetailsSessionContainerDecorationLight = Colors.white;
   static const Color raceDetailsSessionContainerTitleText = neutral600;
-  static const Color raceDetailsSessionResultsSnackTextDark = Colors.black;
+  static const Color raceDetailsSessionResultsSnackTextDark = Color.fromARGB(255, 226, 226, 226);
   static const Color raceDetailsSessionResultsSnackTextLight = Colors.white;
   static const Color raceDetailsSessionResultsSnackBackgroundDark = neutral800;
   static const Color raceDetailsSessionResultsSnackBackgroundLight = primary;
@@ -159,6 +162,7 @@ class AppColors {
   static const Color countdownTimerRaceEnded = success;
   static const Color countdownTimerRaceOngoing = error;
   static const Color countdownTimerText = primary;
+  static const Color countdownTimerTextDark = Color.fromARGB(255, 49, 114, 254);
   static const Color countdownLightsOutText = neutral600;
 
   //MARK: No Data Available
@@ -171,6 +175,6 @@ class AppColors {
   //MARK: NewsView
   static const Color newsViewSubtitle = Color.fromARGB(255, 158, 158, 158);
   static const List<Color> newsViewAppBarLight = [Colors.white, Colors.white];
-  static const Color newsPopMenuBackgroundLight = Colors.white;
-  static const Color newsPopMenuBackgroundDark = scaffoldDarkBackground;
+  static const Color newsPopMenuBackgroundLight = dropDownMenuBackgroundLight;
+  static const Color newsPopMenuBackgroundDark = dropDownMenuBackgroundDark;
 }
