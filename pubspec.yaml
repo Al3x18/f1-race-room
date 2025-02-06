@@ -159,16 +159,16 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 
 flutter_native_splash:
-  image: "assets/images/rr_splash_ios.png"
-  color: "#FF3131"
+  image: "assets/images/race-room-splash-v2.png"
+  color: "#0A0047"
 
   android_12:
-    image: "assets/images/rr_splash_android.png"
-    color: "#FF3131"
+    image: "assets/images/race-room-splash-v2.png"
+    color: "#0A0047"
 
 flutter_launcher_icons:
-  image_path_android: "assets/images/ic_launcher_android.png"
-  image_path_ios: "assets/images/rr_app_logo_2.png"
+  image_path_android: "assets/images/race-room-logo-v2.png"
+  image_path_ios: "assets/images/race-room-logo-v2.png"
   android: true
   ios: true
   remove_alpha_ios: true
@@ -176,13 +176,13 @@ flutter_launcher_icons:
 
   web:
     generate: true
-    image_path: "assets/images/rr_app_logo_2.png"
+    image_path: "assets/images/race-room-logo-v2.png"
     background_color: "#FF0000"
     theme_color: "#FF0000"
   windows:
     generate: true
-    image_path: "assets/images/rr_app_logo_2.png"
+    image_path: "assets/images/race-room-logo-v2.png"
     icon_size: 48
   macos:
     generate: true
-    image_path: "assets/images/rr_app_logo_2.png"
+    image_path: "assets/images/race-room-logo-v2.png"
