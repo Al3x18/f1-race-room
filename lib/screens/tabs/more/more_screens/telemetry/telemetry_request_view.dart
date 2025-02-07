@@ -122,7 +122,8 @@ class _TelemetryRequestViewState extends State<TelemetryRequestView> {
         actions: [
           if (!kIsWeb && Platform.isAndroid && widget.appBarType != AppBarType.moreMenu) _buildBackButton(),
         ],
-        title: const Column(
+        title: Column(
+          crossAxisAlignment: !kIsWeb && Platform.isAndroid ? CrossAxisAlignment.start : CrossAxisAlignment.center,
           children: [
             Text(
               "TELEMETRY",

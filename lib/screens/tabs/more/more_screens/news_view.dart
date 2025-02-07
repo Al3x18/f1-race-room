@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:race_room/api/api_service.dart';
 import 'package:race_room/model/news/news_article_model.dart';
@@ -44,6 +47,7 @@ class _NewsViewState extends State<NewsView> {
     return Scaffold(
       appBar: AppBar(
         title: Column(
+          crossAxisAlignment: !kIsWeb && Platform.isAndroid ? CrossAxisAlignment.start : CrossAxisAlignment.center,
           children: [
             const Text(
               "NEWS",

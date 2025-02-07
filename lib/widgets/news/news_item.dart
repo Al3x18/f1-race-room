@@ -39,7 +39,7 @@ class _NewsItemWidgetState extends State<NewsItemWidget> {
         curve: Curves.easeInOut,
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 2.5),
-          height: 118.5,
+          height: 121.5,
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
@@ -110,7 +110,7 @@ class _NewsItemWidgetState extends State<NewsItemWidget> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 1.5),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
